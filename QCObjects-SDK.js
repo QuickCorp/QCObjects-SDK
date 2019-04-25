@@ -255,5 +255,8 @@
       }
     })
   ]);
+  Ready(function (){
+    CONFIG.set('useSDK',true);
+  });
 
 }).call(null);
