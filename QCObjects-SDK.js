@@ -25,9 +25,13 @@
 "use strict";
 (function() {
   Package('org.quickcorp',[
-    New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.components.js',external:true}),
-    New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.effects.js',external:true}),
-    New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.tools.canvas.js',external:true}),
+    Class('SDKDependencies',Object,{
+      dependencies:[
+        New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.components.js',external:true}),
+        New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.effects.js',external:true}),
+        New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.tools.canvas.js',external:true}),
+      ]
+    })
   ]);
 
   Ready(function (){
