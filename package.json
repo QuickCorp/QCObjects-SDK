@@ -1,0 +1,34 @@
+{
+  "name": "qcobjects-sdk",
+  "version": "0.0.1",
+  "description": "QCObjects SDK A software library with a set of Controllers, Views and Components that are elementary and useful to assist developers to build applications under MVC patterns using QCObjects, Cross Browser Javascript Framework for MVC Patterns",
+  "main": "QCObjects-SDK.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QuickCorp/QCObjects-SDK.git"
+  },
+  "keywords": [
+    "node",
+    "quickcorp",
+    "javascript",
+    "pure",
+    "mvc",
+    "objects",
+    "sdk",
+    "middleware",
+    "framework",
+    "quick",
+    "components",
+    "web",
+    "webcomponents"
+  ],
+  "author": "Jean Machuca <correojean@gmail.com>",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/QuickCorp/QCObjects-SDK/issues"
+  },
+  "homepage": "https://github.com/QuickCorp/QCObjects-SDK#readme"
+}
