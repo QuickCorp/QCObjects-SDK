@@ -24,15 +24,28 @@
 */
 "use strict";
 (function() {
-  var relativeImportPath = CONFIG.get('relativeImportPath');
-  CONFIG.set('relativeImportPath','js/');
-  Import('org.quickcorp.components');
-  Import('org.quickcorp.tools.effects');
-  Import('org.quickcorp.tools.canvas');
-  CONFIG.set('relativeImportPath',relativeImportPath);
-
-  Ready(function (){
-    CONFIG.set('useSDK',true);
-  });
+  Package('org.quickcorp.tools.canvas',[
+    Class('CanvasTool',{
+      drawImageFilled: function (img,canvas){
+        // get the scale
+        var scale = Math.max(canvas.width / img.width, canvas.height / img.height);
+        // get the top left position of the image
+        var x = (canvas.width / 2) - (img.width / 2) * scale;
+        var y = (canvas.height / 2) - (img.height / 2) * scale;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+      },
+      getImageResized: function (img,width,height,resizedImage){
+        var canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        canvas.style.width = width;
+        canvas.style.height = height;
+        this.drawImageFilled(img,canvas);
+        resizedImage.src = canvas.toDataURL("image/png");
+        return canvas;
+      }
+    })
+  ]);
 
 }).call(null);
