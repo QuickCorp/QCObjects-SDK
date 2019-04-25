@@ -24,12 +24,11 @@
 */
 "use strict";
 (function() {
-  var relativeImportPath = CONFIG.get('relativeImportPath');
-  CONFIG.set('relativeImportPath','js/');
-  Import('org.quickcorp.components');
-  Import('org.quickcorp.tools.effects');
-  Import('org.quickcorp.tools.canvas');
-  CONFIG.set('relativeImportPath',relativeImportPath);
+  Package('org.quickcorp',[
+    New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.components.js',external:true}),
+    New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.effects.js',external:true}),
+    New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.canvas.js',external:true}),
+  ]);
 
   Ready(function (){
     CONFIG.set('useSDK',true);
