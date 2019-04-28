@@ -84,6 +84,22 @@
     }),
     Class('EmailField',FormField,{
       fieldType:'input'
+    }),
+    Class('GridComponent',Component,{
+      name:'grid',
+      cached:false,
+      controller:null,
+      view:null,
+      rows:3,
+      cols:3,
+      template:'',
+      templateURI:'',
+      body:document.createElement('div'),
+      _new_: function (o){
+        this.__new__(o);
+        this.controller = New(GridController,{component:this});
+        this.view = New(GridView,{component:this});
+      }
     })
   ]);
 
