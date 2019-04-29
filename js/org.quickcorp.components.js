@@ -92,29 +92,11 @@
       view:null,
       rows:3,
       cols:3,
+      reload:true,
       template:'',
       templateURI:'',
       data:{},
-      body:null,
-      rebuild: function (){
-        var s = document.createElement('style');
-        var templateRows = 'auto '.repeat(this.rows);
-        var templateCols = 'auto '.repeat(this.cols);
-        var className = 'grid'+this.__instanceID.toString();
-        s.innerHTML = '.'+className+' { \
-                          display: grid; \
-                          grid-template-rows: '+templateRows+'; \
-                          grid-template-columns: '+templateCols+'; \
-                          margin:0 auto; \
-                      }';
-        this.body.append(s);
-        var d = document.createElement('div');
-        d.className=className;
-        this.body.append(d);
-        this.controller = New(GridController,{component:this});
-        this.controller.done.call(this.controller);
-        logger.debug('GridComponent built');
-      }
+      body:null
     })
   ]);
 
