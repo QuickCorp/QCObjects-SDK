@@ -98,7 +98,6 @@
       _new_: function (o){
         this.__new__(o);
         this.controller = New(GridController,{component:this});
-        this.view = New(GridView,{component:this});
       }
     })
   ]);
