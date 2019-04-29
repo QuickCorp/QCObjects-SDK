@@ -97,8 +97,8 @@
       data:{},
       body:document.createElement('div'),
       _new_: function (o){
-        this.__new__(o);
-        this.controller = New(GridController,{component:this});
+        Component._new_.call(this,o);
+        this.controller = New(GridController,{component:null});
       }
     })
   ]);
