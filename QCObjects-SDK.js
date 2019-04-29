@@ -28,7 +28,7 @@
     Class('SDKDependencies',Object,{
       dependencies:[],
       _new_:function (o){
-        if (CONFIG.get('remoteImportsPath')!='' && !CONFIG.get('useLocalSDK')){
+        if (CONFIG.get('remoteImportsPath')=='' && !CONFIG.get('useLocalSDK')){
           CONFIG.set('remoteImportsPath','https://sdk.qcobjects.dev/js/');
         }
         var external = !CONFIG.get('useLocalSDK');
