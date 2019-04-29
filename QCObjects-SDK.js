@@ -24,10 +24,10 @@
 */
 "use strict";
 (function() {
-  if (CONFIG.get('remoteImportsPath')=='' && !CONFIG.get('useLocalSDK')){
-    CONFIG.set('remoteImportsPath','https://sdk.qcobjects.dev/js/');
-  }
-  var external = (CONFIG.get('useLocalSDK'))?(false):(true);
+  var remoteImportsPath = CONFIG.get('remoteImportsPath');
+  var external = (!CONFIG.get('useLocalSDK'))?(true):(false);
+  CONFIG.set('remoteImportsPath','https://sdk.qcobjects.dev/js/');
+
   Import('org.quickcorp.models',function (){},external);
   Import('org.quickcorp.components',function (){},external);
   Import('org.quickcorp.controllers',function (){},external);
@@ -36,5 +36,7 @@
   Import('org.quickcorp.tools.canvas',function (){},external);
 
   CONFIG.set('useSDK',true);
+  CONFIG.set('remoteImportsPath',remoteImportsPath);
+  
 
 }).call(null);
