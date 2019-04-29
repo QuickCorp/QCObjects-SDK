@@ -32,12 +32,12 @@
           CONFIG.set('remoteImportsPath','https://sdk.qcobjects.dev/js/');
         }
         var external = !CONFIG.get('useLocalSDK');
-        Import('org.quickcorp.models.js',function (){},external);
-        Import('org.quickcorp.components.js',function (){},external);
-        Import('org.quickcorp.controllers.js',function (){},external);
-        Import('org.quickcorp.views.js',function (){},external);
-        Import('org.quickcorp.effects.js',function (){},external);
-        Import('org.quickcorp.tools.canvas.js',function (){},external);
+        Import('org.quickcorp.models',function (){},external);
+        Import('org.quickcorp.components',function (){},external);
+        Import('org.quickcorp.controllers',function (){},external);
+        Import('org.quickcorp.views',function (){},external);
+        Import('org.quickcorp.effects',function (){},external);
+        Import('org.quickcorp.tools.canvas',function (){},external);
 
       }
     })
