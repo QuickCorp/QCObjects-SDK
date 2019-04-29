@@ -6,7 +6,7 @@ Package('org.quickcorp.controllers',[
     _new_:function (o){
       this.__new__(o);
     },
-    done: function {
+    done: function (){
       var controller=this;
       var s = document.createElement('style');
       var templateRows = 'auto '.repeat(this.rows);
