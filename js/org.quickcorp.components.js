@@ -95,9 +95,8 @@
       template:'',
       templateURI:'',
       data:{},
-      body:document.createElement('div'),
+      body:null,
       rebuild: function (){
-        this.body = document.createElement('div');
         var s = document.createElement('style');
         var templateRows = 'auto '.repeat(this.rows);
         var templateCols = 'auto '.repeat(this.cols);
