@@ -94,6 +94,7 @@
       cols:3,
       template:'',
       templateURI:'',
+      data:{},
       body:document.createElement('div'),
       _new_: function (o){
         this.__new__(o);
