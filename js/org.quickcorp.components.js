@@ -96,6 +96,23 @@
       templateURI:'',
       data:{},
       body:document.createElement('div'),
+      rebuild: function (){
+        this.body = document.createElement('div');
+        var s = document.createElement('style');
+        var templateRows = 'auto '.repeat(this.rows);
+        var templateCols = 'auto '.repeat(this.cols);
+        var className = 'grid'+this.__instanceID.toString();
+        s.innerHTML = '.'+className+' { \
+                          display: grid; \
+                          grid-template-rows: '+templateRows+'; \
+                          grid-template-columns: '+templateCols+'; \
+                          margin:0 auto; \
+                      }';
+        this.body.append(s);
+        var d = document.createElement('div');
+        d.className=className;
+        this.body.append(d);
+      },
       _new_: function (o){
         Component._new_.call(this,o);
         this.controller = New(GridController,{component:this});
