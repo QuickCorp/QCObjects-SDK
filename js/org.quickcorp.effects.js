@@ -30,7 +30,7 @@
         var dx = xto-xfrom;
         var dy = yto-yfrom;
         this.animate({
-          duration: 1000,
+          duration: this.duration,
           timing(timeFraction) {
             return timeFraction;
           },
@@ -49,7 +49,7 @@
       apply: function (element, angleFrom,angleTo){
         var da = angleTo-angleFrom;
         this.animate({
-          duration: 1000,
+          duration: this.duration,
           timing(timeFraction) {
             return timeFraction;
           },
@@ -66,7 +66,7 @@
       apply: function (element, angleFrom,angleTo){
         var da = angleTo-angleFrom;
         this.animate({
-          duration: 1000,
+          duration: this.duration,
           timing(timeFraction) {
             return timeFraction;
           },
@@ -83,7 +83,7 @@
       apply: function (element, angleFrom,angleTo){
         var da = angleTo-angleFrom;
         this.animate({
-          duration: 1000,
+          duration: this.duration,
           timing(timeFraction) {
             return timeFraction;
           },
@@ -100,7 +100,7 @@
       apply: function (element, angleFrom,angleTo){
         var da = angleTo-angleFrom;
         this.animate({
-          duration: 1000,
+          duration: this.duration,
           timing(timeFraction) {
             return timeFraction;
           },
@@ -117,7 +117,7 @@
       apply: function (element, alphaFrom,alphaTo){
         var da = alphaTo-alphaFrom;
         this.animate({
-          duration: 1000,
+          duration: this.duration,
           timing(timeFraction) {
             return timeFraction;
           },
@@ -134,7 +134,7 @@
       apply: function (element, radiusFrom,radiusTo){
         var dr = radiusTo-radiusFrom;
         this.animate({
-          duration: 1000,
+          duration: this.duration,
           timing(timeFraction) {
             return timeFraction;
           },
