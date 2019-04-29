@@ -38,8 +38,4 @@
   CONFIG.set('useSDK',true);
   CONFIG.set('remoteImportsPath',remoteImportsPath);
 
-  Ready(function (){
-
-  });
-
 }).call(null);
