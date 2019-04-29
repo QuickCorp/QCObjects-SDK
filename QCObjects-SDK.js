@@ -31,7 +31,7 @@
         if (CONFIG.get('remoteImportsPath')!='' && !CONFIG.get('useLocalSDK')){
           CONFIG.set('remoteImportsPath','https://sdk.qcobjects.dev/js/');
         }
-        var external = !CONFIG.get('useLocalSDK')
+        var external = !CONFIG.get('useLocalSDK');
         Import('org.quickcorp.models.js',function (){},external);
         Import('org.quickcorp.components.js',function (){},external);
         Import('org.quickcorp.controllers.js',function (){},external);
