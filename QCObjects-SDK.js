@@ -24,26 +24,17 @@
 */
 "use strict";
 (function() {
-  Package('org.quickcorp',[
-    Class('SDKDependencies',Object,{
-      dependencies:[],
-      _new_:function (o){
-        if (CONFIG.get('remoteImportsPath')=='' && !CONFIG.get('useLocalSDK')){
-          CONFIG.set('remoteImportsPath','https://sdk.qcobjects.dev/js/');
-        }
-        var external = (CONFIG.get('useLocalSDK'))?(false):(true);
-        Import('org.quickcorp.models',function (){},external);
-        Import('org.quickcorp.components',function (){},external);
-        Import('org.quickcorp.controllers',function (){},external);
-        Import('org.quickcorp.views',function (){},external);
-        Import('org.quickcorp.effects',function (){},external);
-        Import('org.quickcorp.tools.canvas',function (){},external);
-
-      }
-    })
-  ]);
+  if (CONFIG.get('remoteImportsPath')=='' && !CONFIG.get('useLocalSDK')){
+    CONFIG.set('remoteImportsPath','https://sdk.qcobjects.dev/js/');
+  }
+  var external = (CONFIG.get('useLocalSDK'))?(false):(true);
+  Import('org.quickcorp.models',function (){},external);
+  Import('org.quickcorp.components',function (){},external);
+  Import('org.quickcorp.controllers',function (){},external);
+  Import('org.quickcorp.views',function (){},external);
+  Import('org.quickcorp.effects',function (){},external);
+  Import('org.quickcorp.tools.canvas',function (){},external);
 
   CONFIG.set('useSDK',true);
-  GLOBAL.sdkDependencies = New(SDKDependencies,{});
 
 }).call(null);
