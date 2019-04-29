@@ -50,9 +50,7 @@
     })
   ]);
 
-  Ready(function (){
-    CONFIG.set('useSDK',true);
-    GLOBAL.sdkDependencies = New(SDKDependencies,{});
-  });
+  CONFIG.set('useSDK',true);
+  GLOBAL.sdkDependencies = New(SDKDependencies,{});
 
 }).call(null);
