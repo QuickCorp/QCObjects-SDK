@@ -114,6 +114,7 @@
         this.body.append(d);
         this.controller = New(GridController,{component:this});
         this.controller.done.call(this.controller);
+        logger.debug('GridComponent built');
       }
     })
   ]);
