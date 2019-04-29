@@ -16,9 +16,8 @@ Package('org.quickcorp.controllers',[
                         grid-template-columns: '+templateCols+'; \
                         margin:0 auto; \
                     }';
-      var d = document.createElement('div');
-      d.className = className;
-      this.component.body.append(s);
+      this.component.body.parentElement.append(s);
+      this.component.body.className = className;
     }
   })
 ]);
