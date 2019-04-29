@@ -26,18 +26,33 @@
 (function() {
   Package('org.quickcorp',[
     Class('SDKDependencies',Object,{
-      dependencies:[
-        New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.components.js',external:true}),
-        New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.controllers.js',external:true}),
-        New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.views.js',external:true}),
-        New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.effects.js',external:true}),
-        New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.tools.canvas.js',external:true}),
-      ]
+      dependencies:[],
+      _new_:function (o){
+        if (CONFIG.get('useLocalSDK')){
+          Import('org.quickcorp.models.js');
+          Import('org.quickcorp.components.js');
+          Import('org.quickcorp.controllers.js');
+          Import('org.quickcorp.views.js');
+          Import('org.quickcorp.effects.js');
+          Import('org.quickcorp.tools.canvas.js');
+        } else {
+          this.dependencies = [
+            New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.models.js',external:true}),
+            New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.components.js',external:true}),
+            New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.controllers.js',external:true}),
+            New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.views.js',external:true}),
+            New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.effects.js',external:true}),
+            New(SourceJS,{url:'https://sdk.qcobjects.dev/js/org.quickcorp.tools.canvas.js',external:true}),
+          ];
+        }
+
+      }
     })
   ]);
 
   Ready(function (){
     CONFIG.set('useSDK',true);
+    GLOBAL.sdkDependencies = New(SDKDependencies,{});
   });
 
 }).call(null);
