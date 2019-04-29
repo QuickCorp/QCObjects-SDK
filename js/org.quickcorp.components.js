@@ -112,10 +112,8 @@
         var d = document.createElement('div');
         d.className=className;
         this.body.append(d);
-      },
-      _new_: function (o){
-        Component._new_.call(this,o);
         this.controller = New(GridController,{component:this});
+        this.controller.done.call(this.controller);
       }
     })
   ]);
