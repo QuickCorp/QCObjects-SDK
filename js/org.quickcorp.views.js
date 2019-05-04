@@ -4,7 +4,9 @@ Package('org.quickcorp.views',[
     dependencies:[],
     component:null,
     _new_:function (o){
-      this.__new__(o);
+      if (o.hasOwnProperty('component')){
+        this.component = o.component;
+      }
       var controller=this;
       this.dependencies.push(New(SourceCSS,{
         external:(CONFIG.get('useLocalSDK'))?(false):(true),
