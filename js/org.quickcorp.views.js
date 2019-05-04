@@ -3,8 +3,8 @@ Package('org.quickcorp.views',[
   Class('MainView',View,{
     dependencies:[
       New(SourceCSS,{
-        external:false,
-        url:'css/basic-layout.css'
+        external:(CONFIG.get('useLocalSDK'))?(false):(true),
+        url:(CONFIG.get('useLocalSDK'))?('css/basic-layout.css'):(CONFIG.get('remoteSDKPath')+'css/basic-layout.css')
       })
     ],
     component:null,
