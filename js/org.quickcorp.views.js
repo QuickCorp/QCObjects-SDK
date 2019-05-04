@@ -1,6 +1,6 @@
 'use strict';
 Package('org.quickcorp.views',[
-  Class('BasicLayoutView',View,{
+  Class('BasicLayoutView',Object,{
     dependencies:[],
     component:null,
     _new_:function (o){
