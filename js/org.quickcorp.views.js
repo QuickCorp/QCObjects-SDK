@@ -1,17 +1,15 @@
 'use strict';
 Package('org.quickcorp.views',[
-  Class('MainView',View,{
-    dependencies:[
-      New(SourceCSS,{
-        external:(CONFIG.get('useLocalSDK'))?(false):(true),
-        url:(CONFIG.get('useLocalSDK'))?('css/basic-layout.css'):(CONFIG.get('remoteSDKPath')+'css/basic-layout.css')
-      })
-    ],
+  Class('BasicLayoutView',View,{
+    dependencies:[],
     component:null,
     _new_:function (o){
       this.__new__(o);
       var controller=this;
-      //TODO: Implement
+      this.dependencies.push(New(SourceCSS,{
+        external:(CONFIG.get('useLocalSDK'))?(false):(true),
+        url:(CONFIG.get('useLocalSDK'))?('css/basic-layout.css'):(CONFIG.get('remoteSDKPath')+'css/basic-layout.css')
+      }));
     }
   }),
   Class('GridView',View,{
