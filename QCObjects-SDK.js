@@ -34,6 +34,7 @@
   Import('org.quickcorp.views',function (){},external);
   Import('org.quickcorp.effects',function (){},external);
   Import('org.quickcorp.tools.canvas',function (){},external);
+  Import('org.quickcorp.tools.layouts',function (){},external);
 
   CONFIG.set('useSDK',true);
   CONFIG.set('remoteImportsPath',remoteImportsPath);
