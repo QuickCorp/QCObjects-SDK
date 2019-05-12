@@ -36,12 +36,12 @@
     Import('org.quickcorp.tools.canvas',function (){},external),
     Import('org.quickcorp.tools.layouts',function (){},external)
   ];
-  var _sdk_ = Promise.all(_imports_).then(function (){
+  GLOBAL._sdk_ = Promise.all(_imports_).then(function (){
     CONFIG.set('useSDK',true);
     CONFIG.set('remoteImportsPath',remoteImportsPath);
 
     GLOBAL.__start__();
-    
+
   });
 
 
