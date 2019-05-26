@@ -29,6 +29,7 @@
       apply: function (element, xfrom, yfrom, xto, yto){
         var dx = xto-xfrom;
         var dy = yto-yfrom;
+        element.style.transform='translate('+xfrom+'px,'+yfrom+'px)';
         this.animate({
           duration: this.duration,
           timing(timeFraction) {
@@ -39,8 +40,7 @@
             var y = yfrom + (progress*dy/100);
             var x = xfrom + (progress*dx/100);
             logger.debug('x: '+x.toString()+' y:'+y.toString());
-            element.style.top=y;
-            element.style.left=x;
+            element.style.transform='translate('+x+'px,'+y+'px)';
           }
         });
       }
