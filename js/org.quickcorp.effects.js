@@ -159,6 +159,7 @@
             logger.debug('animation progress: '+progress.toString());
             var scale = scaleFrom + (progress*ds/100);
             logger.debug('resize: '+scale.toString());
+            element.style.transformOrigin='center';
             element.style.transform= 'scale('+scale+','+scale+')';
           }
         });
