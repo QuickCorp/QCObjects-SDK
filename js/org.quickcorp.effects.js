@@ -146,6 +146,23 @@
           }
         });
       }
+    }),
+    Class('Resize',Effect,{
+      apply: function (element, scaleFrom,scaleTo){
+        var ds = scaleTo-scaleFrom;
+        this.animate({
+          duration: this.duration,
+          timing(timeFraction) {
+            return timeFraction;
+          },
+          draw(progress) {
+            logger.debug('animation progress: '+progress.toString());
+            var scale = scaleFrom + (progress*ds/100);
+            logger.debug('alpha: '+scale.toString());
+            element.style.transform= 'scale('+scale+','+scale+')';
+          }
+        });
+      }
     })
   ]);
 }).call(null);
