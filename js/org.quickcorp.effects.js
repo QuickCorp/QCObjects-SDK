@@ -45,6 +45,26 @@
         });
       }
     }),
+    Class('MoveXInFromRight',Move,{
+      apply: function (element){
+        _super_('Move','apply').call(this,element,element.width,0,0,0);
+      }
+    }),
+    Class('MoveXInFromLeft',Move,{
+      apply: function (element){
+        _super_('Move','apply').call(this,element,-element.width,0,0,0);
+      }
+    }),
+    Class('MoveYInFromBottom',Move,{
+      apply: function (element){
+        _super_('Move','apply').call(this,element,0,element.height,0,0);
+      }
+    }),
+    Class('MoveYInFromTop',Move,{
+      apply: function (element){
+        _super_('Move','apply').call(this,element,0,-element.height,0,0);
+      }
+    }),
     Class('RotateX',Effect,{
       apply: function (element, angleFrom,angleTo){
         var da = angleTo-angleFrom;
