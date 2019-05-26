@@ -199,6 +199,42 @@
           }
         });
       }
+    }),
+    Class('WipeUp',Effect,{
+      apply: function (element, scaleFrom,scaleTo){
+        var ds = scaleTo-scaleFrom;
+        this.animate({
+          duration: this.duration,
+          timing(timeFraction) {
+            return timeFraction;
+          },
+          draw(progress) {
+            logger.debug('animation progress: '+progress.toString());
+            var scale = scaleFrom + (progress*ds/100);
+            logger.debug('wipe: '+scale.toString());
+            element.style.transformOrigin='bottom';
+            element.style.transform= 'scaleY('+scale+')';
+          }
+        });
+      }
+    }),
+    Class('WipeDown',Effect,{
+      apply: function (element, scaleFrom,scaleTo){
+        var ds = scaleTo-scaleFrom;
+        this.animate({
+          duration: this.duration,
+          timing(timeFraction) {
+            return timeFraction;
+          },
+          draw(progress) {
+            logger.debug('animation progress: '+progress.toString());
+            var scale = scaleFrom + (progress*ds/100);
+            logger.debug('wipe: '+scale.toString());
+            element.style.transformOrigin='top';
+            element.style.transform= 'scaleY('+scale+')';
+          }
+        });
+      }
     })
   ]);
 }).call(null);
