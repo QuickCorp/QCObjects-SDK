@@ -163,6 +163,42 @@
           }
         });
       }
+    }),
+    Class('WipeLeft',Effect,{
+      apply: function (element, scaleFrom,scaleTo){
+        var ds = scaleTo-scaleFrom;
+        this.animate({
+          duration: this.duration,
+          timing(timeFraction) {
+            return timeFraction;
+          },
+          draw(progress) {
+            logger.debug('animation progress: '+progress.toString());
+            var scale = scaleFrom + (progress*ds/100);
+            logger.debug('alpha: '+scale.toString());
+            element.style.transformOrigin='right';
+            element.style.transform= 'scaleX('+scale+')';
+          }
+        });
+      }
+    }),
+    Class('WipeRight',Effect,{
+      apply: function (element, scaleFrom,scaleTo){
+        var ds = scaleTo-scaleFrom;
+        this.animate({
+          duration: this.duration,
+          timing(timeFraction) {
+            return timeFraction;
+          },
+          draw(progress) {
+            logger.debug('animation progress: '+progress.toString());
+            var scale = scaleFrom + (progress*ds/100);
+            logger.debug('alpha: '+scale.toString());
+            element.style.transformOrigin='left';
+            element.style.transform= 'scaleX('+scale+')';
+          }
+        });
+      }
     })
   ]);
 }).call(null);
