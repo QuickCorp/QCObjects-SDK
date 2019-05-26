@@ -141,7 +141,7 @@
           draw(progress) {
             logger.debug('animation progress: '+progress.toString());
             var radius = radiusFrom + (progress*dr/100);
-            logger.debug('alpha: '+radius.toString());
+            logger.debug('radius: '+radius.toString());
             element.style.borderRadius= radius.toString()+'px';
           }
         });
@@ -158,7 +158,7 @@
           draw(progress) {
             logger.debug('animation progress: '+progress.toString());
             var scale = scaleFrom + (progress*ds/100);
-            logger.debug('alpha: '+scale.toString());
+            logger.debug('resize: '+scale.toString());
             element.style.transform= 'scale('+scale+','+scale+')';
           }
         });
@@ -175,7 +175,7 @@
           draw(progress) {
             logger.debug('animation progress: '+progress.toString());
             var scale = scaleFrom + (progress*ds/100);
-            logger.debug('alpha: '+scale.toString());
+            logger.debug('wipe: '+scale.toString());
             element.style.transformOrigin='right';
             element.style.transform= 'scaleX('+scale+')';
           }
@@ -193,7 +193,7 @@
           draw(progress) {
             logger.debug('animation progress: '+progress.toString());
             var scale = scaleFrom + (progress*ds/100);
-            logger.debug('alpha: '+scale.toString());
+            logger.debug('wipe: '+scale.toString());
             element.style.transformOrigin='left';
             element.style.transform= 'scaleX('+scale+')';
           }
