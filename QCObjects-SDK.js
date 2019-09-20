@@ -36,6 +36,7 @@
       Import('org.quickcorp.controllers',function (){},external),
       Import('org.quickcorp.views',function (){},external),
       Import('org.quickcorp.effects',function (){},external),
+      Import('org.quickcorp.modal.effects',function (){},external),
       Import('org.quickcorp.tools.canvas',function (){},external),
       Import('org.quickcorp.tools.layouts',function (){},external)
     ];
@@ -49,6 +50,7 @@
       Import(_relative_path_+'org.quickcorp.controllers',function (){},external),
       Import(_relative_path_+'org.quickcorp.views',function (){},external),
       Import(_relative_path_+'org.quickcorp.effects',function (){},external),
+      Import(_relative_path_+'org.quickcorp.modal.effects',function (){},external),
       Import(_relative_path_+'org.quickcorp.tools.canvas',function (){},external),
       Import(_relative_path_+'org.quickcorp.tools.layouts',function (){},external)
     ];
