@@ -34,3 +34,5 @@ If you like more code samples feel free to write your questions to info@quickcor
 CONFIG.set('useSDK',true);
 </script>
 ```
+
+NOTE: This dependence is included by default in the QCObjects runtime execution. You only need to install it if your having issues with default paths 
