@@ -1,5 +1,5 @@
 /**
- * QCObjects SDK 1.0
+ * QCObjects SDK 1.01
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -42,8 +42,7 @@
     ];
   } else {
     // non-browsers environment
-
-    var _relative_path_ = 'node_modules/qcobjects-sdk/js/';
+    var _relative_path_ = 'qcobjects-sdk/js/';
     _imports_ = [
       Import(_relative_path_+'org.quickcorp.models',function (){},external),
       Import(_relative_path_+'org.quickcorp.components',function (){},external),
