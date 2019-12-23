@@ -1,12 +1,12 @@
 {
   "name": "qcobjects-sdk",
-  "version": "0.0.123",
+  "version": "0.0.124",
   "description": "QCObjects SDK A software library with a set of Controllers, Views and Components that are elementary and useful to assist developers to build applications under MVC patterns using QCObjects, Cross Browser Javascript Framework for MVC Patterns",
   "main": "QCObjects-SDK.js",
   "scripts": {
-    "preversion":"npm test",
-    "version":"npm i --upgrade",
-    "postversion":"git push && git push --tags",
+    "preversion": "npm test",
+    "version": "npm i --upgrade",
+    "postversion": "git push && git push --tags",
     "test": "jasmine"
   },
   "repository": {
