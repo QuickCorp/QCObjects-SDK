@@ -4,7 +4,10 @@
   "description": "QCObjects SDK A software library with a set of Controllers, Views and Components that are elementary and useful to assist developers to build applications under MVC patterns using QCObjects, Cross Browser Javascript Framework for MVC Patterns",
   "main": "QCObjects-SDK.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "preversion":"git add . && git commit -am 'updating version...' && npm test",
+    "version":"npm i --upgrade",
+    "postversion":"git push && git push --tags",
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -25,6 +28,9 @@
     "web",
     "webcomponents"
   ],
+  "devDependencies": {
+    "jasmine": "^3.5.0"
+  },
   "author": "Jean Machuca <correojean@gmail.com>",
   "license": "LGPL-3.0",
   "bugs": {
