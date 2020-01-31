@@ -72,7 +72,8 @@ Package('org.quickcorp.controllers',[
       }
     },
     done:function (){
-      var componentInstance = this.component;
+      var controller = this;
+      var componentInstance = controller.component;
       logger.debug('DataGridController DONE');
       var serviceClass = controller.component.body.getAttribute('serviceClass');
       if (serviceClass != null){
