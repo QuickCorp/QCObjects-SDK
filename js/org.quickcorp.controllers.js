@@ -85,7 +85,7 @@ Package('org.quickcorp.controllers',[
             console.log('DONE SERVICE COMPONENT');
             console.log(successfulResponse.service.JSONresponse.result);
             componentInstance.data = successfulResponse.service.JSONresponse.result;
-            this.addSubcomponents();
+            controller.addSubcomponents();
 
           },
           (failedResponse)=>{
