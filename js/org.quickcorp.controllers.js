@@ -83,6 +83,7 @@ Package('org.quickcorp.controllers',[
           (successfulResponse)=>{
             // This will show the service response as a plain text
             console.log('DONE SERVICE COMPONENT');
+            successfulResponse.service.JSONresponse = JSON.parse(successfulResponse.service.template);
             console.log(successfulResponse.service.JSONresponse.result);
             componentInstance.data = successfulResponse.service.JSONresponse.result;
             controller.addSubcomponents();
