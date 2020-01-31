@@ -75,7 +75,7 @@ Package('org.quickcorp.controllers',[
       var componentInstance = this.component;
       logger.debug('DataGridController DONE');
       var serviceClass = controller.component.body.getAttribute('serviceClass');
-      if (serviceClass != ){
+      if (serviceClass != null){
         var service = serviceLoader(New(ClassFactory(serviceClass),{
             data:componentInstance.serviceData
         })).then(
