@@ -77,7 +77,7 @@ Package('org.quickcorp.controllers',[
       var serviceClass = controller.component.body.getAttribute('serviceClass');
       if (serviceClass != ){
         var service = serviceLoader(New(ClassFactory(serviceClass),{
-            data:{param1:1}
+            data:componentInstance.serviceData
         })).then(
           (successfulResponse)=>{
             // This will show the service response as a plain text
