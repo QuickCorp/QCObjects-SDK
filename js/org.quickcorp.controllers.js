@@ -41,7 +41,7 @@ Package('org.quickcorp.controllers',[
       console.log(controller.component.data);
       try {
         controller.component.data.map(
-          function (record){
+          function (record,dataIndex){
             var subcomponentClass = controller.component.body.getAttribute('subcomponentClass');
             if (subcomponentClass != null){
               try {
@@ -55,6 +55,10 @@ Package('org.quickcorp.controllers',[
                   }),
                   body:document.createElement('component')
                 });
+                subcomponent.data.__dataIndex = dataIndex;
+                if (controller.component.data.hasOwnProperty('length')){
+                  subcomponent.data.__dataLength = controller.component.data.length;
+                }
                 controller.component.subcomponents.push(subcomponent);
                 controller.component.body.append(subcomponent.body);
 
