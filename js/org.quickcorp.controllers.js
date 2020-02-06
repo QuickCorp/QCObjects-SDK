@@ -53,7 +53,10 @@ Package('org.quickcorp.controllers',[
                     'TPLEXTENSION':CONFIG.get('tplextension'),
                     'TPL_SOURCE':'default' //here is always default in order to get the right uri
                   }),
-                  body:document.createElement('component')
+                  body:document.createElement('component'),
+                  done: function (){
+                    this.runComponentHelpers();
+                  }
                 });
                 subcomponent.data.__dataIndex = dataIndex;
                 if (controller.component.data.hasOwnProperty('length')){
