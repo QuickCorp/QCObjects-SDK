@@ -173,7 +173,14 @@
         });
         return _super_('Component','rebuild').call(this); // parent call
       }
-    })    
+    }),
+    Class('SwaggerUIComponent',Component,{
+      name:'swagger-ui',
+      cached:false,
+      basePath: CONFIG.get('remoteSDKPath'),
+      tplextension:'tpl.html'
+    })
+    
   ]);
 
 }).call(null);
