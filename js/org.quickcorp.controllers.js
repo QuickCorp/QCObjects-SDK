@@ -149,21 +149,21 @@ Package('org.quickcorp.controllers',[
       controller.component.body.innerHTML = '<div id="'+CONFIG.get('swagger-ui-dom_id','swagger-ui')+'"></div>';
 			var swaggerUIPackagePath = CONFIG.get('swagger-ui-package-path',"node_modules/swagger-ui-dist/");
 
-						this.dependencies.push(New(SourceJS,{
-							url:swaggerUIPackagePath+'swagger-ui-standalone-preset.js',
-							external:CONFIG.get('swagger-ui-external',false)
-						}));
-						this.dependencies.push(New(SourceCSS,{
-							url:swaggerUIPackagePath+'swagger-ui.css',
-							external:CONFIG.get('swagger-ui-external',false)
-						}));
-						this.dependencies.push(New(SourceJS,{
-							url:swaggerUIPackagePath+'swagger-ui-bundle.js',
-							external:CONFIG.get('swagger-ui-external',false),
-							done:function (){
-								controller.startSwaggerUI();
-							}
-						}));
+			this.dependencies.push(New(SourceJS,{
+				url:swaggerUIPackagePath+'swagger-ui-standalone-preset.js',
+				external:CONFIG.get('swagger-ui-external',false)
+			}));
+			this.dependencies.push(New(SourceCSS,{
+				url:swaggerUIPackagePath+'swagger-ui.css',
+				external:CONFIG.get('swagger-ui-external',false)
+			}));
+			this.dependencies.push(New(SourceJS,{
+				url:swaggerUIPackagePath+'swagger-ui-bundle.js',
+				external:CONFIG.get('swagger-ui-external',false),
+				done:function (){
+					controller.startSwaggerUI();
+				}
+			}));
 		}
 	})
 ]);
