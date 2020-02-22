@@ -128,7 +128,7 @@ Package('org.quickcorp.controllers',[
 			// Begin Swagger UI call region
 			const ui = SwaggerUIBundle({
 				url: CONFIG.get('swagger-ui-url','https://petstore.swagger.io/v2/swagger.json'),
-				dom_id: CONFIG.get('swagger-ui-dom_id','#swagger-ui'),
+				dom_id: '#'+CONFIG.get('swagger-ui-dom_id','swagger-ui'),
 				deepLinking: true,
 				presets: [
 					SwaggerUIBundle.presets.apis,
@@ -146,6 +146,7 @@ Package('org.quickcorp.controllers',[
 		},
 		done: function (){
 			var controller = this;
+      controller.component.body.innerHTML = '<div id="'+CONFIG.get('swagger-ui-dom_id','swagger-ui')+'"></div>';
 			var swaggerUIPackagePath = CONFIG.get('swagger-ui-package-path',"node_modules/swagger-ui-dist/");
 
 						this.dependencies.push(New(SourceJS,{
