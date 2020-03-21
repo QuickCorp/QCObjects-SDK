@@ -42,6 +42,14 @@
             logger.debug('Executing change event binding');
             thisobj.executeBindings();
           });
+          _obj.addEventListener('blur',function(e){
+            logger.debug('Executing change event binding');
+            thisobj.executeBindings();
+          });
+          _obj.addEventListener('focus',function(e){
+            logger.debug('Executing change event binding');
+            thisobj.executeBindings();
+          });
           _obj.addEventListener('keydown',function(e){
             logger.debug('Executing keydown event binding');
               thisobj.executeBindings();
@@ -180,7 +188,7 @@
       basePath: CONFIG.get('remoteSDKPath'),
       tplextension:'tpl.html'
     })
-    
+
   ]);
 
 }).call(null);
