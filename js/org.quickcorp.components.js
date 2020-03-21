@@ -112,6 +112,7 @@
       basePath: CONFIG.get('remoteSDKPath'),
       controller:null,
       view:null,
+      closeOnClickOutside:false,
       data:{
         content:'',
         modalId:0
@@ -133,9 +134,11 @@
             modalComponent.close();
           },false);
         });
-  //      window.addEventListener('click',function (){
-  //        modalComponent.close();
-  //      },false);
+        if (modalComponent.closeOnClickOutside){
+          window.addEventListener('click',function (){
+            modalComponent.close();
+          },false);
+        }
       },
       close: function (){
         var modalId = this.data.modalId;
