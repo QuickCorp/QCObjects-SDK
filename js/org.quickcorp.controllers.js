@@ -183,7 +183,7 @@ Package('org.quickcorp.controllers',[
         var fieldsToValidate = componentElementFields.filter(
           f=>controller.hasValidation.bind(controller)
         );
-        var invalidFields = componentElementFields.filter(f=>isInvalid(f)).pop();
+        var invalidFields = componentElementFields.filter(f=>controller.isInvalid(f)).pop();
         if (invalidFields){
           var validationMessage = `
 <details>
