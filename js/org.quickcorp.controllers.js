@@ -143,7 +143,7 @@ Package('org.quickcorp.controllers',[
       var _isInvalid = false;
       var fieldName = element.getAttribute('data-field');
       if (typeof this.validations !== 'undefined' && (
-        !this.validations[fieldName].call(this,fieldName,this.component.data[fieldName],element);
+        !this.validations[fieldName].call(this,fieldName,this.component.data[fieldName],element)
       )){
         _isInvalid = true;
       }
