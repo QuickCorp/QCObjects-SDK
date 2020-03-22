@@ -40,39 +40,52 @@ Package('org.quickcorp.controllers',[
       controller.component.body.innerHTML = '';
       console.log(controller.component.data);
       try {
-        controller.component.data.map(
-          function (record,dataIndex){
-            var subcomponentClass = controller.component.body.getAttribute('subcomponentClass');
-            if (subcomponentClass != null){
-              try {
-                var subcomponent = New(ClassFactory(subcomponentClass),{
-                  data:record,
-                  templateURI:ComponentURI({
-                    'COMPONENTS_BASE_PATH':CONFIG.get('componentsBasePath'),
-                    'COMPONENT_NAME':ClassFactory(subcomponentClass).name,
-                    'TPLEXTENSION':CONFIG.get('tplextension'),
-                    'TPL_SOURCE':'default' //here is always default in order to get the right uri
-                  }),
-                  body:document.createElement('component'),
-                  done: function (){
-                    this.runComponentHelpers();
+        var subcomponentClass = controller.component.body.getAttribute('subcomponentClass');
+        if (subcomponentClass != null){
+          controller.component.data.map(
+            function (record,dataIndex){
+                try {
+                  var subcomponent = New(ClassFactory(subcomponentClass),{
+                    data:record,
+                    templateURI:ComponentURI({
+                      'COMPONENTS_BASE_PATH':CONFIG.get('componentsBasePath'),
+                      'COMPONENT_NAME':ClassFactory(subcomponentClass).name,
+                      'TPLEXTENSION':CONFIG.get('tplextension'),
+                      'TPL_SOURCE':'default' //here is always default in order to get the right uri
+                    }),
+                    body:document.createElement('component'),
+                    done: function (){
+                      this.runComponentHelpers();
+                    }
+                  });
+                  try {
+                    if (subcomponent){
+                      subcomponent.data.__dataIndex = dataIndex;
+                      if (controller.component.data.hasOwnProperty('length')){
+                        subcomponent.data.__dataLength = controller.component.data.length;
+                      }
+                      logger.debug('adding subcomponent to body');
+                      controller.component.body.append(subcomponent.body);
+                      try {
+                        controller.component.subcomponents.push(subcomponent);
+                      }catch (e){
+                        logger.debug('ERROR LOADING SUBCOMPONENT IN DATAGRID');
+                      }
+                    } else {
+                      logger.debug('ERROR LOADING SUBCOMPONENT IN DATAGRID');
+                    }
+                  }catch (e){
+                    logger.debug('ERROR LOADING SUBCOMPONENT IN DATAGRID');
                   }
-                });
-                subcomponent.data.__dataIndex = dataIndex;
-                if (controller.component.data.hasOwnProperty('length')){
-                  subcomponent.data.__dataLength = controller.component.data.length;
-                }
-                controller.component.subcomponents.push(subcomponent);
-                controller.component.body.append(subcomponent.body);
 
-              } catch (e) {
-                logger.debug('ERROR LOADING SUBCOMPONENT IN DATAGRID');
-              }
-            } else {
-              logger.debug('NO SUBCOMPONENT CLASS IN COMPONENT');
+                } catch (e) {
+                  logger.debug('ERROR LOADING SUBCOMPONENT IN DATAGRID');
+                }
             }
-          }
-        );
+          );
+        } else {
+          logger.debug('NO SUBCOMPONENT CLASS IN COMPONENT');
+        }
 
       } catch (e){
         logger.debug('No data for component');
