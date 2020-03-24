@@ -175,7 +175,11 @@ Package('org.quickcorp.controllers',[
           (successfulResponse)=>{
             // This will show the service response as a plain text
             console.log('DONE SERVICE COMPONENT');
-            console.log(successfulResponse.service.JSONresponse.result);
+            try{
+              console.log(successfulResponse.service.JSONresponse);
+            }catch (e){
+                // no json
+            }
             location.href=controller.formSettings.nextRouting;
 
           },
