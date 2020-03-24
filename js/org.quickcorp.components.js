@@ -160,6 +160,7 @@
         component.data.modalId = component.__instanceID;
         var submodal = New(Component,{
           name:component.name,
+          basePath:component.basePath,
           data:component.data,
           body:document.createElement('div'),
           templateURI:ComponentURI({
