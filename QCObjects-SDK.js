@@ -31,6 +31,7 @@
   var _imports_;
   if (isBrowser){
     _imports_ = [
+      Import('org.quickcorp.i18n_messages',function (){},external),
       Import('org.quickcorp.models',function (){},external),
       Import('org.quickcorp.components',function (){},external),
       Import('org.quickcorp.controllers',function (){},external),
