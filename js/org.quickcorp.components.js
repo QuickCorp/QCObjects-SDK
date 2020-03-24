@@ -109,7 +109,7 @@
     Class('ModalComponent',Component,{
       name:'modal',
       cached:false,
-      basePath: CONFIG.get('remoteSDKPath'),
+      basePath: CONFIG.get('modalBasePath',CONFIG.get('remoteSDKPath')),
       controller:null,
       view:null,
       closeOnClickOutside:false,
