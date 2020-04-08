@@ -4,7 +4,7 @@
   "description": "QCObjects SDK A software library with a set of Controllers, Views and Components that are elementary and useful to assist developers to build applications under MVC patterns using QCObjects, Cross Browser Javascript Framework for MVC Patterns",
   "main": "QCObjects-SDK.js",
   "scripts": {
-    "test": "exit 0",
+    "test": "npm cache verify && jasmine",
     "sync": "git add . && git commit -am ",
     "preversion": "npm cache verify && npm test",
     "postversion": "git push && git push --tags"
@@ -34,5 +34,8 @@
   "bugs": {
     "url": "https://github.com/QuickCorp/QCObjects-SDK/issues"
   },
-  "homepage": "https://github.com/QuickCorp/QCObjects-SDK#readme"
+  "homepage": "https://github.com/QuickCorp/QCObjects-SDK#readme",
+  "dependencies": {
+    "jasmine": "^3.5.0"
+  }
 }
