@@ -22,8 +22,8 @@
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
 */
-"use strict";
-(function() {
+(function(_top) {
+  "use strict";
   var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
   var remoteImportsPath = CONFIG.get('remoteImportsPath');
   var external = (!CONFIG.get('useLocalSDK'))?(true):(false);
@@ -55,13 +55,15 @@
       Import(_relative_path_+'org.quickcorp.tools.layouts',function (){},external)
     ];
   }
-  global._sdk_ = Promise.all(_imports_).then(function (){
+  _top._sdk_ = Promise.all(_imports_).then(function (){
     CONFIG.set('useSDK',true);
     CONFIG.set('remoteImportsPath',remoteImportsPath);
 
-    global.__start__();
+    _top.__start__();
 
   });
 
 
-}).call(null);
+}).call(null,(typeof module === "object" && typeof module.exports === "object")?(module.exports):((typeof global === "object")?(global):(
+  (typeof window === "object")?(window):({})
+)));
