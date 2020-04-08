@@ -49,6 +49,6 @@ jobs:
       - name: run CI
         run: npm ci
       - name: run publish
-        run: npm publish
+        run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{secrets.TOKEN_GITHUB}}
