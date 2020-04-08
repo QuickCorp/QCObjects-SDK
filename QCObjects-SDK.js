@@ -24,7 +24,7 @@
 */
 "use strict";
 (function() {
-  var isBrowser = typeof self !== 'undefined' && typeof window !== 'undefined' &&  window === self;
+  var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
   var remoteImportsPath = CONFIG.get('remoteImportsPath');
   var external = (!CONFIG.get('useLocalSDK'))?(true):(false);
   CONFIG.set('remoteImportsPath','https://sdk.qcobjects.dev/js/');
