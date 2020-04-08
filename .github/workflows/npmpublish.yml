@@ -42,8 +42,11 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
-      - run: echo "registry=https://npm.pkg.github.com/" >> .npmrc
-      - run: npm ci
-      - run: npm publish
+      - name: Set up NPM authentication
+        run: echo "//npm.pkg.github.com/:_authToken=${{secrets.TOKEN_GITHUB}}" >> ~/.npmrc
+      - name: run CI
+        run: npm ci
+      - name: run publish
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.TOKEN_GITHUB}}
