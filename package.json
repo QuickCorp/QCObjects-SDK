@@ -5,10 +5,9 @@
   "main": "QCObjects-SDK.js",
   "scripts": {
     "test": "jasmine",
-    "preversion": "npm test",
-    "version": "npm i --upgrade",
     "sync": "git add . && git commit -am ",
-    "postversion": "git push && git push --tags && npm publish"
+    "preversion": "npm cache verify && npm test",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
