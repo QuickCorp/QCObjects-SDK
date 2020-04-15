@@ -153,17 +153,26 @@ Package('org.quickcorp.controllers',[
       return _hasValidation;
     },
     isInvalid (element){
+      var controller = this;
       var _isInvalid = false;
       var fieldName = element.getAttribute('data-field');
+      var dataValue = this.component.data[fieldName];
+
+      var _execValidation = function (fieldName, dataValue, element){
+        return (typeof controller.validations !== 'undefined'
+        && controller.validations.hasOwnProperty(fieldName)
+        && controller.validations[fieldName].call(controller,fieldName,dataValue, element));
+      };
+      
       if (typeof this.validations !== 'undefined' && (
-        !this.validations[fieldName].call(this,fieldName,this.component.data[fieldName],element)
+        !_execValidation(fieldName, dataValue, element)
       )){
         _isInvalid = true;
       }
       return _isInvalid;
     },
     isValid (element){
-      return this.isInvalid(element);
+      return !this.isInvalid(element);
     },
     save: function (){
       var controller = this;
