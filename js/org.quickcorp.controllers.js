@@ -215,7 +215,7 @@ Package('org.quickcorp.controllers',[
 <details>
     <summary>Please verify the following incorrect fields:</summary>
     <ul>
-      ${invalidFields.map(f=> '<li>'+f.getAttribute('data-field')+'</li>')}
+      ${invalidFields.map(element => '<li>'+(element.getAttribute('placeholder') || element.getAttribute('name') || element.getAttribute('data-field') )+'</li>').join('')}
     </ul>
 </details>
 `;
