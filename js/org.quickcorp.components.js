@@ -106,37 +106,12 @@
       data:{},
       body:null
     }),
-    Class('ModalEnclosureComponent',Component,{
-      name:'modal',
-      tplsource:'none',
-      cached:false,
-      basePath:CONFIG.get('modalBasePath',CONFIG.get('remoteSDKPath')),
-      data:{},
-      body:document.createElement('div'),
-      template:`
-<!-- The Modal -->
-<style>
-@import url('css/modal.css');
-</style>
-<div id="modalInstance_{{modalId}}" class="modal">
-
-<!-- Modal content -->
-<div class="modal-content">
-<span class="close">&times;</span>
-{{content}}
-</div>
-
-</div>
-`
-    }),
     Class('ModalComponent',Component,{
       name:'modal',
       cached:false,
-      modalEnclosureComponentClass:'ModalEnclosureComponent',
       basePath: CONFIG.get('modalBasePath',CONFIG.get('remoteSDKPath')),
       controller:null,
       view:null,
-      tplsource:'none',
       closeOnClickOutside:false,
       data:{
         content:'',
@@ -183,10 +158,17 @@
       _new_:function (o){
         var component = this;
         component.data.modalId = component.__instanceID;
-        var submodal = New(ClassFactory(component.modalEnclosureComponentClass),{
+        var submodal = New(Component,{
           name:component.name,
           basePath:component.basePath,
-          data:component.data
+          data:component.data,
+          body:document.createElement('div'),
+          templateURI:ComponentURI({
+            'COMPONENTS_BASE_PATH':CONFIG.get('componentsBasePath'),
+            'COMPONENT_NAME':component.name,
+            'TPLEXTENSION':CONFIG.get('tplextension'),
+            'TPL_SOURCE':'default' //here is always default in order to get the right uri
+          })
         });
         component.subcomponents.push(submodal);
         component.submodal = submodal;
