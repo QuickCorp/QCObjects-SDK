@@ -163,7 +163,7 @@ Package('org.quickcorp.controllers',[
         && controller.validations.hasOwnProperty(fieldName)
         && controller.validations[fieldName].call(controller,fieldName,dataValue, element));
       };
-      
+
       if (typeof this.validations !== 'undefined' && (
         !_execValidation(fieldName, dataValue, element)
       )){
@@ -209,8 +209,8 @@ Package('org.quickcorp.controllers',[
         var fieldsToValidate = componentElementFields.filter(
           f=>controller.hasValidation.bind(controller)
         );
-        var invalidFields = componentElementFields.filter(f=>controller.isInvalid(f)).pop();
-        if (invalidFields){
+        var invalidFields = componentElementFields.filter(f=>controller.isInvalid(f));
+        if (invalidFields.length>0){
           var validationMessage = `
 <details>
     <summary>Please verify the following incorrect fields:</summary>
