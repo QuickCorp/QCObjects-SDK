@@ -212,9 +212,9 @@ Package('org.quickcorp.controllers',[
 
         var _labelledby = function (parentElement, element){
           var _arialabelledby = function (parentElement, element){
-            return (element.getAttribute('aria-labelledby') || '').split(' ').map(
+            return (element.getAttribute('aria-labelledby') !== null)?(element.getAttribute('aria-labelledby').split(' ').map(
               e => parentElement.subelements(e)
-            ).join(' ')
+            ).join(' ')):(null)
           }
 
           return (_arialabelledby(parentElement, element)
