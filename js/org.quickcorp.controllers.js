@@ -224,13 +224,19 @@ Package('org.quickcorp.controllers',[
                   || element.getAttribute('data-field') );
         };
 
+        var _ariatitle = function (element){
+          return (element.getAttribute('title') || element.getAttribute('aria-title') || '');
+        }
+
         var invalidFields = fieldsToValidate.filter(f=>controller.isInvalid(f));
         if (invalidFields.length>0){
           var validationMessage = `
 <details>
     <summary>Please verify the following incorrect fields:</summary>
     <ul>
-      ${invalidFields.map(element => '<li>'+_labelledby(controller.component.body,element)+'</li>').join('')}
+      <div>
+      ${invalidFields.map(element => '<li><div>'+_labelledby(controller.component.body,element)+'</div><div>'+_ariatitle(element)+'</div></li>').join('')}
+      </div>
     </ul>
 </details>
 `;
