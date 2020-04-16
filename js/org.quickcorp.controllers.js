@@ -224,7 +224,7 @@ Package('org.quickcorp.controllers',[
                   || element.getAttribute('data-field') );
         };
 
-        var invalidFields = componentElementFields.filter(f=>controller.isInvalid(f));
+        var invalidFields = fieldsToValidate.filter(f=>controller.isInvalid(f));
         if (invalidFields.length>0){
           var validationMessage = `
 <details>
