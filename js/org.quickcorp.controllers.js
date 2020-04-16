@@ -230,7 +230,7 @@ Package('org.quickcorp.controllers',[
 <details>
     <summary>Please verify the following incorrect fields:</summary>
     <ul>
-      ${invalidFields.map(element => '<li>${_labelledby(controller.component.body,element)}</li>').join('')}
+      ${invalidFields.map(element => '<li>'+_labelledby(controller.component.body,element)+'</li>').join('')}
     </ul>
 </details>
 `;
