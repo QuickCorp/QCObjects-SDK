@@ -138,8 +138,8 @@ Package('org.quickcorp.controllers',[
     getDefault (fieldName){
       return function (fieldName,dataValue, element){
         var _regex = {
-                      name:`^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$`,
-                      email:"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+                      name:"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$",
+                      email:"^([A-Za-z0-9]+)\@([A-Za-z0-9]+)\.([A-Za-z0-9]+)$"
                     };
         var _pattern_ = (element.getAttribute('pattern') || _regex[fieldName]);
         var pattern = new RegExp(_pattern_);
