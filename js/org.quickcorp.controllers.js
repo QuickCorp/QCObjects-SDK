@@ -207,7 +207,7 @@ Package('org.quickcorp.controllers',[
       if (controller.formValidatorModal!=null){
         var componentElementFields = controller.component.body.subelements('*[data-field]');
         var fieldsToValidate = componentElementFields.filter(
-          f=>controller.hasValidation.bind(controller)
+          f => controller.hasValidation.call(controller,f)
         );
 
         var _labelledby = function (parentElement, element){
