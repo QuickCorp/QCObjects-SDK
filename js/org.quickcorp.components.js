@@ -25,6 +25,19 @@
 "use strict";
 (function() {
   Package('org.quickcorp.components',[
+    Class('ShadowedComponent',Component,{
+      container:null,
+      body:null,
+      shadowed:true,
+      cached:false,
+      controller:null,
+      view:null,
+      data:{},
+      _new_:function (o){
+        o.body = document.createElement('div');
+        _super_('Component','_new_').call(this,o);
+      }
+    }),
     Class('FormField',Component,{
       cached:false,
       reload:true,
