@@ -209,13 +209,28 @@ Package('org.quickcorp.controllers',[
         var fieldsToValidate = componentElementFields.filter(
           f=>controller.hasValidation.bind(controller)
         );
+
+        var _labelledby = function (parentElement, element){
+          var _arialabelledby = function (parentElement, element){
+            return element.getAttribute('aria-labelledby').split(' ').map(
+              e => parentElement.subelements(e)
+            ).join(' ')
+          }
+
+          return (_arialabelledby(parentElement, element)
+                  || element.getAttribute('aria-label')
+                  || element.getAttribute('placeholder')
+                  || element.getAttribute('name')
+                  || element.getAttribute('data-field') );
+        };
+
         var invalidFields = componentElementFields.filter(f=>controller.isInvalid(f));
         if (invalidFields.length>0){
           var validationMessage = `
 <details>
     <summary>Please verify the following incorrect fields:</summary>
     <ul>
-      ${invalidFields.map(element => '<li>'+(element.getAttribute('placeholder') || element.getAttribute('name') || element.getAttribute('data-field') )+'</li>').join('')}
+      ${invalidFields.map(element => '<li>${_labelledby(controller.component.body,element)}</li>').join('')}
     </ul>
 </details>
 `;
