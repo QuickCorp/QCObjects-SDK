@@ -134,6 +134,19 @@ Package('org.quickcorp.controllers',[
 
     }
   }),
+  Class('FormValidations',Controller,{
+    getDefault (fieldName){
+      return function (fieldName,dataValue, element){
+        var _regex = {
+                      name:`^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$`,
+                      email:"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+                    };
+        var _pattern_ = (element.getAttribute('pattern') || _regex[fieldName]);
+        var pattern = new RegExp(_pattern_);
+        return pattern.test(dataValue)
+      }
+    }
+  }),
   Class('FormController',Controller,{
     dependencies:[],
     component:null,
@@ -161,7 +174,7 @@ Package('org.quickcorp.controllers',[
       var _execValidation = function (fieldName, dataValue, element){
         return (typeof controller.validations !== 'undefined'
         && controller.validations.hasOwnProperty(fieldName)
-        && controller.validations[fieldName].call(controller,fieldName,dataValue, element));
+        && controller.validations[fieldName].call(controller).call(controller,fieldName,dataValue, element));
       };
 
       if (typeof this.validations !== 'undefined' && (
