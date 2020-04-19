@@ -129,14 +129,14 @@
       template:`
 <!-- The Modal -->
 <style>
-@import url('css/modal.css');
+  @import url('https://sdk.qcobjects.dev/css/modal.css');
 </style>
 <div id="modalInstance_{{modalId}}" class="modal">
 
 <!-- Modal content -->
 <div class="modal-content">
-<span class="close">&times;</span>
-{{content}}
+  <span class="close">&times;</span>
+  {{content}}
 </div>
 
 </div>
