@@ -8,7 +8,7 @@ Package('org.quickcorp.controllers',[
     },
     done: function (){
       var controller=this;
-      var s = document.createElement('style');
+      var s = _DOMCreateElement('style');
       var templateRows = 'auto '.repeat(this.rows);
       var templateCols = 'auto '.repeat(this.cols);
       var className = 'grid'+this.__instanceID.toString();
@@ -19,7 +19,7 @@ Package('org.quickcorp.controllers',[
                         margin:0 auto; \
                     }';
       this.component.body.append(s);
-      var d = document.createElement('div');
+      var d = _DOMCreateElement('div');
       d.className=className;
       this.component.body.append(d);
       logger.debug('GridComponent built');
@@ -53,7 +53,7 @@ Package('org.quickcorp.controllers',[
                       'TPLEXTENSION':CONFIG.get('tplextension'),
                       'TPL_SOURCE':'default' //here is always default in order to get the right uri
                     }),
-                    body:document.createElement('component'),
+                    body:_DOMCreateElement('component'),
                     done: function (){
                       this.runComponentHelpers();
                     }
@@ -276,7 +276,7 @@ Package('org.quickcorp.controllers',[
       var controller=this;
       try {
         controller.component.createBindingEvents();
-        var modalBody = document.createElement('div');
+        var modalBody = _DOMCreateElement('div');
         modalBody.className='modal_body';
         controller.formValidatorModal = New(ModalComponent,{
           body:modalBody,

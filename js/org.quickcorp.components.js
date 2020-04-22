@@ -34,7 +34,7 @@
       view:null,
       data:{},
       _new_:function (o){
-        o.body = document.createElement('div');
+        o.body = _DOMCreateElement('div');
         _super_('Component','_new_').call(this,o);
       }
     }),
@@ -125,7 +125,7 @@
       cached:false,
       basePath:CONFIG.get('modalBasePath',CONFIG.get('remoteSDKPath')),
       data:{},
-      body:document.createElement('div'),
+      body:_DOMCreateElement('div'),
       template:`
 <!-- The Modal -->
 <style>
