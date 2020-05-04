@@ -34,6 +34,7 @@
       Import('org.quickcorp.i18n_messages',function (){},external),
       Import('org.quickcorp.models',function (){},external),
       Import('org.quickcorp.components',function (){},external),
+      Import('org.quickcorp.components.splashscreen',function (){},external),
       Import('org.quickcorp.controllers',function (){},external),
       Import('org.quickcorp.views',function (){},external),
       Import('org.quickcorp.effects',function (){},external),
