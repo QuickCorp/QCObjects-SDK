@@ -50,15 +50,17 @@ Package('org.quickcorp.components.splashscreen',[
       document.body.style.backgroundColor = "#111111";
       mainElement.style.display = "none";
       setTimeout(function() {
-        document.body.style.backgroundColor = component._bgcolor;
-        mainElement.style.display = component._mainDisplay;
-        component.shadowRoot.subelements('#slot-logo').map(function (slotlogo){
-          slotlogo.style.display = "block";
-          slotlogo.style.transformOrigin = "center";
-          Resize.apply(slotlogo,1,0);
-        });
-        Fade.apply(component.shadowRoot.host, 1, 0);
-        Fade.apply(mainElement, 0, 1);
+        if (typeof component.shadowRoot !== "undefined"){
+          document.body.style.backgroundColor = component._bgcolor;
+          mainElement.style.display = component._mainDisplay;
+          component.shadowRoot.subelements('#slot-logo').map(function (slotlogo){
+            slotlogo.style.display = "block";
+            slotlogo.style.transformOrigin = "center";
+            Resize.apply(slotlogo,1,0);
+          });
+          Fade.apply(component.shadowRoot.host, 1, 0);
+          Fade.apply(mainElement, 0, 1);
+        }
       }, (duration-displayEffectDuration));
       setTimeout(function() {
         mainElement.style.position = component._mainPosition;
