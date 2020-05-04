@@ -27,7 +27,7 @@
 Package('org.quickcorp.components.splashscreen',[
   Class('VideoSplashScreenComponent', Component, {
     name: 'splashscreen',
-    basePath:'https://sdk.qcobjects.dev/',
+    basePath:CONFIG.get('splashscreenBasePath',CONFIG.get('remoteSDKPath')),
     cached: false,
     shadowed: true,
     _new_: function(o) {
