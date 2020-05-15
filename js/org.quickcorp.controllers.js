@@ -45,6 +45,8 @@ Package('org.quickcorp.controllers',[
           controller.component.data.map(
             function (record,dataIndex){
                 try {
+                  var _body = _DOMCreateElement('component');
+                  _body.setAttribute("name",ClassFactory(subcomponentClass).name);
                   var subcomponent = New(ClassFactory(subcomponentClass),{
                     data:record,
                     templateURI:ComponentURI({
@@ -53,7 +55,7 @@ Package('org.quickcorp.controllers',[
                       'TPLEXTENSION':CONFIG.get('tplextension'),
                       'TPL_SOURCE':'default' //here is always default in order to get the right uri
                     }),
-                    body:_DOMCreateElement('component'),
+                    body:_body,
                     done: function (){
                       this.runComponentHelpers();
                     }
