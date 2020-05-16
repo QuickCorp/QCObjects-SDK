@@ -57,10 +57,7 @@ Package('org.quickcorp.controllers',[
                       'TPLEXTENSION':CONFIG.get('tplextension'),
                       'TPL_SOURCE':'default' //here is always default in order to get the right uri
                     }),
-                    body:_body,
-                    done: function (){
-                      this.runComponentHelpers();
-                    }
+                    body:_body
                   });
                   try {
                     if (subcomponent){
