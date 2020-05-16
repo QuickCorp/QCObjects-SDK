@@ -47,6 +47,8 @@ Package('org.quickcorp.controllers',[
                 try {
                   var _body = _DOMCreateElement('component');
                   _body.setAttribute("name",ClassFactory(subcomponentClass).name);
+                  _body.setAttribute("shadowed",ClassFactory(subcomponentClass).shadowed);
+                  _body.setAttribute("cached",ClassFactory(subcomponentClass).cached);
                   var subcomponent = New(ClassFactory(subcomponentClass),{
                     data:record,
                     templateURI:ComponentURI({
