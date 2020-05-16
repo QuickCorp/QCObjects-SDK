@@ -59,7 +59,7 @@ Package('org.quickcorp.controllers',[
                     }),
                     body:_body
                   });
-                  subcomponent.done = component.done.bind(subcomponent);
+                  subcomponent.done = controller.component.done.bind(subcomponent);
                   try {
                     if (subcomponent){
                       subcomponent.data.__dataIndex = dataIndex;
