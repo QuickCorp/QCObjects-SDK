@@ -63,11 +63,11 @@ Package('org.quickcorp.controllers',[
               offset = controller.getPageIndex(page-1, pagesNumber, list.length)[0];
               limit = controller.getPageIndex(page-1, pagesNumber, list.length)[1];
             } else {
-              offset = 1;
+              offset = 0;
               limit = list.length;
               pagesNumber = 1;
             }
-            list = list.slice(offset-1,limit);
+            list = list.slice(offset,limit);
           } else {
             offset = 0;
             limit = list.length;
