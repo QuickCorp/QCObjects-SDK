@@ -55,7 +55,7 @@ Package('org.quickcorp.controllers',[
               pagesNumber = controller.component.body.getAttribute('total-pages');
               pagesNumber = (isNaN(pagesNumber))?(1):(pagesNumber);
               offset = (list.length/pagesNumber)*page;
-              limit = currentIndex+(list.length/pagesNumber);
+              limit = offset+(list.length/pagesNumber);
             } else {
               offset = 0;
               limit = list.length;
@@ -135,7 +135,7 @@ Package('org.quickcorp.controllers',[
             pagesNumber = controller.component.body.getAttribute('total-pages');
             pagesNumber = (isNaN(pagesNumber))?(1):(pagesNumber);
             offset = (list.length/pagesNumber)*page;
-            limit = currentIndex+(list.length/pagesNumber);
+            limit = offset+(list.length/pagesNumber);
             // send params in jsonrpc 2.0 style
             componentInstance.serviceData = (typeof componentInstance.serviceData !== "undefined")?(componentInstance.serviceData):({});
             componentInstance.serviceData.params = (typeof componentInstance.serviceData.params !== "undefined")?(componentInstance.serviceData.params):({});
