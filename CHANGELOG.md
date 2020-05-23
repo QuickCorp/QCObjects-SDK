@@ -9,6 +9,7 @@ This is an automatic Changelog history of versions generated using the command: 
 	- FormController
 	- FormValidations
 	- New Version
+	- Paginated Datagrid Controller
 	- SwaggerUIComponent && SwaggerUIController
 	- TransitionEffect Class for using with effectClass attribute in component HTML tag
 	- VideoSplashScreenComponent
@@ -40,3 +41,7 @@ This is an automatic Changelog history of versions generated using the command: 
 	- swagger-ui controller
 	- swagger-ui template
 	- upgrade
+## v0 -> v0.1
+
+	- New Version
+	- Paginated Datagrid Controller
