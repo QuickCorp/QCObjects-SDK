@@ -50,7 +50,7 @@ Package('org.quickcorp.controllers',[
           paginateIn = (paginateIn !== null)?(paginateIn):("client");
           if (paginateIn === "client"){
             var page = controller.component.body.getAttribute('page-number');
-            page = (isNaN(page))?(-1):(page);
+            page = (isNaN(page) || page === null)?(-1):(page);
             if (page !== -1){
               pagesNumber = controller.component.body.getAttribute('total-pages');
               pagesNumber = (isNaN(pagesNumber))?(1):(pagesNumber);
@@ -130,7 +130,7 @@ Package('org.quickcorp.controllers',[
         paginateIn = (paginateIn !== null)?(paginateIn):("client");
         if (paginateIn === "server"){
           var page = componentInstance.body.getAttribute('page-number');
-          page = (isNaN(page))?(-1):(page);
+          page = (isNaN(page) || page === null)?(-1):(page);
           var pagesNumber;
           if (page !== -1){
             pagesNumber = controller.component.body.getAttribute('total-pages');
