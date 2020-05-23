@@ -43,7 +43,7 @@ Package('org.quickcorp.controllers',[
         var subcomponentClass = controller.component.body.getAttribute('subcomponentClass');
         if (subcomponentClass != null){
           var list = [...controller.component.data];
-          var paginateIn = componentInstance.body.getAttribute('paginate-in');
+          var paginateIn = controller.component.body.getAttribute('paginate-in');
           paginateIn = (paginateIn !== null)?(paginateIn):("client");
           if (paginateIn === "client"){
             var page = controller.component.body.getAttribute('page-number');
