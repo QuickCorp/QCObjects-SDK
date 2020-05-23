@@ -42,15 +42,15 @@ Package('org.quickcorp.controllers',[
       try {
         var subcomponentClass = controller.component.body.getAttribute('subcomponentClass');
         if (subcomponentClass != null){
+          var offset;
+          var limit;
+          var pagesNumber;
           var list = [...controller.component.data];
           var paginateIn = controller.component.body.getAttribute('paginate-in');
           paginateIn = (paginateIn !== null)?(paginateIn):("client");
           if (paginateIn === "client"){
             var page = controller.component.body.getAttribute('page-number');
             page = (isNaN(page))?(-1):(page);
-            var currentIndex;
-            var nextIndex;
-            var pagesNumber;
             if (page !== -1){
               pagesNumber = controller.component.body.getAttribute('total-pages');
               pagesNumber = (isNaN(pagesNumber))?(1):(pagesNumber);
@@ -123,6 +123,8 @@ Package('org.quickcorp.controllers',[
       logger.debug('DataGridController DONE');
       var serviceClass = controller.component.body.getAttribute('serviceClass');
       if (serviceClass != null){
+        var offset;
+        var limit;
         var paginateIn = componentInstance.body.getAttribute('paginate-in');
         paginateIn = (paginateIn !== null)?(paginateIn):("client");
         if (paginateIn === "server"){
