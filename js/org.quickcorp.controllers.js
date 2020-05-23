@@ -54,13 +54,13 @@ Package('org.quickcorp.controllers',[
             if (page !== -1){
               pagesNumber = controller.component.body.getAttribute('total-pages');
               pagesNumber = (isNaN(pagesNumber))?(1):(pagesNumber);
+              offset = (list.length/pagesNumber)*page;
+              limit = offset+(list.length/pagesNumber);
             } else {
               offset = 1;
               limit = list.length;
               pagesNumber = 1;
             }
-            offset = (list.length/pagesNumber)*page;
-            limit = offset+(list.length/pagesNumber);
             list = list.slice(offset-1,limit);
           } else {
             offset = 0;
