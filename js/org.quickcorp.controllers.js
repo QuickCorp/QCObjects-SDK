@@ -61,12 +61,13 @@ Package('org.quickcorp.controllers',[
               limit = list.length;
               pagesNumber = 0;
             }
+            list = list.slice(offset,limit);
           } else {
             offset = 0;
             limit = list.length;
             pagesNumber = 0;
           }
-          list.slice(offset,limit).map(
+          list.map(
             function (record,dataIndex){
                 try {
                   var _body = _DOMCreateElement('component');
