@@ -60,8 +60,8 @@ Package('org.quickcorp.controllers',[
             if (page !== -1){
               pagesNumber = controller.component.body.getAttribute('total-pages');
               pagesNumber = (isNaN(pagesNumber))?(1):(pagesNumber);
-              offset = controller.getPageIndex(page-1, pagesNumber, list.length)[0];
-              limit = controller.getPageIndex(page-1, pagesNumber, list.length)[1];
+              offset = controller.getPageIndex(page, pagesNumber, list.length)[0];
+              limit = controller.getPageIndex(page, pagesNumber, list.length)[1];
             } else {
               offset = 0;
               limit = list.length;
