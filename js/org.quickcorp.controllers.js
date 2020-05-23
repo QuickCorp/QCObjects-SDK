@@ -36,6 +36,7 @@ Package('org.quickcorp.controllers',[
     },
     getPageIndex: function (page, totalPage, totalElements) {
       page = new Number(page);
+      page = (page>0)?(page-1):(0);
       totalPage = new Number(totalPage);
       totalElements = new Number(totalElements);
       return [totalElements*page/ totalPage, (totalElements*page/ totalPage) + totalElements/totalPage]
