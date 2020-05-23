@@ -38,11 +38,31 @@ Package('org.quickcorp.controllers',[
       var controller = this;
       controller.component.subcomponents = [];
       controller.component.body.innerHTML = '';
-      console.log(controller.component.data);
+      logger.debug(_DataStringify(controller.component.data));
       try {
         var subcomponentClass = controller.component.body.getAttribute('subcomponentClass');
         if (subcomponentClass != null){
-          controller.component.data.map(
+          var list = [...controller.component.data];
+          var paginateIn = componentInstance.body.getAttribute('paginate-in');
+          paginateIn = (paginateIn !== null)?(paginateIn):("client");
+          if (paginateIn === "client"){
+            var page = controller.component.body.getAttribute('page-number');
+            page = (isNaN(page))?(-1):(page);
+            var currentIndex;
+            var nextIndex;
+            var pagesNumber;
+            if (page !== -1){
+              pagesNumber = controller.component.body.getAttribute('total-pages');
+              pagesNumber = (isNaN(pagesNumber))?(1):(pagesNumber);
+              offset = (list.length/pagesNumber)*page;
+              limit = currentIndex+(list.length/pagesNumber);
+            } else {
+              offset = 0;
+              limit = list.length;
+              pagesNumber = 0;
+            }
+          }
+          list.slice(offset,limit).map(
             function (record,dataIndex){
                 try {
                   var _body = _DOMCreateElement('component');
@@ -99,15 +119,38 @@ Package('org.quickcorp.controllers',[
       logger.debug('DataGridController DONE');
       var serviceClass = controller.component.body.getAttribute('serviceClass');
       if (serviceClass != null){
+        var paginateIn = componentInstance.body.getAttribute('paginate-in');
+        paginateIn = (paginateIn !== null)?(paginateIn):("client");
+        if (paginateIn === "server"){
+          var page = componentInstance.body.getAttribute('page-number');
+          page = (isNaN(page))?(-1):(page);
+          var pagesNumber;
+          if (page !== -1){
+            pagesNumber = controller.component.body.getAttribute('total-pages');
+            pagesNumber = (isNaN(pagesNumber))?(1):(pagesNumber);
+            offset = (list.length/pagesNumber)*page;
+            limit = currentIndex+(list.length/pagesNumber);
+            // send params in jsonrpc 2.0 style
+            componentInstance.serviceData = (typeof componentInstance.serviceData !== "undefined")?(componentInstance.serviceData):({});
+            componentInstance.serviceData.params = (typeof componentInstance.serviceData.params !== "undefined")?(componentInstance.serviceData.params):({});
+            componentInstance.serviceData.params.offset = offset;
+            componentInstance.serviceData.params.limit = limit;
+          }
+        }
+
         var service = serviceLoader(New(ClassFactory(serviceClass),{
             data:componentInstance.serviceData
         })).then(
           (successfulResponse)=>{
             // This will show the service response as a plain text
-            console.log('DONE SERVICE COMPONENT');
+            logger.debug('DONE SERVICE COMPONENT');
             successfulResponse.service.JSONresponse = JSON.parse(successfulResponse.service.template);
-            console.log(successfulResponse.service.JSONresponse.result);
-            componentInstance.data = successfulResponse.service.JSONresponse.result;
+            if (typeof successfulResponse.service.JSONresponse.result !== "undefined"){
+              logger.debug(_DataStringify(successfulResponse.service.JSONresponse.result));
+              componentInstance.data = successfulResponse.service.JSONresponse.result;
+            } else {
+              componentInstance.data = successfulResponse.service.JSONresponse;
+            }
             controller.addSubcomponents();
 
           },
