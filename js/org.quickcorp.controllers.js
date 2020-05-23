@@ -34,7 +34,12 @@ Package('org.quickcorp.controllers',[
       //TODO: Implement
       logger.debug('DataGridController INIT');
     },
-    getPageIndex: function (page, totalPage, totalElements) { return [totalElements*page/ totalPage, (totalElements*page/ totalPage) + totalElements/totalPage]},
+    getPageIndex: function (page, totalPage, totalElements) {
+      page = new Number(page);
+      totalPage = new Number(totalPage);
+      totalElements = new Number(totalElements);
+      return [totalElements*page/ totalPage, (totalElements*page/ totalPage) + totalElements/totalPage]
+    },
     addSubcomponents:function (){
       var controller = this;
       controller.component.subcomponents = [];
