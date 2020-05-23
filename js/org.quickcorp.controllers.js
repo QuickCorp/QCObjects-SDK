@@ -34,6 +34,7 @@ Package('org.quickcorp.controllers',[
       //TODO: Implement
       logger.debug('DataGridController INIT');
     },
+    getPageIndex: function (page, totalPage, totalElements) { return [totalElements*page/ totalPage, (totalElements*page/ totalPage) + totalElements/totalPage]},
     addSubcomponents:function (){
       var controller = this;
       controller.component.subcomponents = [];
@@ -54,8 +55,8 @@ Package('org.quickcorp.controllers',[
             if (page !== -1){
               pagesNumber = controller.component.body.getAttribute('total-pages');
               pagesNumber = (isNaN(pagesNumber))?(1):(pagesNumber);
-              offset = (list.length/pagesNumber)*page;
-              limit = offset+(list.length/pagesNumber);
+              offset = controller.getPageIndex(page-1, pagesNumber, list.length)[0];
+              limit = controller.getPageIndex(page-1, pagesNumber, list.length)[1];
             } else {
               offset = 1;
               limit = list.length;
@@ -135,8 +136,8 @@ Package('org.quickcorp.controllers',[
           if (page !== -1){
             pagesNumber = controller.component.body.getAttribute('total-pages');
             pagesNumber = (isNaN(pagesNumber))?(1):(pagesNumber);
-            offset = (list.length/pagesNumber)*page;
-            limit = offset+(list.length/pagesNumber);
+            offset = controller.getPageIndex(page, pagesNumber, list.length)[0];
+            limit = controller.getPageIndex(page, pagesNumber, list.length)[1];
             // send params in jsonrpc 2.0 style
             componentInstance.serviceData = (typeof componentInstance.serviceData !== "undefined")?(componentInstance.serviceData):({});
             componentInstance.serviceData.params = (typeof componentInstance.serviceData.params !== "undefined")?(componentInstance.serviceData.params):({});
