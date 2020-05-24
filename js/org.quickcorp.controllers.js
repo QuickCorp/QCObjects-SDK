@@ -4,13 +4,17 @@ Package('org.quickcorp.controllers',[
     dependencies:[],
     component:null,
     _new_:function (o){
-      this.__new__(o);
+      var controller=this;
+      controller.rows=controller.component.body.getAttribute("rows");
+      controller.rows=(controller.rows !== null)?(controller.rows):(controller.component.rows);
+      controller.cols=controller.component.body.getAttribute("cols");
+      controller.cols=(controller.cols !== null)?(controller.cols):(controller.component.cols);
     },
     done: function (){
       var controller=this;
       var s = _DOMCreateElement('style');
-      var templateRows = 'auto '.repeat(this.rows);
-      var templateCols = 'auto '.repeat(this.cols);
+      var templateRows = 'auto '.repeat(controller.rows);
+      var templateCols = 'auto '.repeat(controller.cols);
       var className = 'grid'+this.__instanceID.toString();
       s.innerHTML = '.'+className+' { \
                         display: grid; \
