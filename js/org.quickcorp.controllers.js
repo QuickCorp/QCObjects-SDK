@@ -10,22 +10,28 @@ Package('org.quickcorp.controllers',[
       controller.cols=controller.component.body.getAttribute("cols");
       controller.cols=(controller.cols !== null)?(controller.cols):(controller.component.cols);
     },
+    cssGrid: function (){
+      var component = controller.component;
+      var _componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
+      if (typeof controller.rows !== "undefined" && typeof controller.cols !== "undefined"){
+        var s = _DOMCreateElement('style');
+        var templateRows = 'auto '.repeat(controller.rows);
+        var templateCols = 'auto '.repeat(controller.cols);
+        var className = 'grid'+this.__instanceID.toString();
+        s.innerHTML = '.'+className+' { \
+                          display: grid; \
+                          grid-template-rows: '+templateRows+'; \
+                          grid-template-columns: '+templateCols+'; \
+                          margin:0 auto; \
+                      }';
+        _componentRoot.append(s);
+        _componentRoot.classList.add(className);
+      }
+    },
     done: function (){
       var controller=this;
-      var s = _DOMCreateElement('style');
-      var templateRows = 'auto '.repeat(controller.rows);
-      var templateCols = 'auto '.repeat(controller.cols);
-      var className = 'grid'+this.__instanceID.toString();
-      s.innerHTML = '.'+className+' { \
-                        display: grid; \
-                        grid-template-rows: '+templateRows+'; \
-                        grid-template-columns: '+templateCols+'; \
-                        margin:0 auto; \
-                    }';
-      this.component.body.append(s);
-      var d = _DOMCreateElement('div');
-      d.className=className;
-      this.component.body.append(d);
+      controller.cssGrid();
+
       logger.debug('GridComponent built');
 
     }
@@ -35,7 +41,10 @@ Package('org.quickcorp.controllers',[
     component:null,
     _new_:function (o){
       var controller=this;
-      //TODO: Implement
+      controller.rows=controller.component.body.getAttribute("rows");
+      controller.rows=(controller.rows !== null)?(controller.rows):(controller.component.rows);
+      controller.cols=controller.component.body.getAttribute("cols");
+      controller.cols=(controller.cols !== null)?(controller.cols):(controller.component.cols);
       logger.debug('DataGridController INIT');
     },
     getPageIndex: function (page, totalPage, totalElements) {
@@ -129,8 +138,28 @@ Package('org.quickcorp.controllers',[
         logger.debug('No data for component');
       }
     },
+    cssGrid: function (){
+      var component = controller.component;
+      var _componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
+      if (typeof controller.rows !== "undefined" && typeof controller.cols !== "undefined"){
+        var s = _DOMCreateElement('style');
+        var templateRows = 'auto '.repeat(controller.rows);
+        var templateCols = 'auto '.repeat(controller.cols);
+        var className = 'grid'+this.__instanceID.toString();
+        s.innerHTML = '.'+className+' { \
+                          display: grid; \
+                          grid-template-rows: '+templateRows+'; \
+                          grid-template-columns: '+templateCols+'; \
+                          margin:0 auto; \
+                      }';
+        _componentRoot.append(s);
+        _componentRoot.classList.add(className);
+      }
+    },
     done:function (){
       var controller = this;
+      controller.cssGrid();
+
       var componentInstance = controller.component;
       logger.debug('DataGridController DONE');
       var serviceClass = controller.component.body.getAttribute('serviceClass');
