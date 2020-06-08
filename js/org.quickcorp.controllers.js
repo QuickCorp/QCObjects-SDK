@@ -11,6 +11,7 @@ Package('org.quickcorp.controllers',[
       controller.cols=(controller.cols !== null)?(controller.cols):(controller.component.cols);
     },
     cssGrid: function (){
+      var controller=this;
       var component = controller.component;
       var _componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
       if (typeof controller.rows !== "undefined" && typeof controller.cols !== "undefined"){
@@ -139,6 +140,7 @@ Package('org.quickcorp.controllers',[
       }
     },
     cssGrid: function (){
+      var controller=this;
       var component = controller.component;
       var _componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
       if (typeof controller.rows !== "undefined" && typeof controller.cols !== "undefined"){
