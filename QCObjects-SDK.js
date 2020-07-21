@@ -28,6 +28,17 @@
   var remoteImportsPath = CONFIG.get('remoteImportsPath');
   var external = (!CONFIG.get('useLocalSDK'))?(true):(false);
   CONFIG.set('remoteImportsPath','https://sdk.qcobjects.dev/js/');
+  if (typeof _top._DOMCreateElement === 'undefined'){
+    _top._DOMCreateElement = function (elementName) {
+      var _ret_;
+      if (isBrowser) {
+        _ret_ = document.createElement(elementName);
+      } else {
+        _ret_ = {};
+      }
+      return _ret_;
+    }
+  }
   var _imports_;
   if (isBrowser){
     _imports_ = [
