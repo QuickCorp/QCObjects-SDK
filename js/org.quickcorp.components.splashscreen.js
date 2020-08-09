@@ -27,11 +27,11 @@
 Package('org.quickcorp.components.splashscreen',[
   Class('VideoSplashScreenComponent', Component, {
     name: 'splashscreen',
-    basePath:CONFIG.get('splashscreenBasePath',CONFIG.get('remoteSDKPath')),
     cached: false,
     shadowed: true,
     _new_: function(o) {
       var component = this;
+      component.basePath = CONFIG.get('splashscreenBasePath',CONFIG.get('remoteSDKPath'));
       o.data.basePath = component.basePath;
       var displayEffectDuration = 1000;
       var duration = component.body.getAttribute('duration');
