@@ -41,8 +41,9 @@ Package('org.quickcorp.components.splashscreen',[
         duration = parseInt(duration);
       }
       component._bgcolor = document.body.style.backgroundColor;
-      document.body.subelements('component[has-splashscreen]').map(
-        function (mainElement){
+      global.componentsStack.filter(c=>c.body.hasAttribute("splashscreen")).map(
+        function (mainComponent){
+          var mainElement = (mainComponent.shadowed)?(mainComponent.shadowRoot):(mainComponent.body);
           component._mainPosition = mainElement.style.position;
           mainElement.style.position = "fixed";
           component._mainDisplay = mainElement.style.display;
