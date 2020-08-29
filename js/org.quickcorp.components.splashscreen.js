@@ -41,32 +41,35 @@ Package('org.quickcorp.components.splashscreen',[
         duration = parseInt(duration);
       }
       component._bgcolor = document.body.style.backgroundColor;
-      var mainElement = document.body.subelements('component[name=main]')[0];
-      component._mainPosition = mainElement.style.position;
-      mainElement.style.position = "fixed";
-      component._mainDisplay = mainElement.style.display;
-      component.body.style.width = "100%";
-      component.body.style.height = "100%";
-      document.body.style.backgroundColor = "#111111";
-      mainElement.style.display = "none";
-      setTimeout(function() {
-        if (typeof component.shadowRoot !== "undefined"){
-          document.body.style.backgroundColor = component._bgcolor;
-          mainElement.style.display = component._mainDisplay;
-          component.shadowRoot.subelements('#slot-logo').map(function (slotlogo){
-            slotlogo.style.display = "block";
-            slotlogo.style.transformOrigin = "center";
-            Resize.apply(slotlogo,1,0);
-          });
-          Fade.apply(component.shadowRoot.host, 1, 0);
-          Fade.apply(mainElement, 0, 1);
+      document.body.subelements('component[has-splashscreen]').map(
+        function (mainElement){
+          component._mainPosition = mainElement.style.position;
+          mainElement.style.position = "fixed";
+          component._mainDisplay = mainElement.style.display;
+          component.body.style.width = "100%";
+          component.body.style.height = "100%";
+          document.body.style.backgroundColor = "#111111";
+          mainElement.style.display = "none";
+          setTimeout(function() {
+            if (typeof component.shadowRoot !== "undefined"){
+              document.body.style.backgroundColor = component._bgcolor;
+              mainElement.style.display = component._mainDisplay;
+              component.shadowRoot.subelements('#slot-logo').map(function (slotlogo){
+                slotlogo.style.display = "block";
+                slotlogo.style.transformOrigin = "center";
+                Resize.apply(slotlogo,1,0);
+              });
+              Fade.apply(component.shadowRoot.host, 1, 0);
+              Fade.apply(mainElement, 0, 1);
+            }
+          }, (duration-displayEffectDuration));
+          setTimeout(function() {
+            mainElement.style.position = component._mainPosition;
+            document.body.removeChild(component.body);
+            document.body.style.backgroundColor = component._bgcolor;
+          }, duration);
         }
-      }, (duration-displayEffectDuration));
-      setTimeout(function() {
-        mainElement.style.position = component._mainPosition;
-        document.body.removeChild(component.body);
-        document.body.style.backgroundColor = component._bgcolor;
-      }, duration);
+      )
       _super_('Component', '_new_').call(this, o);
     }
   })
