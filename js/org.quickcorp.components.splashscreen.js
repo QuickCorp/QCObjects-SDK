@@ -55,7 +55,7 @@ Package('org.quickcorp.components.splashscreen',[
             document.body.style.backgroundColor = "#111111";
             mainElement.style.display = "none";
             setTimeout(function() {
-              if (typeof component.shadowRoot !== "undefined"){
+              if (typeof _componentRoot !== "undefined"){
                 document.body.style.backgroundColor = component._bgcolor;
                 mainElement.style.display = component._mainDisplay;
                 _componentRoot.subelements('#slot-logo').map(function (slotlogo){
@@ -69,7 +69,8 @@ Package('org.quickcorp.components.splashscreen',[
             }, (duration-displayEffectDuration));
             setTimeout(function() {
               mainElement.style.position = component._mainPosition;
-              _componentRoot.parentElement.removeChild(_componentRoot);
+              _componentRoot.style.display="none";
+              mainElement.style.display="contents";
               document.body.style.backgroundColor = component._bgcolor;
             }, duration);
           }
