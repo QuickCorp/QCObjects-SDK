@@ -45,7 +45,7 @@ Package('org.quickcorp.components.splashscreen',[
         var component = this;
         global.componentsStack.filter(c=>c.body.hasAttribute("splashscreen")).map(
           function (mainComponent){
-            var mainElement = (mainComponent.shadowed)?(mainComponent.shadowRoot):(mainComponent.body);
+            var mainElement = (mainComponent.shadowed)?(mainComponent.shadowRoot.host):(mainComponent.body);
             component._mainPosition = mainElement.style.position;
             mainElement.style.position = "fixed";
             component._mainDisplay = mainElement.style.display;
