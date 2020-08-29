@@ -42,40 +42,44 @@ Package('org.quickcorp.components.splashscreen',[
       }
       component._bgcolor = document.body.style.backgroundColor;
       var _helper_ = function (){
-        var component = this;
-        var _componentRoot = (component.shadowed)?(component.shadowRoot.host):(component.body);
-        global.componentsStack.filter(c=>c.body.hasAttribute("splashscreen")).map(
-          function (mainComponent){
-            var mainElement = (mainComponent.shadowed)?(mainComponent.shadowRoot.host):(mainComponent.body);
-            component._mainPosition = mainElement.style.position;
-            mainElement.style.position = "fixed";
-            component._mainDisplay = mainElement.style.display;
-            _componentRoot.style.width = "100%";
-            _componentRoot.style.height = "100%";
-            document.body.style.backgroundColor = "#111111";
-            mainElement.style.display = "none";
-            setTimeout(function() {
-              if (typeof _componentRoot !== "undefined"){
+        if (!_helper_.executed){
+          var component = this;
+          var _componentRoot = (component.shadowed)?(component.shadowRoot.host):(component.body);
+          global.componentsStack.filter(c=>c.body.hasAttribute("splashscreen")).map(
+            function (mainComponent){
+              var mainElement = (mainComponent.shadowed)?(mainComponent.shadowRoot.host):(mainComponent.body);
+              component._mainPosition = mainElement.style.position;
+              mainElement.style.position = "fixed";
+              component._mainDisplay = mainElement.style.display;
+              _componentRoot.style.width = "100%";
+              _componentRoot.style.height = "100%";
+              document.body.style.backgroundColor = "#111111";
+              mainElement.style.display = "none";
+              setTimeout(function() {
+                if (typeof _componentRoot !== "undefined"){
+                  document.body.style.backgroundColor = component._bgcolor;
+                  mainElement.style.display = component._mainDisplay;
+                  _componentRoot.subelements('#slot-logo').map(function (slotlogo){
+                    slotlogo.style.display = "block";
+                    slotlogo.style.transformOrigin = "center";
+                    Resize.apply(slotlogo,1,0);
+                  });
+                  Fade.apply(_componentRoot, 1, 0);
+                  Fade.apply(mainElement, 0, 1);
+                }
+              }, (duration-displayEffectDuration));
+              setTimeout(function() {
+                mainElement.style.position = component._mainPosition;
+                _componentRoot.style.display="none";
+                mainElement.style.display="contents";
                 document.body.style.backgroundColor = component._bgcolor;
-                mainElement.style.display = component._mainDisplay;
-                _componentRoot.subelements('#slot-logo').map(function (slotlogo){
-                  slotlogo.style.display = "block";
-                  slotlogo.style.transformOrigin = "center";
-                  Resize.apply(slotlogo,1,0);
-                });
-                Fade.apply(_componentRoot, 1, 0);
-                Fade.apply(mainElement, 0, 1);
-              }
-            }, (duration-displayEffectDuration));
-            setTimeout(function() {
-              mainElement.style.position = component._mainPosition;
-              _componentRoot.style.display="none";
-              mainElement.style.display="contents";
-              document.body.style.backgroundColor = component._bgcolor;
-            }, duration);
-          }
-        );
+              }, duration);
+            }
+          );
+          _helper_.executed=true;
+        }
       };
+      _helper_.executed=false;
       component.addComponentHelper(_helper_.bind(component));
       _super_('Component', '_new_').call(this, o);
     }
