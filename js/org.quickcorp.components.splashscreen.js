@@ -43,32 +43,33 @@ Package('org.quickcorp.components.splashscreen',[
       component._bgcolor = document.body.style.backgroundColor;
       var _helper_ = function (){
         var component = this;
+        var _componentRoot = (component.shadowed)?(component.shadowRoot.host):(component.body);
         global.componentsStack.filter(c=>c.body.hasAttribute("splashscreen")).map(
           function (mainComponent){
             var mainElement = (mainComponent.shadowed)?(mainComponent.shadowRoot.host):(mainComponent.body);
             component._mainPosition = mainElement.style.position;
             mainElement.style.position = "fixed";
             component._mainDisplay = mainElement.style.display;
-            component.body.style.width = "100%";
-            component.body.style.height = "100%";
+            _componentRoot.style.width = "100%";
+            _componentRoot.style.height = "100%";
             document.body.style.backgroundColor = "#111111";
             mainElement.style.display = "none";
             setTimeout(function() {
               if (typeof component.shadowRoot !== "undefined"){
                 document.body.style.backgroundColor = component._bgcolor;
                 mainElement.style.display = component._mainDisplay;
-                component.shadowRoot.subelements('#slot-logo').map(function (slotlogo){
+                _componentRoot.subelements('#slot-logo').map(function (slotlogo){
                   slotlogo.style.display = "block";
                   slotlogo.style.transformOrigin = "center";
                   Resize.apply(slotlogo,1,0);
                 });
-                Fade.apply(component.shadowRoot.host, 1, 0);
+                Fade.apply(_componentRoot, 1, 0);
                 Fade.apply(mainElement, 0, 1);
               }
             }, (duration-displayEffectDuration));
             setTimeout(function() {
               mainElement.style.position = component._mainPosition;
-              document.body.removeChild(component.body);
+              _componentRoot.parentElement.removeChild(_componentRoot);
               document.body.style.backgroundColor = component._bgcolor;
             }, duration);
           }
