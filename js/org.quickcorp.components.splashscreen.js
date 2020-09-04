@@ -31,63 +31,71 @@ Package('org.quickcorp.components.splashscreen',[
     shadowed: true,
     _new_: function(o) {
       var component = this;
-      component.basePath = CONFIG.get('splashscreenBasePath',CONFIG.get('remoteSDKPath'));
-      o.data.basePath = component.basePath;
-      var displayEffectDuration = 1000;
-      var duration = component.body.getAttribute('duration');
-      if (duration === null){
-        duration = 3000;
-      } else {
-        duration = parseInt(duration);
-      }
-      component._bgcolor = document.body.style.backgroundColor;
-      var _helper_ = function (){
-        if (!_helper_.executed){
-          var component = this;
-          var _componentRoot = (component.shadowed)?(component.shadowRoot.host):(component.body);
-          global.componentsStack.filter(c=>c.body.hasAttribute("splashscreen")).map(
-            function (mainComponent){
-              mainComponent.splashScreenComponent = component;
-              var _splash_screen_ = function (){
-                if (!_splash_screen_.executed){
-                  var mainComponent = this;
-                  var component = mainComponent.splashScreenComponent;
-                  var mainElement = (mainComponent.shadowed)?(mainComponent.shadowRoot.host):(mainComponent.body);
-                  mainComponent._mainPosition = mainElement.style.position;
-                  mainElement.style.position = "fixed";
-                  mainComponent._mainOpacity = mainElement.style.opacity;
-                  _componentRoot.style.width = "100%";
-                  _componentRoot.style.height = "100%";
-                  document.body.style.backgroundColor = "#111111";
-                  mainElement.style.opacity = 0;
-                  setTimeout(function() {
-                    if (typeof _componentRoot !== "undefined"){
-                      document.body.style.backgroundColor = component._bgcolor;
-                      _componentRoot.subelements('#slot-logo').map(function (slotlogo){
-                        slotlogo.style.display = "block";
-                        slotlogo.style.transformOrigin = "center";
-                        Resize.apply(slotlogo,1,0);
-                      });
-                      Fade.apply(_componentRoot, 1, 0);
-                      Fade.apply(mainElement, 0, 1);
-                    }
-                  }, (duration-displayEffectDuration));
-                  setTimeout(function() {
-                    mainElement.style.position = mainComponent._mainPosition;
-                    document.body.style.backgroundColor = component._bgcolor;
-                  }, duration);
-                }
-                _splash_screen_.executed=true;
-              };
-              _splash_screen_.executed=false;
-              mainComponent.addComponentHelper(_splash_screen_.bind(mainComponent));
-            }
-          );
-          _helper_.executed=true;
+      var _componentRoot = (component.shadowed)?(component.shadowRoot.host):(component.body);
+      var _enabled_ = isBrowser
+        && location.hash === ""
+        && location.pathname === "/" && location.search === "";
+      if (_enabled_){
+        component.basePath = CONFIG.get('splashscreenBasePath',CONFIG.get('remoteSDKPath'));
+        o.data.basePath = component.basePath;
+        var displayEffectDuration = 1000;
+        var duration = component.body.getAttribute('duration');
+        if (duration === null){
+          duration = 3000;
+        } else {
+          duration = parseInt(duration);
         }
-      };
-      _helper_.executed=false;
-      component.addComponentHelper(_helper_.bind(component));
+        component._bgcolor = document.body.style.backgroundColor;
+        var _helper_ = function (){
+          if (!_helper_.executed){
+            var component = this;
+            var _componentRoot = (component.shadowed)?(component.shadowRoot.host):(component.body);
+            global.componentsStack.filter(c=>c.body.hasAttribute("splashscreen")).map(
+              function (mainComponent){
+                mainComponent.splashScreenComponent = component;
+                var _splash_screen_ = function (){
+                  if (!_splash_screen_.executed){
+                    var mainComponent = this;
+                    var component = mainComponent.splashScreenComponent;
+                    var mainElement = (mainComponent.shadowed)?(mainComponent.shadowRoot.host):(mainComponent.body);
+                    mainComponent._mainPosition = mainElement.style.position;
+                    mainElement.style.position = "fixed";
+                    mainComponent._mainOpacity = mainElement.style.opacity;
+                    _componentRoot.style.width = "100%";
+                    _componentRoot.style.height = "100%";
+                    document.body.style.backgroundColor = "#111111";
+                    mainElement.style.opacity = 0;
+                    setTimeout(function() {
+                      if (typeof _componentRoot !== "undefined"){
+                        document.body.style.backgroundColor = component._bgcolor;
+                        _componentRoot.subelements('#slot-logo').map(function (slotlogo){
+                          slotlogo.style.display = "block";
+                          slotlogo.style.transformOrigin = "center";
+                          Resize.apply(slotlogo,1,0);
+                        });
+                        Fade.apply(_componentRoot, 1, 0);
+                        Fade.apply(mainElement, 0, 1);
+                      }
+                    }, (duration-displayEffectDuration));
+                    setTimeout(function() {
+                      mainElement.style.position = mainComponent._mainPosition;
+                      document.body.style.backgroundColor = component._bgcolor;
+                    }, duration);
+                  }
+                  _splash_screen_.executed=true;
+                };
+                _splash_screen_.executed=false;
+                mainComponent.addComponentHelper(_splash_screen_.bind(mainComponent));
+              }
+            );
+            _helper_.executed=true;
+          }
+        };
+        _helper_.executed=false;
+        component.addComponentHelper(_helper_.bind(component));
+      } else {
+        _componentRoot.style.display="none";
+      }
       _super_('Component', '_new_').call(this, o);
     }
   })
