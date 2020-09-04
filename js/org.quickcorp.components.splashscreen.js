@@ -31,7 +31,6 @@ Package('org.quickcorp.components.splashscreen',[
     shadowed: true,
     _new_: function(o) {
       var component = this;
-      var _componentRoot = (component.shadowed)?(component.shadowRoot.host):(component.body);
       var _enabled_ = isBrowser
         && location.hash === ""
         && location.pathname === "/" && location.search === "";
@@ -94,6 +93,7 @@ Package('org.quickcorp.components.splashscreen',[
         _helper_.executed=false;
         component.addComponentHelper(_helper_.bind(component));
       } else {
+        var _componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
         _componentRoot.style.display="none";
       }
       _super_('Component', '_new_').call(this, o);
