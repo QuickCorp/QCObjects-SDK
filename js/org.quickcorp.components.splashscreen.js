@@ -30,6 +30,7 @@ Package('org.quickcorp.components.splashscreen',[
     cached: false,
     shadowed: true,
     _new_: function(o) {
+      var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
       var component = this;
       var _enabled_ = isBrowser
         && location.hash === ""
