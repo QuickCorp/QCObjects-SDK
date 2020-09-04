@@ -94,8 +94,7 @@ Package('org.quickcorp.components.splashscreen',[
         _helper_.executed=false;
         component.addComponentHelper(_helper_.bind(component));
       } else {
-        var _componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
-        _componentRoot.style.display="none";
+        component.body.style.display="none";
       }
       _super_('Component', '_new_').call(this, o);
     }
