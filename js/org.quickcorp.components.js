@@ -121,7 +121,7 @@
     }),
     Class('ModalEnclosureComponent',Component,{
       name:'modal',
-      tplsource:'none',
+      tplsource:'inline',
       cached:false,
       basePath:CONFIG.get('modalBasePath',CONFIG.get('remoteSDKPath')),
       data:{},
