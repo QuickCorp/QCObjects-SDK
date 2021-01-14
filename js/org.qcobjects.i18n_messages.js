@@ -1,5 +1,5 @@
 'use strict';
-Package('org.quickcorp.i18n_messages', [
+Package('org.qcobjects.i18n_messages', [
   Class('i18n_messages',Object,{
     _load_i18n_packages_: function (){
       return CONFIG.get('i18n_languages',[]).map((i18n_packagename)=>{

@@ -36,6 +36,6 @@
   },
   "homepage": "https://github.com/QuickCorp/QCObjects-SDK#readme",
   "dependencies": {
-    "jasmine": "^3.5.0"
+    "jasmine": "^3.6.3"
   }
 }

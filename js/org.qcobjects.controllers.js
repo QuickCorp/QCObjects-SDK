@@ -1,6 +1,6 @@
 'use strict';
-Package('org.quickcorp.views',[
-  Class('GridView',View,{
+Package('org.qcobjects.controllers',[
+  Class('GenericController',Controller,{
     dependencies:[],
     component:null,
     _new_:function (o){

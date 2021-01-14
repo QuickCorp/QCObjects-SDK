@@ -1,5 +1,5 @@
 'use strict';
-Package('org.quickcorp.modal.effects',[
+Package('org.qcobjects.modal.effects',[
   Class('ModalFade',Effect,{
     duration:500,
     apply: function (){

@@ -47,9 +47,13 @@
       Import('org.quickcorp.components',function (){},external),
       Import('org.quickcorp.components.splashscreen',function (){},external),
       Import('org.quickcorp.controllers',function (){},external),
+      Import("org.qcobjects.controllers.grid",function (){},external);
+      Import("org.qcobjects.controllers.form",function (){},external);
+      Import("org.qcobjects.controllers.swagger",function (){},external);
+      Import("org.qcobjects.modal.controllers",function (){},external);
+      Import('org.quickcorp.modal.effects',function (){},external),
       Import('org.quickcorp.views',function (){},external),
       Import('org.quickcorp.effects',function (){},external),
-      Import('org.quickcorp.modal.effects',function (){},external),
       Import('org.quickcorp.tools.canvas',function (){},external),
       Import('org.quickcorp.tools.layouts',function (){},external)
     ];

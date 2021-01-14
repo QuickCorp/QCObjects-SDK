@@ -1,5 +1,5 @@
 /**
- * QCObjects SDK 1.0
+ * QCObjects SDK 2.3
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -24,7 +24,7 @@
 */
 "use strict";
 (function() {
-  Package('org.quickcorp.components',[
+  Package('org.qcobjects.components',[
     Class('ShadowedComponent',Component,{
       container:null,
       body:null,

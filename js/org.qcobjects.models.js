@@ -1,5 +1,5 @@
 'use strict';
-Package('org.quickcorp.models',[
+Package('org.qcobjects.models',[
   Class('Contact',VO,{
     first_name:'',
     last_name:'',

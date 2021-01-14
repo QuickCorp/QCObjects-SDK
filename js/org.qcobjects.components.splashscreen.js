@@ -1,5 +1,5 @@
 /**
- * QCObjects SDK 1.0
+ * QCObjects SDK 2.3
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -24,7 +24,7 @@
 */
 (function() {
 'use strict';
-Package('org.quickcorp.components.splashscreen',[
+Package('org.qcobjects.components.splashscreen',[
   Class('VideoSplashScreenComponent', Component, {
     name: 'splashscreen',
     cached: false,
