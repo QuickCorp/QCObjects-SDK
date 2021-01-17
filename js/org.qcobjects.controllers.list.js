@@ -24,13 +24,19 @@ Package('org.qcobjects.controllers.list',[
     addSubcomponents:function (){
       var controller = this;
       controller.component.subcomponents = [];
-      var basePath = CONFIG.get('listBasePath',CONFIG.get('remoteSDKPath'))
-      controller._componentRoot.innerHTML = `
-<style>
-@import url("${basePath}css/components/list.css");
-
-</style>
-<ul></ul>`;
+      var layout = controller.component.body.getAttribute("layout");
+      var basePath = CONFIG.get('listBasePath',CONFIG.get('remoteSDKPath'));
+      var cssLayout = "";
+      if (layout === "horizontal"){
+        cssLayout = `
+          @import url("${basePath}css/components/horizontal-list.css");
+        `;
+      } else {
+        cssLayout = `
+          @import url("${basePath}css/components/list.css");
+        `;
+      }
+      controller._componentRoot.innerHTML = `<style>${cssLayout}</style><ul></ul>`;
       logger.debug(_DataStringify(controller.component.data));
       try {
         var subcomponentClass = controller.component.body.getAttribute('subcomponentClass');
