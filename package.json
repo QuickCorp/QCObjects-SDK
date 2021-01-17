@@ -34,7 +34,7 @@
   "bugs": {
     "url": "https://github.com/QuickCorp/QCObjects-SDK/issues"
   },
-  "homepage": "https://github.com/QuickCorp/QCObjects-SDK#readme",
+  "homepage": "https://sdk.qcobjects.dev",
   "dependencies": {
     "jasmine": "^3.6.3"
   }
