@@ -42,6 +42,8 @@ Package('org.qcobjects.controllers.grid',[
     component:null,
     _new_:function (o){
       var controller=this;
+      var component = controller.component;
+      controller._componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
       controller.rows=controller.component.body.getAttribute("rows");
       controller.rows=(controller.rows !== null)?(controller.rows):(controller.component.rows);
       controller.cols=controller.component.body.getAttribute("cols");
@@ -59,6 +61,7 @@ Package('org.qcobjects.controllers.grid',[
       var controller = this;
       controller.component.subcomponents = [];
       controller.component.body.innerHTML = '';
+      controller.cssGrid();
       logger.debug(_DataStringify(controller.component.data));
       try {
         var subcomponentClass = controller.component.body.getAttribute('subcomponentClass');
@@ -95,13 +98,20 @@ Package('org.qcobjects.controllers.grid',[
                   _body.setAttribute("name",ClassFactory(subcomponentClass).name);
                   _body.setAttribute("shadowed",ClassFactory(subcomponentClass).shadowed);
                   _body.setAttribute("cached",ClassFactory(subcomponentClass).cached);
+                  record = Object.assign(record, {
+                    __dataIndex:dataIndex,
+                    __page:page,
+                    __totalPages:pagesNumber,
+                    __limit:limit,
+                    __offset:offset
+                  })
                   var subcomponent = New(ClassFactory(subcomponentClass),{
                     data:record,
                     templateURI:ComponentURI({
                       'COMPONENTS_BASE_PATH':CONFIG.get('componentsBasePath'),
                       'COMPONENT_NAME':ClassFactory(subcomponentClass).name,
                       'TPLEXTENSION':CONFIG.get('tplextension'),
-                      'TPL_SOURCE':'default' //here is always default in order to get the right uri
+                      'TPL_SOURCE':ClassFactory(subcomponentClass).tplsource
                     }),
                     body:_body
                   });
@@ -113,7 +123,7 @@ Package('org.qcobjects.controllers.grid',[
                         subcomponent.data.__dataLength = controller.component.data.length;
                       }
                       logger.debug('adding subcomponent to body');
-                      controller.component.body.append(subcomponent.body);
+                      controller._componentRoot.append(subcomponent);
                       try {
                         controller.component.subcomponents.push(subcomponent);
                       }catch (e){
@@ -160,8 +170,6 @@ Package('org.qcobjects.controllers.grid',[
     },
     done:function (){
       var controller = this;
-      controller.cssGrid();
-
       var componentInstance = controller.component;
       logger.debug('DataGridController DONE');
       var serviceClass = controller.component.body.getAttribute('serviceClass');
@@ -214,5 +222,5 @@ Package('org.qcobjects.controllers.grid',[
     }
 
   })
-  
+
 ]);

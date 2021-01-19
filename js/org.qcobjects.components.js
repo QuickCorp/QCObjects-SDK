@@ -106,19 +106,6 @@
     Class('EmailField',FormField,{
       fieldType:'input'
     }),
-    Class('GridComponent',Component,{
-      name:'grid',
-      cached:false,
-      controller:null,
-      view:null,
-      rows:3,
-      cols:3,
-      reload:true,
-      template:'',
-      templateURI:'',
-      data:{},
-      body:null
-    }),
     Class('ModalEnclosureComponent',Component,{
       name:'modal',
       tplsource:'inline',

@@ -45,6 +45,7 @@
       Import('org.qcobjects.i18n_messages',function (){},external),
       Import('org.qcobjects.models',function (){},external),
       Import('org.qcobjects.components',function (){},external),
+      Import('org.qcobjects.components.grid',function (){},external),
       Import('org.qcobjects.components.splashscreen',function (){},external),
       Import('org.qcobjects.controllers',function (){},external),
       Import("org.qcobjects.controllers.grid",function (){},external);
