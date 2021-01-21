@@ -2,7 +2,7 @@
 Package('org.qcobjects.components.grid',[
   Class('GridItemComponent',Component,{
     name:'grid-item',
-    shadowed: false,
+    shadowed: true,
     tplsource: "inline",
     template:`
     <img src="{{image}}" />
@@ -14,16 +14,15 @@ Package('org.qcobjects.components.grid',[
     name:'grid',
     cached:false,
     view:null,
-    shadowed: false,
+    shadowed: true,
     rows:3,
     cols:3,
-    reload:true,
     templateURI:'',
     data:{},
     tplsource: "inline",
     template: `<p>Loading...</p>`,
     _new_ (o){
-      o.body.setAttribute("controllerClass","DataGridController");
+      o.body.setAttribute("controllerClass","org.qcobjects.controllers.grid.DataGridController");
       var subcomponentClass = (o.body.getAttribute("subcomponentClass") !== null)?(o.body.getAttribute("subcomponentClass")):("GridItemComponent");
       o.body.setAttribute("subcomponentClass",subcomponentClass);
       _super_("Component","_new_").call(this,o);

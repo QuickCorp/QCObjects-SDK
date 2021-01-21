@@ -28,18 +28,14 @@ Package('org.qcobjects.controllers.list',[
       var basePath = CONFIG.get('listBasePath',CONFIG.get('remoteSDKPath'));
       var cssLayout = "";
       if (layout === "horizontal"){
-        cssLayout = `
-          @import url("${basePath}css/components/horizontal-list.css");
-        `;
+        cssLayout = `@import url("${basePath}css/components/horizontal-list.css");`;
       } else {
-        cssLayout = `
-          @import url("${basePath}css/components/list.css");
-        `;
+        cssLayout = `@import url("${basePath}css/components/list.css");`;
       }
       controller._componentRoot.innerHTML = `<style>${cssLayout}</style><ul></ul>`;
       logger.debug(_DataStringify(controller.component.data));
       try {
-        var subcomponentClass = controller.component.body.getAttribute('subcomponentClass');
+        var subcomponentClass = controller.component.body.getAttribute("subcomponentClass");
         if (subcomponentClass != null){
           var offset;
           var limit;

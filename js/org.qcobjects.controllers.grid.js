@@ -26,7 +26,11 @@ Package('org.qcobjects.controllers.grid',[
                           margin:0 auto; \
                       }';
         _componentRoot.append(s);
-        _componentRoot.classList.add(className);
+        if (component.shadowed){
+          _componentRoot.host.classList.add(className);
+        } else {
+          _componentRoot.classList.add(className);
+        }
       }
     },
     done: function (){
@@ -60,7 +64,7 @@ Package('org.qcobjects.controllers.grid',[
     addSubcomponents:function (){
       var controller = this;
       controller.component.subcomponents = [];
-      controller.component.body.innerHTML = '';
+      controller._componentRoot.innerHTML = '';
       controller.cssGrid();
       logger.debug(_DataStringify(controller.component.data));
       try {
@@ -92,18 +96,19 @@ Package('org.qcobjects.controllers.grid',[
             pagesNumber = 1;
           }
           list.map(
-            function (record,dataIndex){
+            function (record,dataIndex, list){
                 try {
                   var _body = _DOMCreateElement('component');
                   _body.setAttribute("name",ClassFactory(subcomponentClass).name);
                   _body.setAttribute("shadowed",ClassFactory(subcomponentClass).shadowed);
                   _body.setAttribute("cached",ClassFactory(subcomponentClass).cached);
                   record = Object.assign(record, {
-                    __dataIndex:dataIndex,
-                    __page:page,
-                    __totalPages:pagesNumber,
-                    __limit:limit,
-                    __offset:offset
+                    __dataIndex: dataIndex,
+                    __dataLength: list.length,
+                    __page: page,
+                    __totalPages: pagesNumber,
+                    __limit: limit,
+                    __offset: offset
                   })
                   var subcomponent = New(ClassFactory(subcomponentClass),{
                     data:record,
@@ -113,7 +118,8 @@ Package('org.qcobjects.controllers.grid',[
                       'TPLEXTENSION':CONFIG.get('tplextension'),
                       'TPL_SOURCE':ClassFactory(subcomponentClass).tplsource
                     }),
-                    body:_body
+                    body:_body,
+                    template:ClassFactory(subcomponentClass).template
                   });
                   subcomponent.done = controller.component.done.bind(subcomponent);
                   try {
@@ -123,7 +129,7 @@ Package('org.qcobjects.controllers.grid',[
                         subcomponent.data.__dataLength = controller.component.data.length;
                       }
                       logger.debug('adding subcomponent to body');
-                      controller._componentRoot.append(subcomponent);
+                      controller._componentRoot.append(subcomponent.body);
                       try {
                         controller.component.subcomponents.push(subcomponent);
                       }catch (e){
@@ -164,8 +170,13 @@ Package('org.qcobjects.controllers.grid',[
                           grid-template-columns: '+templateCols+'; \
                           margin:0 auto; \
                       }';
-        _componentRoot.append(s);
-        _componentRoot.classList.add(className);
+        if (component.shadowed){
+          component.body.append(s);
+          _componentRoot.host.classList.add(className);
+        } else {
+          _componentRoot.append(s);
+          _componentRoot.classList.add(className);
+        }
       }
     },
     done:function (){
@@ -215,6 +226,7 @@ Package('org.qcobjects.controllers.grid',[
 
           }).catch ((e)=>{
             logger.debug('Something went wrong when calling the service from: '+serviceClass);
+            logger.debug(e.message);
           });
 
       }

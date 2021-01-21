@@ -48,10 +48,10 @@
       Import('org.qcobjects.components.grid',function (){},external),
       Import('org.qcobjects.components.splashscreen',function (){},external),
       Import('org.qcobjects.controllers',function (){},external),
-      Import("org.qcobjects.controllers.grid",function (){},external);
-      Import("org.qcobjects.controllers.form",function (){},external);
-      Import("org.qcobjects.controllers.swagger",function (){},external);
-      Import("org.qcobjects.modal.controllers",function (){},external);
+      Import("org.qcobjects.controllers.grid",function (){},external),
+      Import("org.qcobjects.controllers.form",function (){},external),
+      Import("org.qcobjects.controllers.swagger",function (){},external),
+      Import("org.qcobjects.modal.controllers",function (){},external),
       Import('org.qcobjects.modal.effects',function (){},external),
       Import('org.qcobjects.views',function (){},external),
       Import('org.qcobjects.effects',function (){},external),
