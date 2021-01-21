@@ -93,7 +93,7 @@ Package('org.qcobjects.components.slider',[
     :host .blog-slider__text {
       color: #f2f2f2;
       font-size: 15px;
-      padding: 8px 12px;
+/*      padding: 8px 12px;*/
       position: absolute;
       bottom: 8px;
       width: 100%;
