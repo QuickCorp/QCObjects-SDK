@@ -15,9 +15,9 @@ Package('org.qcobjects.components.slider',[
     name:'slider_item',
     template: `
     <div class="qcoSlides" style="display:none">
-      <div class="blog-slider__numbertext">{{slideNumber}} / {{__dataLength}}</div>
+      <div class="qco-slider__numbertext">{{slideNumber}} / {{__dataLength}}</div>
       <img src="{{image}}" alt="{{name}}"/>
-      <div class="blog-slider__text">
+      <div class="qco-slider__text">
         <p>{{label}} <a href="{{link}}">{{category}}</a></p>
       </div>
     </div>
@@ -48,13 +48,13 @@ Package('org.qcobjects.components.slider',[
     }
 
     :host .prev {left:0;}
-    .blog-slider__container {
+    .qco-slider__container {
       max-width: 100%;
       position: relative;
       margin: auto;
       height: 300px;
     }
-    :host .blog-slider__container .qcoSlides img {
+    :host .qco-slider__container .qcoSlides img {
       object-fit: cover;
       width: 100%;
       height: 300px;
@@ -90,7 +90,7 @@ Package('org.qcobjects.components.slider',[
     }
 
     /* Caption text */
-    :host .blog-slider__text {
+    :host .qco-slider__text {
       color: #f2f2f2;
       font-size: 15px;
 /*      padding: 8px 12px;*/
@@ -103,7 +103,7 @@ Package('org.qcobjects.components.slider',[
     }
 
     /* Number text (1/3 etc) */
-    :host .blog-slider__numbertext {
+    :host .qco-slider__numbertext {
       color: #f2f2f2;
       text-shadow: 0px 2px 3px #111111;
       font-size: 12px;
@@ -136,13 +136,13 @@ Package('org.qcobjects.components.slider',[
       background-color: #717171;
     }
 
-    :host .blog-slider__container .qcoSlides img {
+    :host .qco-slider__container .qcoSlides img {
       border-radius: 30px 30px 0px 0px;
     }
 
     </style>
 
-    <div class="blog-slider__container">
+    <div class="qco-slider__container">
       <component name="slidelist" componentClass="SlideListComponent" subcomponentClass="SlideItemComponent" serviceClass="{{SERVICE_CLASS}}" ></component>
 
       <a class="prev" onclick="global.get('{{sliderHandler}}').plusSlidesAndStop(-1)">&#10094;</a>
