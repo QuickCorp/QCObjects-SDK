@@ -1,5 +1,5 @@
 /**
- * QCObjects SDK 1.0
+ * QCObjects SDK 2.3
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -24,27 +24,34 @@
 */
 "use strict";
 (function() {
-  Package('org.quickcorp.tools.canvas',[
-    Class('CanvasTool',{
-      drawImageFilled: function (img,canvas,zoom=1,px=0,py=0){
-        // get the scale
-        var scale = Math.max(canvas.width / img.width, canvas.height / img.height);
-        scale = scale*zoom;
-        // get the top left position of the image
-        var x = (canvas.width / 2) - (img.width / 2) * scale;
-        var y = (canvas.height / 2) - (img.height / 2) * scale;
-        var ctx = canvas.getContext('2d');
-        ctx.drawImage(img, (px+x), (py+y), img.width * scale, img.height * scale);
+  Package("org.qcobjects.tools",[
+    Class("Process",Timer,{
+      steps:[],
+      currentStep:0,
+      stop: function (){
+        this.alive=false;
       },
-      getImageResized: function (img,width,height,resizedImage,zoom=1,px=0,py=0){
-        var canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
-        canvas.style.width = width;
-        canvas.style.height = height;
-        this.drawImageFilled(img,canvas,zoom,px,py);
-        resizedImage.src = canvas.toDataURL("image/png");
-        return canvas;
+      start: function (){
+        var process = this;
+        process.alive=true;
+        this.thread({
+          duration: this.duration,
+          timing(timeFraction) {
+            process.currentStep+=1;
+            process.map(function (p){
+              if (typeof p == "function"){
+                Promise.resolve().then(
+                  function (){
+                    p.call(process);
+                  });
+              }
+            });
+            return timeFraction;
+          },
+          draw(progress) {
+            logger.debug("process execution progress: "+progress.toString());
+          }
+        });
       }
     })
   ]);

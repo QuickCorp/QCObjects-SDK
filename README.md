@@ -35,7 +35,7 @@ CONFIG.set('useSDK',true);
 </script>
 ```
 
-NOTE: This dependence is included by default in the QCObjects runtime execution. You only need to install it if your having issues with default paths 
+NOTE: This dependence is included by default in the QCObjects runtime execution. You only need to install it if your having issues with default paths
 
 
 
@@ -43,7 +43,7 @@ NOTE: This dependence is included by default in the QCObjects runtime execution.
 
 ### SDK Components
 
-#### org.quickcorp.components.ShadowedComponent
+#### org.qcobjects.components.ShadowedComponent
 
 **ShadowedComponent** Class is a custom component class designed to allow you to create a component using the Shadow DOM of browsers. Read more about Shadowed Components on [this article on Hackernoon] (https://www.hackernoon.com/shadowed-components-and-qcobjects-kd703yld).
 
@@ -53,7 +53,7 @@ NOTE: This dependence is included by default in the QCObjects runtime execution.
 <component componentClass="ShadowedComponent"></component>
 ```
 
-#### org.quickcorp.components.FormField
+#### org.qcobjects.components.FormField
 
 **FormField** is a Class for **QCObjects** custom components that allows you to inject a Form Field generic behavior to your components. It has a reverse data-binding feature to detect the values of the DOM fields inside your form and assign them to the data values of your component. By this way, you don't loose performance making an old-fashioned two-way data binding based on observables. To implement this advanced behavior. You only need to do the following:
 
@@ -102,7 +102,7 @@ Inside of the body of your component, when it is a **FormField** component, ever
 Inside of the body of your component, when it is a **FormField** component, every time the DOM dispatches a "Keydown" event, it will trigger the executeBindings method of your component.
 
 
-#### org.quickcorp.components.ButtonField
+#### org.qcobjects.components.ButtonField
 
 **ButtonField** is a sub-definition of **FormField**, that is commonly used for almost the same purpose of FormField. The main difference between ButtonField and FormField is that ButtonField has a **```<button>```** DOM element as the body of the component by default. And FormField hasn't a pre-defined body.
 
@@ -112,7 +112,7 @@ Inside of the body of your component, when it is a **FormField** component, ever
 <component name="name_of_component" componentClass="ButtonField"></component>
 ```
 
-#### org.quickcorp.components.InputField
+#### org.qcobjects.components.InputField
 
 **InputField** is a sub-definition of **FormField**, that is commonly used for almost the same purpose of FormField. The main difference between InputField and FormField is that InputField has a **<input>** DOM element as the body of the component by default. And FormField hasn't a pre-defined body.
 
@@ -123,7 +123,7 @@ Inside of the body of your component, when it is a **FormField** component, ever
 ```
 
 
-#### org.quickcorp.components.TextField
+#### org.qcobjects.components.TextField
 
 **ButtonField** is a sub-definition of **FormField**, that is commonly used for almost the same purpose of FormField. The main difference between InputField and FormField is that ButtonField has a **```<textarea>```** DOM element as the body of the component by default. And FormField hasn't a pre-defined body.
 
@@ -134,7 +134,7 @@ Inside of the body of your component, when it is a **FormField** component, ever
 ```
 
 
-#### org.quickcorp.components.EmailField
+#### org.qcobjects.components.EmailField
 
 **EmailField** is a sub-definition of **FormField**, that is commonly used for almost the same purpose of FormField. The main difference between ButtonField and FormField is that ButtonField has a **```<input>```** DOM element as the body of the component by default. And FormField hasn't a pre-defined body.
 
@@ -144,7 +144,7 @@ Inside of the body of your component, when it is a **FormField** component, ever
 <component name="name_of_component" componentClass="EmailField"></component>
 ```
 
-#### org.quickcorp.components.GridComponent
+#### org.qcobjects.components.GridComponent
 
 GridComponent has a predefined name assigned to the value "grid", so be aware of it when you use this component class. Also, GridComponent is intended to be used in conjunction with GridController to expand its behavior to a CSS Grid.
 
@@ -175,11 +175,11 @@ Don't forget this file:
 <p>Loading grid...</p>
 ```
 
-#### org.quickcorp.components.ModalEnclosureComponent
+#### org.qcobjects.components.ModalEnclosureComponent
 
-#### org.quickcorp.components.ModalComponent
+#### org.qcobjects.components.ModalComponent
 
-#### org.quickcorp.components.SwaggerUIComponent
+#### org.qcobjects.components.SwaggerUIComponent
 
 It is used to inject a swagger-ui DOM needed to the Swagger UI API. Learn more in this article of QCObjects DevBlog called [Working with Swagger UI as a QCObjects Component](https://devblog.qcobjects.org/working-with-swagger-ui-as-a-qcobjects-component-ck6xzoqkg05indfs1i4rxq72e)
 
@@ -189,7 +189,7 @@ It is used to inject a swagger-ui DOM needed to the Swagger UI API. Learn more i
 <component componentClass="SwaggerUIComponent" controllerClass="SwaggerUIController" ></component>
 ```
 
-#### org.quickcorp.components.splashscreen.VideoSplashScreenComponent
+#### org.qcobjects.components.splashscreen.VideoSplashScreenComponent
 
 A powerful component definition to allow you create an awesome Video Splash Screen for your progressive web app.
 
@@ -211,11 +211,11 @@ A powerful component definition to allow you create an awesome Video Splash Scre
 
 ### SDK Controllers
 
-#### org.quickcorp.controllers.GridController
+#### org.qcobjects.controllers.GridController
 
-**GridController** is intended to be used in conjunction with **GridComponent** to allow you to create a CSS grid to place subcomponents. More info in [org.quickcorp.components.GridComponent](#org.quickcorp.components.GridComponent)
+**GridController** is intended to be used in conjunction with **GridComponent** to allow you to create a CSS grid to place subcomponents. More info in [org.qcobjects.components.GridComponent](#org.qcobjects.components.GridComponent)
 
-#### org.quickcorp.controllers.DataGridController
+#### org.qcobjects.controllers.DataGridController
 
 **DataGridController** will take the data of your component and map a set of subcomponents to fill it up.
 This is commonly used to render a dynamic list of components. It used a **subcomponentClass** attribute value in the **component** tag to determine what component definition to use to build and render every sub-component. The data on every sub-component will be filled up with the value of the element mapped to the sub-component.
@@ -291,9 +291,9 @@ Class("MyListComponent",Component,{
 
 The resulting component will be a list of **CardComponent** with the data of every profile mapped into them by **DataGridController**.
 
-#### org.quickcorp.controllers.ModalController
+#### org.qcobjects.controllers.ModalController
 
-#### org.quickcorp.controllers.FormValidations
+#### org.qcobjects.controllers.FormValidations
 
 **FormValidations** is used to handle default validations for the **FormController**
 
@@ -305,7 +305,7 @@ FormValidations.getDefault(validationName)
 
 Where **validationName** is the name of the validation present in the **validations** property of the **FormController**
 
-#### org.quickcorp.controllers.FormController
+#### org.qcobjects.controllers.FormController
 
 The FormController definition is intended to help you to handle dynamic forms. By using the normalised syntax of the FormController definition, you don't have to code the complexity of the logic of a submit form, as it is atomised here in three steps.
 
@@ -482,7 +482,7 @@ Class('SignupFormController',Controller,{
 </component>
 ```
 
-#### org.quickcorp.controllers.SwaggerUIController
+#### org.qcobjects.controllers.SwaggerUIController
 
 It is used to inject a swagger-ui DOM needed to the Swagger UI API. Learn more in this article of QCObjects DevBlog called [Working with Swagger UI as a QCObjects Component](https://devblog.qcobjects.org/working-with-swagger-ui-as-a-qcobjects-component-ck6xzoqkg05indfs1i4rxq72e)
 
@@ -498,7 +498,7 @@ It is used to inject a swagger-ui DOM needed to the Swagger UI API. Learn more i
 QCObjects has an **Effect** definition to handle and produce new effects and transitions for the components.
 Below are some custom effect definitions that will help you to build amazing visual features to your components. To improve the performance, effects are changing CSS internally to apply the effect in a smart way. And all the effects engine is based on the **requestAnimationFrame** definition, read more [here](https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#animation-frames)
 
-#### org.quickcorp.tools.effects.Move
+#### org.qcobjects.tools.effects.Move
 
 Moves a DOM object from one position to another.
 
@@ -515,7 +515,7 @@ Move.apply(element, xfrom, yfrom, xto, yto)
 Tag('img').map(img => Move.apply(img,0,0,10,10))
 ```
 
-#### org.quickcorp.tools.effects.MoveXInFromRight
+#### org.qcobjects.tools.effects.MoveXInFromRight
 
 Moves an element from the right side in X axis to the original position of the object.
 
@@ -532,7 +532,7 @@ MoveXInFromRight.apply(element)
 Tag('canvas').map(canvas => MoveXInFromRight.apply(canvas));
 ```
 
-#### org.quickcorp.tools.effects.MoveXInFromLeft
+#### org.qcobjects.tools.effects.MoveXInFromLeft
 
 Moves an element from the left side in X axis to the original position of the object.
 
@@ -549,7 +549,7 @@ MoveXInFromLeft.apply(element)
 Tag('canvas').map(canvas => MoveXInFromLeft.apply(canvas));
 ```
 
-#### org.quickcorp.tools.effects.MoveYInFromBottom
+#### org.qcobjects.tools.effects.MoveYInFromBottom
 
 Moves an object of the DOM from bottom to its original position using Y axis.
 
@@ -566,7 +566,7 @@ MoveYInFromBottom.apply(element)
 Tag('component[name=comp1]').map(componentBody => MoveYInFromBottom.apply(componentBody));
 ```
 
-#### org.quickcorp.tools.effects.MoveYInFromTop
+#### org.qcobjects.tools.effects.MoveYInFromTop
 
 Moves an object of the DOM from top to its original position using Y axis.
 
@@ -583,7 +583,7 @@ MoveYInFromTop.apply(element)
 Tag('component[name=comp1]').map(componentBody => MoveYInFromTop.apply(componentBody));
 ```
 
-#### org.quickcorp.tools.effects.RotateX
+#### org.qcobjects.tools.effects.RotateX
 
 Rotates an object in X axis.
 
@@ -603,7 +603,7 @@ Tag('div#id').map(div => RotateX.apply(div, 180, 240));
 ```
 
 
-#### org.quickcorp.tools.effects.RotateY
+#### org.qcobjects.tools.effects.RotateY
 
 Rotates an object in Y axis.
 
@@ -622,7 +622,7 @@ RotateY.apply(element, angleFrom, angleTo)
 Tag('div#id').map(div => RotateY.apply(div, 0, 270));
 ```
 
-#### org.quickcorp.tools.effects.RotateZ
+#### org.qcobjects.tools.effects.RotateZ
 
 Rotates an object in Z axis.
 
@@ -643,7 +643,7 @@ Tag('div#id').map(div => RotateZ.apply(div, 0, 60));
 
 
 
-#### org.quickcorp.tools.effects.Rotate
+#### org.qcobjects.tools.effects.Rotate
 
 Rotates an object in X, Y, Z axes. All axes will rotate in paralell at the same time producing a 3d visual effect perception.
 
@@ -662,7 +662,7 @@ Rotate.apply(element, angleFrom, angleTo)
 Tag('div#id').map(div => Rotate.apply(div, 0, 270));
 ```
 
-#### org.quickcorp.tools.effects.Fade
+#### org.qcobjects.tools.effects.Fade
 
 Produces a fade effect by lowering the opacity of the element.
 
@@ -679,7 +679,7 @@ Fade.apply(element, alphaFrom, alphaTo)
 Tag('b.header').map(header=>Fade.apply(header, 0.5, 1))
 ```
 
-#### org.quickcorp.tools.effects.Radius
+#### org.qcobjects.tools.effects.Radius
 
 Rounds the corner of an element
 
@@ -698,7 +698,7 @@ Radius.apply(element, radiusFrom, radiusTo)
 Tag('img').map(element => Radius.apply(element, 0, 100))
 ```
 
-#### org.quickcorp.tools.effects.Resize
+#### org.qcobjects.tools.effects.Resize
 
 ##### Usage:
 
@@ -722,7 +722,7 @@ Tag('img').map(element => Resize.apply(element, 0,1))
 Tag('img').map(element => Resize.apply(element, 2,1))
 ```
 
-#### org.quickcorp.tools.effects.WipeLeft
+#### org.qcobjects.tools.effects.WipeLeft
 
 Makes a Wipe effect from Left side to the origin of the element.
 
@@ -741,7 +741,7 @@ A value of 1 is regular size, a value of 2 is double size, a value between 0 and
 Tag('img').map(element => WipeLeft.apply(element,0,1))
 ```
 
-#### org.quickcorp.tools.effects.WipeRight
+#### org.qcobjects.tools.effects.WipeRight
 
 Makes a Wipe effect from right side to the origin of the element.
 
@@ -761,7 +761,7 @@ Tag('img').map(element => WipeRight.apply(element,0,1))
 ```
 
 
-#### org.quickcorp.tools.effects.WipeUp
+#### org.qcobjects.tools.effects.WipeUp
 
 Makes a Wipe effect from down to up the origin of the element.
 
@@ -780,7 +780,7 @@ A value of 1 is regular size, a value of 2 is double size, a value between 0 and
 Tag('img').map(element => WipeUp.apply(element,0,1))
 ```
 
-#### org.quickcorp.tools.effects.WipeDown
+#### org.qcobjects.tools.effects.WipeDown
 
 Makes a Wipe effect from up to down the origin of the element.
 
@@ -802,15 +802,15 @@ Tag('img').map(element => WipeDown.apply(element,0,1))
 
 ### SDK Misc Tools
 
-#### org.quickcorp.tools.canvas.CanvasTool
+#### org.qcobjects.tools.canvas.CanvasTool
 
-#### org.quickcorp.tools.layouts.BasicLayout
+#### org.qcobjects.tools.layouts.BasicLayout
 
 ### SDK Views
 
 Below are a set of pre-defined views for common use.
 
-#### org.quickcorp.views.GridView
+#### org.qcobjects.views.GridView
 
 A generic GridView definition for use with grids.
 
@@ -818,7 +818,7 @@ A generic GridView definition for use with grids.
 
 The QCObjects i18n engine allows you to define custom messages . Learn more in this article in the DevBlog called [i18n Internationalisation for your Progressive Web Apps](https://devblog.qcobjects.org/i18n-internationalisation-for-your-progressive-web-apps-ck90h4qz301ca7vs1ue7joopu)
 
-#### org.quickcorp.i18n_messages.i18n_messages
+#### org.qcobjects.i18n_messages.i18n_messages
 
 Used to call the i18n engine.
 
@@ -834,8 +834,8 @@ Used to call the i18n engine.
 
 ```javascript
 'use strict';
-// file: js/packages/org.quickcorp.i18n_messages.es.js
-Package('org.quickcorp.i18n_messages.es', [
+// file: js/packages/org.qcobjects.i18n_messages.es.js
+Package('org.qcobjects.i18n_messages.es', [
   Class('i18n_messages_es', i18n_messages, {
     messages: [
        // ... your custom language dictionary is here
@@ -856,4 +856,4 @@ Package('org.quickcorp.i18n_messages.es', [
 ]);
 ```
 
-## 
+##

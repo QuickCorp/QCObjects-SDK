@@ -1,5 +1,5 @@
 /**
- * QCObjects SDK 1.01
+ * QCObjects SDK 2.3
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -25,10 +25,10 @@
 (function(_top) {
   "use strict";
   var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
-  var remoteImportsPath = CONFIG.get('remoteImportsPath');
-  var external = (!CONFIG.get('useLocalSDK'))?(true):(false);
-  CONFIG.set('remoteImportsPath','https://sdk.qcobjects.dev/js/');
-  if (typeof _top._DOMCreateElement === 'undefined'){
+  var remoteImportsPath = CONFIG.get("remoteImportsPath");
+  var external = (!CONFIG.get("useLocalSDK"))?(true):(false);
+  CONFIG.set("remoteImportsPath","https://sdk.qcobjects.dev/js/");
+  if (typeof _top._DOMCreateElement === "undefined"){
     _top._DOMCreateElement = function (elementName) {
       var _ret_;
       if (isBrowser) {
@@ -37,39 +37,48 @@
         _ret_ = {};
       }
       return _ret_;
-    }
+    };
   }
   var _imports_;
   if (isBrowser){
     _imports_ = [
-      Import('org.quickcorp.i18n_messages',function (){},external),
-      Import('org.quickcorp.models',function (){},external),
-      Import('org.quickcorp.components',function (){},external),
-      Import('org.quickcorp.components.splashscreen',function (){},external),
-      Import('org.quickcorp.controllers',function (){},external),
-      Import('org.quickcorp.views',function (){},external),
-      Import('org.quickcorp.effects',function (){},external),
-      Import('org.quickcorp.modal.effects',function (){},external),
-      Import('org.quickcorp.tools.canvas',function (){},external),
-      Import('org.quickcorp.tools.layouts',function (){},external)
+      Import("org.qcobjects.i18n_messages",function (){},external),
+      Import("org.qcobjects.models",function (){},external),
+      Import("org.qcobjects.components",function (){},external),
+      Import("org.qcobjects.components.grid",function (){},external),
+      Import("org.qcobjects.components.list",function (){},external),
+      Import("org.qcobjects.components.slider",function (){},external),
+      Import("org.qcobjects.components.splashscreen",function (){},external),
+      Import("org.qcobjects.controllers",function (){},external),
+      Import("org.qcobjects.controllers.grid",function (){},external),
+      Import("org.qcobjects.controllers.list",function (){},external),
+      Import("org.qcobjects.controllers.slider",function (){},external),
+      Import("org.qcobjects.controllers.form",function (){},external),
+      Import("org.qcobjects.controllers.swagger",function (){},external),
+      Import("org.qcobjects.modal.controllers",function (){},external),
+      Import("org.qcobjects.modal.effects",function (){},external),
+      Import("org.qcobjects.views",function (){},external),
+      Import("org.qcobjects.effects",function (){},external),
+      Import("org.qcobjects.tools.canvas",function (){},external),
+      Import("org.qcobjects.tools.layouts",function (){},external)
     ];
   } else {
     // non-browsers environment
-    var _relative_path_ = 'qcobjects-sdk/js/';
+    var _relative_path_ = "qcobjects-sdk/js/";
     _imports_ = [
-      Import(_relative_path_+'org.quickcorp.models',function (){},external),
-      Import(_relative_path_+'org.quickcorp.components',function (){},external),
-      Import(_relative_path_+'org.quickcorp.controllers',function (){},external),
-      Import(_relative_path_+'org.quickcorp.views',function (){},external),
-      Import(_relative_path_+'org.quickcorp.effects',function (){},external),
-      Import(_relative_path_+'org.quickcorp.modal.effects',function (){},external),
-      Import(_relative_path_+'org.quickcorp.tools.canvas',function (){},external),
-      Import(_relative_path_+'org.quickcorp.tools.layouts',function (){},external)
+      Import(_relative_path_+"org.qcobjects.models",function (){},external),
+      Import(_relative_path_+"org.qcobjects.components",function (){},external),
+      Import(_relative_path_+"org.qcobjects.controllers",function (){},external),
+      Import(_relative_path_+"org.qcobjects.views",function (){},external),
+      Import(_relative_path_+"org.qcobjects.effects",function (){},external),
+      Import(_relative_path_+"org.qcobjects.modal.effects",function (){},external),
+      Import(_relative_path_+"org.qcobjects.tools.canvas",function (){},external),
+      Import(_relative_path_+"org.qcobjects.tools.layouts",function (){},external)
     ];
   }
   _top._sdk_ = Promise.all(_imports_).then(function (){
-    CONFIG.set('useSDK',true);
-    CONFIG.set('remoteImportsPath',remoteImportsPath);
+    CONFIG.set("useSDK",true);
+    CONFIG.set("remoteImportsPath",remoteImportsPath);
 
     _top.__start__();
 

@@ -1,5 +1,5 @@
 /**
- * QCObjects SDK 1.0
+ * QCObjects SDK 2.3
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -23,10 +23,10 @@
  * license document, but changing it is not allowed.
 */
 (function() {
-'use strict';
-Package('org.quickcorp.components.splashscreen',[
-  Class('VideoSplashScreenComponent', Component, {
-    name: 'splashscreen',
+"use strict";
+Package("org.qcobjects.components.splashscreen",[
+  Class("VideoSplashScreenComponent", Component, {
+    name: "splashscreen",
     cached: false,
     shadowed: true,
     _new_: function(o) {
@@ -36,10 +36,10 @@ Package('org.quickcorp.components.splashscreen',[
         && location.hash === ""
         && location.pathname === "/" && location.search === "";
       if (_enabled_){
-        component.basePath = CONFIG.get('splashscreenBasePath',CONFIG.get('remoteSDKPath'));
+        component.basePath = CONFIG.get("splashscreenBasePath",CONFIG.get("remoteSDKPath"));
         o.data.basePath = component.basePath;
         var displayEffectDuration = 1000;
-        var duration = component.body.getAttribute('duration');
+        var duration = component.body.getAttribute("duration");
         if (duration === null){
           duration = 3000;
         } else {
@@ -68,7 +68,7 @@ Package('org.quickcorp.components.splashscreen',[
                     setTimeout(function() {
                       if (typeof _componentRoot !== "undefined"){
                         document.body.style.backgroundColor = component._bgcolor;
-                        _componentRoot.subelements('#slot-logo').map(function (slotlogo){
+                        _componentRoot.subelements("#slot-logo").map(function (slotlogo){
                           slotlogo.style.display = "block";
                           slotlogo.style.transformOrigin = "center";
                           Resize.apply(slotlogo,1,0);
@@ -96,7 +96,7 @@ Package('org.quickcorp.components.splashscreen',[
       } else {
         component.body.style.display="none";
       }
-      _super_('Component', '_new_').call(this, o);
+      _super_("Component", "_new_").call(this, o);
     }
   })
 ]);

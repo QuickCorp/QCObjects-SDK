@@ -1,5 +1,5 @@
 /**
- * QCObjects SDK 1.0
+ * QCObjects SDK 2.3
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -22,38 +22,34 @@
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
 */
-"use strict";
 (function() {
-  Package('org.quickcorp.tools',[
-    Class('Process',Timer,{
-      steps:[],
-      currentStep:0,
-      stop: function (){
-        this.alive=false;
-      },
-      start: function (){
-        var process = this;
-        process.alive=true;
-        this.thread({
-          duration: this.duration,
-          timing(timeFraction) {
-            process.currentStep+=1;
-            process.map(function (p){
-              if (typeof p == 'function'){
-                Promise.resolve().then(
-                  function (){
-                    p.call(process);
-                  });
-              }
-            });
-            return timeFraction;
-          },
-          draw(progress) {
-            logger.debug('process execution progress: '+progress.toString());
-          }
-        });
+"use strict";
+Package("org.qcobjects.i18n_messages", [
+  Class("i18n_messages",Object,{
+    _load_i18n_packages_: function (){
+      return CONFIG.get("i18n_languages",[]).map((i18n_packagename)=>{
+        Import(`org.quickcorp.i18n_messages.${i18n_packagename}`);
+      });
+    },
+    _new_: function() {
+      var i18n = this;
+      if (CONFIG.get("use_i18n")){
+        CONFIG.set("lang", "en");
+        if (!global.get("i18n")){
+          global.set("i18n", {
+            messages: i18n.messages
+          });
+        } else {
+          global.set("i18n", {
+            messages: global.get("i18n").messages.concat(i18n.messages)
+          });
+        }
       }
-    })
-  ]);
+    }
+  }),
+  {
+    _i18n_messages:i18n_messages._load_i18n_packages_()
+  }
+]);
 
 }).call(null);
