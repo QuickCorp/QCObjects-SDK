@@ -22,7 +22,7 @@ Package('org.qcobjects.components.grid',[
     tplsource: "inline",
     template: `<p>Loading...</p>`,
     _new_ (o){
-      o.body.setAttribute("controllerClass","org.qcobjects.controllers.grid.DataGridController");
+      o.body.setAttribute("controllerClass","DataGridController");
       var subcomponentClass = (o.body.getAttribute("subcomponentClass") !== null)?(o.body.getAttribute("subcomponentClass")):("GridItemComponent");
       o.body.setAttribute("subcomponentClass",subcomponentClass);
       _super_("Component","_new_").call(this,o);

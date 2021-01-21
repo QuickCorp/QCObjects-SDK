@@ -5,7 +5,7 @@ Package('org.qcobjects.components.slider',[
     tplsource: "inline",
     template: "<p>Loading...</p>",
     _new_ (o){
-      o.body.setAttribute("controllerClass","org.qcobjects.controllers.grid.DataGridController");
+      o.body.setAttribute("controllerClass","DataGridController");
       var subcomponentClass = (o.body.getAttribute("subcomponentClass") !== null)?(o.body.getAttribute("subcomponentClass")):("GridItemComponent");
       o.body.setAttribute("subcomponentClass",subcomponentClass);
       _super_("Component","_new_").call(this,o);
@@ -158,7 +158,7 @@ Package('org.qcobjects.components.slider',[
     shadowed: true,
     _new_(o){
       o.data.SERVICE_CLASS = o.body.getAttribute("serviceClass");
-      o.body.setAttribute("controllerClass","org.qcobjects.controllers.slider.SliderController");
+      o.body.setAttribute("controllerClass","SliderController");
       _super_("Component","_new_").call(this,o);
     }
 
