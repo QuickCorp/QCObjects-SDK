@@ -24,8 +24,8 @@
 */
 "use strict";
 (function() {
-  Package('org.qcobjects.components',[
-    Class('ShadowedComponent',Component,{
+  Package("org.qcobjects.components",[
+    Class("ShadowedComponent",Component,{
       container:null,
       body:null,
       shadowed:true,
@@ -34,56 +34,57 @@
       view:null,
       data:{},
       _new_:function (o){
-        o.body = _DOMCreateElement('div');
-        _super_('Component','_new_').call(this,o);
+        o.body = _DOMCreateElement("div");
+        _super_("Component","_new_").call(this,o);
       }
     }),
-    Class('FormField',Component,{
+    Class("FormField",Component,{
       cached:false,
       reload:true,
       createBindingEvents:function (){
-        var _executeBinding = this.executeBinding;
         var thisobj = this;
-        if (typeof this.fieldType =='undefined' || this.fieldType == null ){
-          var _objList = this.body.subelements('*[data-field]'); // every child with data-field set
+        var _objList;
+        if (typeof this.fieldType =="undefined" || this.fieldType == null ){
+          _objList = this.body.subelements("*[data-field]"); // every child with data-field set
         } else {
-          var _objList = this.body.subelements(this.fieldType+'[data-field]'); // every child with data-field set and tagname is equal to fieldType property
+          _objList = this.body.subelements(this.fieldType+"[data-field]"); // every child with data-field set and tagname is equal to fieldType property
         }
         for (var _datak=0;_datak<_objList.length;_datak++){
           var _obj = _objList[_datak];
-          _obj.addEventListener('change',function(e){
-            logger.debug('Executing change event binding');
-            thisobj.executeBindings();
+          _obj.addEventListener("change",function(e){
+            logger.debug("Executing change event binding");
+            thisobj.executeBindings(e);
           });
-          _obj.addEventListener('blur',function(e){
-            logger.debug('Executing change event binding');
-            thisobj.executeBindings();
+          _obj.addEventListener("blur",function(e){
+            logger.debug("Executing change event binding");
+            thisobj.executeBindings(e);
           });
-          _obj.addEventListener('focus',function(e){
-            logger.debug('Executing change event binding');
-            thisobj.executeBindings();
+          _obj.addEventListener("focus",function(e){
+            logger.debug("Executing change event binding");
+            thisobj.executeBindings(e);
           });
-          _obj.addEventListener('keydown',function(e){
-            logger.debug('Executing keydown event binding');
-              thisobj.executeBindings();
+          _obj.addEventListener("keydown",function(e){
+            logger.debug("Executing keydown event binding");
+              thisobj.executeBindings(e);
           });
         }
       },
       executeBinding:function (_obj){
-        var _datamodel = _obj.getAttribute('data-field');
-        logger.debug('Binding '+_datamodel+' for '+this.name);
+        var _datamodel = _obj.getAttribute("data-field");
+        logger.debug("Binding "+_datamodel+" for "+this.name);
         this.data[_datamodel]=_obj.value;
       },
       executeBindings:function (){
-        if (typeof this.fieldType =='undefined' || this.fieldType == null ){
-          var _objList = this.body.subelements('*[data-field]'); // every child with data-field set
+        var _objList;
+        if (typeof this.fieldType =="undefined" || this.fieldType == null ){
+          _objList = this.body.subelements("*[data-field]"); // every child with data-field set
         } else {
-          var _objList = this.body.subelements(this.fieldType+'[data-field]'); // every child with data-field set and tagname is equal to fieldType property
+          _objList = this.body.subelements(this.fieldType+"[data-field]"); // every child with data-field set and tagname is equal to fieldType property
         }
         for (var _datak=0;_datak<_objList.length;_datak++){
           var _obj = _objList[_datak];
-          var _datamodel = _obj.getAttribute('data-field');
-          logger.debug('Binding '+_datamodel+' for '+this.name);
+          var _datamodel = _obj.getAttribute("data-field");
+          logger.debug("Binding "+_datamodel+" for "+this.name);
           this.data[_datamodel]=_obj.value;
         }
       },
@@ -91,30 +92,30 @@
         var thisobj = this;
         thisobj.executeBindings();
         thisobj.createBindingEvents();
-        logger.debug('Field loaded: '+thisobj.fieldType+'[name='+thisobj.name+']');
+        logger.debug("Field loaded: "+thisobj.fieldType+"[name="+thisobj.name+"]");
       }
     }),
-    Class('ButtonField',FormField,{
-      fieldType:'button'
+    Class("ButtonField",FormField,{
+      fieldType:"button"
     }),
-    Class('InputField',FormField,{
-      fieldType:'input'
+    Class("InputField",FormField,{
+      fieldType:"input"
     }),
-    Class('TextField',FormField,{
-      fieldType:'textarea'
+    Class("TextField",FormField,{
+      fieldType:"textarea"
     }),
-    Class('EmailField',FormField,{
-      fieldType:'input'
+    Class("EmailField",FormField,{
+      fieldType:"input"
     }),
-    Class('ModalEnclosureComponent',Component,{
-      name:'modal',
-      tplsource:'inline',
+    Class("ModalEnclosureComponent",Component,{
+      name:"modal",
+      tplsource:"inline",
       cached:false,
-      basePath:CONFIG.get('modalBasePath',CONFIG.get('remoteSDKPath')),
+      basePath:CONFIG.get("modalBasePath",CONFIG.get("remoteSDKPath")),
       data:{},
       _new_:function (o){
-        o.body = _DOMCreateElement('div');
-        _super_('Component','_new_').call(this,o);
+        o.body = _DOMCreateElement("div");
+        _super_("Component","_new_").call(this,o);
       },
       template:`
 <!-- The Modal -->
@@ -132,17 +133,17 @@
 </div>
 `
     }),
-    Class('ModalComponent',Component,{
-      name:'modal',
+    Class("ModalComponent",Component,{
+      name:"modal",
       cached:false,
-      modalEnclosureComponentClass:'ModalEnclosureComponent',
-      basePath: CONFIG.get('modalBasePath',CONFIG.get('remoteSDKPath')),
+      modalEnclosureComponentClass:"ModalEnclosureComponent",
+      basePath: CONFIG.get("modalBasePath",CONFIG.get("remoteSDKPath")),
       controller:null,
       view:null,
-      tplsource:'none',
+      tplsource:"none",
       closeOnClickOutside:false,
       data:{
-        content:'',
+        content:"",
         modalId:0
       },
       submodal:null,
@@ -150,36 +151,36 @@
         var modalId = this.data.modalId;
         var modalComponent = this;
 
-        Tag('#modalInstance_'+parseInt(modalId)+'.modal').map(function (modal){
-          modal.style.display='block';
+        Tag("#modalInstance_"+parseInt(modalId)+".modal").map(function (modal){
+          modal.style.display="block";
           ModalFade.apply(modal,0,1);
         });
-        Tag('#modalInstance_'+parseInt(modalId)+'.modal .modal-content').map(function (modalcontent){
+        Tag("#modalInstance_"+parseInt(modalId)+".modal .modal-content").map(function (modalcontent){
           ModalMoveDown.apply(modalcontent,0,-document.body.clientHeight,0,0);
         });
-        Tag('#modalInstance_'+parseInt(modalId)+'.modal .modal-content .close').map(function (closebtn){
-          closebtn.addEventListener('click',function (){
+        Tag("#modalInstance_"+parseInt(modalId)+".modal .modal-content .close").map(function (closebtn){
+          closebtn.addEventListener("click",function (){
             modalComponent.close();
           },false);
         });
         if (modalComponent.closeOnClickOutside){
-          window.addEventListener('click',function (){
+          window.addEventListener("click",function (){
             modalComponent.close();
           },false);
         }
       },
       close: function (){
         var modalId = this.data.modalId;
-        Tag('#modalInstance_'+parseInt(modalId)+'.modal').map(function (modal){
-          modal.style.display='block';
+        Tag("#modalInstance_"+parseInt(modalId)+".modal").map(function (modal){
+          modal.style.display="block";
           ModalFade.apply(modal,1,0);
         });
-        Tag('#modalInstance_'+parseInt(modalId)+'.modal .modal-content').map(function (modalcontent){
+        Tag("#modalInstance_"+parseInt(modalId)+".modal .modal-content").map(function (modalcontent){
           ModalMoveUp.apply(modalcontent,0,0,0,-document.body.clientHeight);
         });
         setTimeout(function (){
-          Tag('#modalInstance_'+parseInt(modalId)+'.modal').map(function (modal){
-            modal.style.display='none';
+          Tag("#modalInstance_"+parseInt(modalId)+".modal").map(function (modal){
+            modal.style.display="none";
           });
         },900);
       },
@@ -193,31 +194,31 @@
         });
         component.subcomponents.push(submodal);
         component.submodal = submodal;
-        if (submodal.tplsource == 'none'){
+        if (submodal.tplsource == "none"){
           component.body.innerHTML = submodal.parsedAssignmentText;
         } else {
           component.body.append(submodal.body);
         }
-        _super_('Component','_new_').call(this,o); // parent call
+        _super_("Component","_new_").call(this,o); // parent call
       },
       done: function ({request,component}){
-        _super_('Component','done').call(this,{request:request,component:component}); // parent call
+        _super_("Component","done").call(this,{request:request,component:component}); // parent call
       },
       rebuild:function (){
         this.templateURI = ComponentURI({
-          'COMPONENTS_BASE_PATH':CONFIG.get('componentsBasePath'),
-          'COMPONENT_NAME':'modal',
-          'TPLEXTENSION':CONFIG.get('tplextension'),
-          'TPL_SOURCE':'default' //here is always default in order to get the right uri
+          "COMPONENTS_BASE_PATH":CONFIG.get("componentsBasePath"),
+          "COMPONENT_NAME":"modal",
+          "TPLEXTENSION":CONFIG.get("tplextension"),
+          "TPL_SOURCE":"default" //here is always default in order to get the right uri
         });
-        return _super_('Component','rebuild').call(this); // parent call
+        return _super_("Component","rebuild").call(this); // parent call
       }
     }),
-    Class('SwaggerUIComponent',Component,{
-      name:'swagger-ui',
+    Class("SwaggerUIComponent",Component,{
+      name:"swagger-ui",
       cached:false,
-      basePath: CONFIG.get('remoteSDKPath'),
-      tplextension:'tpl.html'
+      basePath: CONFIG.get("remoteSDKPath"),
+      tplextension:"tpl.html"
     })
 
   ]);

@@ -24,8 +24,8 @@
 */
 "use strict";
 (function() {
-  Package('org.qcobjects.tools',[
-    Class('Process',Timer,{
+  Package("org.qcobjects.tools",[
+    Class("Process",Timer,{
       steps:[],
       currentStep:0,
       stop: function (){
@@ -39,7 +39,7 @@
           timing(timeFraction) {
             process.currentStep+=1;
             process.map(function (p){
-              if (typeof p == 'function'){
+              if (typeof p == "function"){
                 Promise.resolve().then(
                   function (){
                     p.call(process);
@@ -49,7 +49,7 @@
             return timeFraction;
           },
           draw(progress) {
-            logger.debug('process execution progress: '+progress.toString());
+            logger.debug("process execution progress: "+progress.toString());
           }
         });
       }

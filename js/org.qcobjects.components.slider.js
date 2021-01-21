@@ -1,7 +1,7 @@
-'use strict';
-Package('org.qcobjects.components.slider',[
-  Class('SlideListComponent',Component,{
-    name:'slidelist',
+"use strict";
+Package("org.qcobjects.components.slider",[
+  Class("SlideListComponent",Component,{
+    name:"slidelist",
     tplsource: "inline",
     template: "<p>Loading...</p>",
     _new_ (o){
@@ -11,8 +11,8 @@ Package('org.qcobjects.components.slider',[
       _super_("Component","_new_").call(this,o);
     }
   }),
-  Class('SlideItemComponent',Component,{
-    name:'slider_item',
+  Class("SlideItemComponent",Component,{
+    name:"slider_item",
     template: `
     <div class="qcoSlides" style="display:none">
       <div class="qco-slider__numbertext">{{slideNumber}} / {{__dataLength}}</div>
@@ -31,8 +31,8 @@ Package('org.qcobjects.components.slider',[
     }
   }),
 
-  Class('SliderComponent',Component,{
-    name:'slider',
+  Class("SliderComponent",Component,{
+    name:"slider",
     template: `
     <style>
     /* Slideshow container */

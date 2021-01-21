@@ -1,21 +1,21 @@
-'use strict';
-Package('org.qcobjects.modal.effects',[
-  Class('ModalFade',Effect,{
+"use strict";
+Package("org.qcobjects.modal.effects",[
+  Class("ModalFade",Effect,{
     duration:500,
     apply: function (){
-      _super_('Fade','apply').apply(this,arguments);
+      _super_("Fade","apply").apply(this,arguments);
     }
   }),
-  Class('ModalMoveDown',Effect,{
+  Class("ModalMoveDown",Effect,{
     duration:300,
     apply: function (){
-      _super_('Move','apply').apply(this,arguments);
+      _super_("Move","apply").apply(this,arguments);
     }
   }),
-  Class('ModalMoveUp',Effect,{
+  Class("ModalMoveUp",Effect,{
     duration:800,
     apply: function (){
-      _super_('Move','apply').apply(this,arguments);
+      _super_("Move","apply").apply(this,arguments);
     }
   })
 ]);

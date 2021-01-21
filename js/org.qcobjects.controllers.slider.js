@@ -1,6 +1,6 @@
-'use strict';
-Package('org.qcobjects.controllers.slider',[
-  Class('SliderController',Controller,{
+"use strict";
+Package("org.qcobjects.controllers.slider",[
+  Class("SliderController",Controller,{
     dependencies:[],
     component:null,
     slideIndex:0,
@@ -13,7 +13,7 @@ Package('org.qcobjects.controllers.slider',[
       var component = controller.component;
       controller._componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
       //TODO: Implement
-      controller.sliderHandlerName = 'slider_'+controller.component.__instanceID.toString();
+      controller.sliderHandlerName = "slider_"+controller.component.__instanceID.toString();
       global.set(controller.sliderHandlerName,this);
     },
     stop: function (){
@@ -40,7 +40,6 @@ Package('org.qcobjects.controllers.slider',[
     },
     showSlides: function (n) {
       var controller = this;
-      var i;
       var slides = controller._componentRoot.subelements(".qcoSlides");
       var dots = controller._componentRoot.subelements(".qcoSlider__dots--dot");
 
@@ -59,18 +58,20 @@ Package('org.qcobjects.controllers.slider',[
       try {
         dots[controller.slideIndex].classList.add("active");
       }catch (e){
-
+        logger.debug("Something went wrong when trying to activate a slide");
+        logger.debug(e.message);
       }
       setTimeout(function (){
         slides.map((slide)=>{
-          slide.style.display='none';
+          slide.style.display="none";
         });
         try {
           slides[controller.slideIndex].style.display = "block";
           Fade.apply(slides[controller.slideIndex],0,1);
 
         }catch (e){
-
+          logger.debug("Something went wrong when trying to show a slide");
+          logger.debug(e.message);
         }
       },700);
     },
@@ -78,10 +79,10 @@ Package('org.qcobjects.controllers.slider',[
       var controller = this;
       var slides = controller._componentRoot.subelements(".qcoSlides");
       slides.map((slide,index)=>{
-        var dotHTML = document.createElement('span');
+        var dotHTML = document.createElement("span");
         var dotContent = `<span class="qcoSlider__dots--dot" onclick="global.get('${controller.sliderHandlerName}').currentSlide(${index})"></span>`;
         dotHTML.innerHTML = dotContent;
-        controller._componentRoot.subelements('.qcoSlider__dots')[0].append(dotHTML);
+        controller._componentRoot.subelements(".qcoSlider__dots")[0].append(dotHTML);
       });
 
     },
@@ -89,7 +90,7 @@ Package('org.qcobjects.controllers.slider',[
       var controller = this;
       var slides = controller._componentRoot.subelements(".qcoSlides");
       slides.map((slide)=>{
-        slide.style.display='none';
+        slide.style.display="none";
       });
       setTimeout(function (){
         controller.fillDots();
