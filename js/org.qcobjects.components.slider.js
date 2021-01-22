@@ -183,6 +183,7 @@ Package("org.qcobjects.components.slider",[
     shadowed: true,
     _new_(o){
       o.data.SERVICE_CLASS = o.body.getAttribute("serviceClass");
+      o.data.sliderHandler = "slider_"+this.__instanceID.toString();
       o.body.setAttribute("controllerClass","SliderController");
       _super_("Component","_new_").call(this,o);
     }
