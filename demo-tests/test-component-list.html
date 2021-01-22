@@ -17,10 +17,7 @@
   <component name="list" componentClass="ListComponent" serviceClass="MyTestService" label-field="name" value-field="html_url"></component>
 
   <script>
-  CONFIG.set("relativeImportPath","../js/");
-  Import ("org.qcobjects.controllers.list");
-  Import ("org.qcobjects.components.list");
-  CONFIG.set("listBasePath","../");
+  logger.debugEnabled= true;
 
     Class('MyTestService',Service,{
       name:'myservice',
