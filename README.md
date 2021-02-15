@@ -1,4 +1,5 @@
 ![logo](https://qcobjects.dev/qcobjects_01.png)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FQuickCorp%2FQCObjects-SDK.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FQuickCorp%2FQCObjects-SDK?ref=badge_shield)
 
 QCObjects SDK
 =============
@@ -857,3 +858,7 @@ Package('org.qcobjects.i18n_messages.es', [
 ```
 
 ##
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FQuickCorp%2FQCObjects-SDK.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FQuickCorp%2FQCObjects-SDK?ref=badge_large)
