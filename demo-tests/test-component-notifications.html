@@ -14,17 +14,16 @@
 <body>
 
 
-  <component componentClass="CustomNotificationComponent" ></component>
+  <component name="customnotification" template-source="inline" componentClass="CustomNotificationComponent" ></component>
 
   <script>
-  Class ("CustomNotificationComponent", NotificationComponent, {
-    message: "Page was loaded successfully!",
-    _new_ (o) {
-      _super_("NotificationComponent", "_new_").call(this, o);
-      this.success(this.message);
-    }
-  });
-
+      Class ("CustomNotificationComponent", Component, {
+        message: "Page was loaded successfully!",
+        done (standardResponse) {
+          NotificationComponent.success(this.message);
+          _super_("NotificationComponent", "done").call(this, standardResponse);
+        }
+      });
   </script>
 </body>
 
