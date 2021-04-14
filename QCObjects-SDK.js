@@ -48,6 +48,7 @@
       Import("org.qcobjects.components.grid",function (){},external),
       Import("org.qcobjects.components.list",function (){},external),
       Import("org.qcobjects.components.slider",function (){},external),
+      Import("org.qcobjects.components.notifications",function (){},external),
       Import("org.qcobjects.components.splashscreen",function (){},external),
       Import("org.qcobjects.controllers",function (){},external),
       Import("org.qcobjects.controllers.grid",function (){},external),
