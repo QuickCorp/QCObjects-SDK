@@ -108,7 +108,7 @@ Package("org.quickcorp.components.notifications", [
     },
     success(message) {
       var c = New(NotificationComponent, {
-        shadowed: false,
+        shadowed: this.shadowed,
         body: _DOMCreateElement("div"),
         data: {
           kind: "success",
@@ -117,11 +117,12 @@ Package("org.quickcorp.components.notifications", [
         }
       });
       document.body.append(c);
-      c.display(c.body);
+      var _componentRoot = (c.shadowed)?(c.shadowRoot.host):(c.body);
+      c.display(_componentRoot);
     },
     danger(message) {
       var c = New(NotificationComponent, {
-        shadowed: false,
+        shadowed: this.shadowed,
         body: _DOMCreateElement("div"),
         data: {
           kind: "danger",
@@ -130,11 +131,12 @@ Package("org.quickcorp.components.notifications", [
         }
       });
       document.body.append(c);
-      c.display(c.body);
+      var _componentRoot = (c.shadowed)?(c.shadowRoot.host):(c.body);
+      c.display(_componentRoot);
     },
     info(message) {
       var c = New(NotificationComponent, {
-        shadowed: false,
+        shadowed: this.shadowed,
         body: _DOMCreateElement("div"),
         data: {
           kind: "info",
@@ -143,11 +145,12 @@ Package("org.quickcorp.components.notifications", [
         }
       });
       document.body.append(c);
-      c.display(c.body);
+      var _componentRoot = (c.shadowed)?(c.shadowRoot.host):(c.body);
+      c.display(_componentRoot);
     },
     warning(message) {
       var c = New(NotificationComponent, {
-        shadowed: false,
+        shadowed: this.shadowed,
         body: _DOMCreateElement("div"),
         data: {
           kind: "warning",
@@ -156,7 +159,8 @@ Package("org.quickcorp.components.notifications", [
         }
       });
       document.body.append(c);
-      c.display(c.body);
+      var _componentRoot = (c.shadowed)?(c.shadowRoot.host):(c.body);
+      c.display(_componentRoot);
     }
   })
 ]);
