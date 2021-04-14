@@ -47,10 +47,10 @@ Package("org.quickcorp.components.notifications", [
       overflow: auto; /* Enable scroll if needed */
       background-color: rgb(0,0,0); /* Fallback color */
       background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-      border-radius: 12px !important;
       border: none !important;
     }
     div.notification {
+      border-radius: 12px !important;
       margin-bottom: 15px;
       padding: 4px 12px;
     }
