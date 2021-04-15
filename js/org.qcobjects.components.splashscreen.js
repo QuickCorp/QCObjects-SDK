@@ -100,7 +100,8 @@ Package("org.qcobjects.components.splashscreen",[
       _super_("Component", "_new_").call(this, o);
     }
   }),
-  Class ("VideoSplashScreenComponent", SplashScreenComponent, {
+  Class ("VideoSplashScreenComponent",
+    ClassFactory("SplashScreenComponent"), {
     name: "videosplashscreen",
     cached: false,
     shadowed: true,
@@ -237,7 +238,8 @@ Package("org.qcobjects.components.splashscreen",[
 
     `
   }),
-  Class ("CubeSplashScreenComponent", SplashScreenComponent, {
+  Class ("CubeSplashScreenComponent",
+    ClassFactory("SplashScreenComponent"), {
     name: "cubesplashscreen",
     cached: false,
     shadowed: true,
@@ -551,7 +553,7 @@ Package("org.qcobjects.components.splashscreen",[
         </div>
       </div>
     </div>
-    
+
     `
   })
 ]);
