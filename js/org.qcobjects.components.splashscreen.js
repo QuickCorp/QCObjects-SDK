@@ -32,9 +32,12 @@ Package("org.qcobjects.components.splashscreen",[
     _new_: function(o) {
       var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
       var component = this;
-      var _enabled_ = isBrowser
-        && location.hash === ""
-        && location.pathname === "/" && location.search === "";
+      var isStartURL = (location.hash === ""
+          && location.pathname === "/" && location.search === "")
+          || CONFIG.get("routingWay") === "hash" && CONFIG.get("start_url","/") === location.hash
+          || CONFIG.get("routingWay") === "pathname" && CONFIG.get("start_url","/") === location.pathname
+          || CONFIG.get("routingWay") === "search" && CONFIG.get("start_url","/") === location.search;
+      var _enabled_ = isBrowser && isStartURL;
       if (_enabled_){
         component.basePath = CONFIG.get("splashscreenBasePath",CONFIG.get("remoteSDKPath"));
         o.data.basePath = component.basePath;
