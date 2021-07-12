@@ -47,11 +47,12 @@ Package("org.qcobjects.controllers.form",[
       loadingRouting:"#loading",
       nextRouting:"#signupsuccessful"
     },
-    hasValidation(element){
+    hasValidation (element){
+      var controller = this;
       var fieldName = element.getAttribute("data-field");
       var _hasValidation = false;
-      if (typeof this.validations !== "undefined"
-        && this.validations.hasOwnProperty.call(this.validations,fieldName)){
+      if (typeof controller.validations !== "undefined"
+        && controller.validations.hasOwnProperty.call(controller.validations,fieldName)){
         _hasValidation = true;
       }
       return _hasValidation;
@@ -64,7 +65,7 @@ Package("org.qcobjects.controllers.form",[
 
       var _execValidation = function (fieldName, dataValue, element){
         return (typeof controller.validations !== "undefined"
-        && controller.validations.hasOwnProperty.call(this.validations,fieldName)
+        && controller.validations.hasOwnProperty.call(controller.validations,fieldName)
         && controller.validations[fieldName].call(controller).call(controller,fieldName,dataValue, element));
       };
 
@@ -78,7 +79,7 @@ Package("org.qcobjects.controllers.form",[
     isValid (element){
       return !this.isInvalid(element);
     },
-    save: function (){
+    save (){
       var controller = this;
       if (controller.serviceClass !== ""){
         location.href=controller.formSettings.loadingRouting;
@@ -105,7 +106,7 @@ Package("org.qcobjects.controllers.form",[
       }
 
     },
-    formSaveTouchHandler: function (){
+    formSaveTouchHandler (){
       logger.debug("Saving data...");
       var controller = this;
       controller.component.executeBindings();
@@ -156,13 +157,13 @@ Package("org.qcobjects.controllers.form",[
         controller.save();
       }
     },
-    _new_:function (o){
+    _new_ (o){
       var controller = this;
       this.__new__(o);
       controller.component = o.component;
       controller.component = controller.component.Cast(FormField);
     },
-    done: function (){
+    done (){
       logger.debugEnabled=true;
       var controller=this;
       try {
@@ -183,8 +184,7 @@ Package("org.qcobjects.controllers.form",[
       } catch (e){
         logger.debug("Unable to create the modal");
       }
-      controller.onpress(".submit",function (e){
-        e.preventDefault();
+      controller.onpress(".submit",function (){
         controller.formSaveTouchHandler();
       });
 
