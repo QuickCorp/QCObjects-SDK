@@ -61,7 +61,8 @@
       Import("org.qcobjects.views",function (){},external),
       Import("org.qcobjects.effects",function (){},external),
       Import("org.qcobjects.tools.canvas",function (){},external),
-      Import("org.qcobjects.tools.layouts",function (){},external)
+      Import("org.qcobjects.tools.layouts",function (){},external),
+      Import("org.qcobjects.cloud.auth.session.usertoken",function (){},external)
     ];
   } else {
     // non-browsers environment
