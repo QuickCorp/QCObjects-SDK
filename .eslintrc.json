@@ -6,7 +6,7 @@
         "node": true
     },
     "extends": [
-      "./.eslint-config-qcobjects.js",
+      "qcobjects",
       "eslint:recommended"
     ],
     "globals": {

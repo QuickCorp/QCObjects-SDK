@@ -109,9 +109,10 @@ Package("org.qcobjects.controllers.form",[
     formSaveTouchHandler (){
       logger.debug("Saving data...");
       var controller = this;
+      var _componentRoot_ = (controller.component.shadowed)?(controller.component.shadowRoot.host):(controller.component.body);
       controller.component.executeBindings();
       if (controller.formValidatorModal!=null){
-        var componentElementFields = controller.component.body.subelements("*[data-field]");
+        var componentElementFields = _componentRoot_.subelements("*[data-field]");
         var fieldsToValidate = componentElementFields.filter(
           f => controller.hasValidation.call(controller,f)
         );
@@ -141,7 +142,7 @@ Package("org.qcobjects.controllers.form",[
     <summary>Please verify the following incorrect fields:</summary>
     <ul>
       <div>
-      ${invalidFields.map(element => "<li><div>"+_labelledby(controller.component.body,element)+"</div><div>"+_ariatitle(element)+"</div></li>").join("")}
+      ${invalidFields.map(element => "<li><div>"+_labelledby(_componentRoot_,element)+"</div><div>"+_ariatitle(element)+"</div></li>").join("")}
       </div>
     </ul>
 </details>
