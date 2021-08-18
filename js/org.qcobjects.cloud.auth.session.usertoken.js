@@ -24,6 +24,7 @@
 */
 (function() {
 "use strict";
+
 Package("org.qcobjects.cloud.auth.session.usertoken",[
   Class ("SessionUserToken",Object, {
     user: {},
@@ -34,9 +35,15 @@ Package("org.qcobjects.cloud.auth.session.usertoken",[
         {
           index: __instance__.__instanceID.toString(),
           load () {
+            var __token__;
+            if (typeof navigator !== "undefined"){
+              __token__ = _Crypt.encrypt(`${navigator.userAgent}|${o.username}|${(+(new Date())).toString()}`,origin);
+            } else {
+              __token__ = _Crypt.encrypt(`${o.username}|${(+(new Date())).toString()}`,origin);
+            }
             __instance__.user = {
               priority:__instance__.__instanceID.toString(),
-              token: _Crypt.encrypt(`${navigator.userAgent}|${o.username}|${(+(new Date())).toString()}`,origin)
+              token: __token__
             };
             return __instance__.user;
           },
@@ -46,9 +53,12 @@ Package("org.qcobjects.cloud.auth.session.usertoken",[
           }
         });
     },
-    getGlobalUser() {
+    generateIndex (s) {
+      return (typeof Buffer !== "undefined")?(Buffer.from(s, "ascii").toString("base64")):(btoa(s));
+    },
+    getGlobalUser () {
       var username = [...arguments].join("|");
-      var __index__ = "userToken_"+btoa(username);
+      var __index__ = "userToken_"+SessionUserToken.generateIndex(username);
       if (typeof global.get(__index__) === "undefined" || global.get(__index__) === null){
         global.set(__index__, New(SessionUserToken, {
           username: username
@@ -72,7 +82,7 @@ Package("org.qcobjects.cloud.auth.session.usertoken",[
     closeGlobalSession () {
       this.getGlobalUser(...arguments);
       var username = [...arguments].join("|");
-      var __index__ = "userToken_"+btoa(username);
+      var __index__ = "userToken_"+SessionUserToken.generateIndex(username);
       if (typeof global.get(__index__) !== "undefined"){
         global.get(__index__).__cache__.clear();
         global.set(__index__, null);

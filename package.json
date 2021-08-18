@@ -41,5 +41,8 @@
   "homepage": "https://sdk.qcobjects.dev",
   "dependencies": {
     "jasmine": "^3.6.3"
+  },
+  "peerDependencies": {
+    "qcobjects": ">= 2.3"
   }
 }
