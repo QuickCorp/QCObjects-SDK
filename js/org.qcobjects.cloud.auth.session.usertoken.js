@@ -39,7 +39,7 @@ Package("org.qcobjects.cloud.auth.session.usertoken",[
             if (typeof navigator !== "undefined" && typeof origin !== "undefined"){
               __token__ = _Crypt.encrypt(`${navigator.userAgent}|${o.username}|${(+(new Date())).toString()}`,origin);
             } else {
-              __token__ = _Crypt.encrypt(`${o.username}|${(+(new Date())).toString()}`,CONFIG.get("domain"));
+              __token__ = _Crypt.encrypt(`${o.username}|${(+(new Date())).toString()}`,CONFIG.get("domain", "localhost"));
             }
             __instance__.user = {
               priority:__instance__.__instanceID.toString(),

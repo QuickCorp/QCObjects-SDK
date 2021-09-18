@@ -62,7 +62,8 @@
       Import("org.qcobjects.effects",function (){},external),
       Import("org.qcobjects.tools.canvas",function (){},external),
       Import("org.qcobjects.tools.layouts",function (){},external),
-      Import("org.qcobjects.cloud.auth.session.usertoken",function (){},external)
+      Import("org.qcobjects.cloud.auth.session.usertoken",function (){},external),
+      Import("org.qcobjects.cloud.auth.session.data",function (){},external)
     ];
   } else {
     // non-browsers environment
@@ -76,7 +77,8 @@
       Import(_relative_path_+"org.qcobjects.modal.effects",function (){},external),
       Import(_relative_path_+"org.qcobjects.tools.canvas",function (){},external),
       Import(_relative_path_+"org.qcobjects.tools.layouts",function (){},external),
-      Import(_relative_path_+"org.qcobjects.cloud.auth.session.usertoken",function (){},external)
+      Import(_relative_path_+"org.qcobjects.cloud.auth.session.usertoken",function (){},external),
+      Import("org.qcobjects.cloud.auth.session.data",function (){},external)
     ];
   }
   _top._sdk_ = Promise.all(_imports_).then(function (){
