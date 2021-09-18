@@ -78,7 +78,7 @@
       Import(_relative_path_+"org.qcobjects.tools.canvas",function (){},external),
       Import(_relative_path_+"org.qcobjects.tools.layouts",function (){},external),
       Import(_relative_path_+"org.qcobjects.cloud.auth.session.usertoken",function (){},external),
-      Import("org.qcobjects.cloud.auth.session.data",function (){},external)
+      Import(_relative_path_+"org.qcobjects.cloud.auth.session.data",function (){},external)
     ];
   }
   _top._sdk_ = Promise.all(_imports_).then(function (){
