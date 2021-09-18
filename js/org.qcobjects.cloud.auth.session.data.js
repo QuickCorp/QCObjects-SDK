@@ -41,6 +41,9 @@ Package("org.qcobjects.cloud.auth.session.data",[
       var __instance__ = this;
       var s = sessionStorage.getItem(`${__instance__.index(...arguments)}`);
       var sessionData = JSON.parse(s);
+      if (typeof sessionData === "undefined" || sessionData === null) {
+        sessionData = {};
+      }
       return sessionData;
     },
     index () {
@@ -54,18 +57,15 @@ Package("org.qcobjects.cloud.auth.session.data",[
       var s = _DataStringify(__instance__.sessionData);
       sessionStorage.setItem(`${__instance__.index(...arguments)}`, s);
     },
-    get (name) {
+    get (name, defaultValue) {
       var __instance__ = this;
       var sessionData = __instance__.getSessionData(__instance__.getSessionContainer());
-      return sessionData[name];
+      return (typeof sessionData[name] !== "undefined")?(sessionData[name]):(defaultValue);
     },
     set (name, value) {
       var __instance__ = this;
       var __session_container__ = __instance__.getSessionContainer();
       var sessionData = __instance__.getSessionData(__session_container__);
-      if (typeof sessionData === "undefined" || sessionData === null) {
-        sessionData = {};
-      }
       __instance__.sessionData = sessionData;
       __instance__.sessionData[name] = value;
       __instance__.save(__session_container__);
