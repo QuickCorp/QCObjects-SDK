@@ -63,7 +63,11 @@ Package("org.qcobjects.cloud.auth.session.data",[
       var __instance__ = this;
       var __session_container__ = __instance__.getSessionContainer();
       var sessionData = __instance__.getSessionData(__session_container__);
-      sessionData[name] = value;
+      if (typeof sessionData === "undefined" || sessionData === null) {
+        sessionData = {};
+      }
+      __instance__.sessionData = sessionData;
+      __instance__.sessionData[name] = value;
       __instance__.save(__session_container__);
     }
   })
