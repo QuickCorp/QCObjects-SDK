@@ -25,9 +25,9 @@
 (function(_top) {
   "use strict";
   var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
-  var remoteImportsPath = CONFIG.get("remoteImportsPath");
-  var external = (!CONFIG.get("useLocalSDK"))?(true):(false);
-  CONFIG.set("remoteImportsPath","https://sdk.qcobjects.dev/js/");
+  var remoteImportsPath = ClassFactory("CONFIG").get("remoteImportsPath");
+  var external = (!ClassFactory("CONFIG").get("useLocalSDK"))?(true):(false);
+  ClassFactory("CONFIG").set("remoteImportsPath","https://sdk.qcobjects.dev/js/");
   if (typeof _top._DOMCreateElement === "undefined"){
     _top._DOMCreateElement = function (elementName) {
       var _ret_;
@@ -82,8 +82,8 @@
     ];
   }
   _top._sdk_ = Promise.all(_imports_).then(function (){
-    CONFIG.set("useSDK",true);
-    CONFIG.set("remoteImportsPath",remoteImportsPath);
+    ClassFactory("CONFIG").set("useSDK",true);
+    ClassFactory("CONFIG").set("remoteImportsPath",remoteImportsPath);
 
     _top.__start__();
 
