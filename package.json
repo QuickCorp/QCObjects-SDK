@@ -29,8 +29,8 @@
     "webcomponents"
   ],
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-qcobjects": "0.0.11",
+    "eslint": "^8.4.0",
+    "eslint-config-qcobjects": "^0.0.13",
     "qcobjects": "^2.3.44"
   },
   "author": "Jean Machuca <correojean@gmail.com>",
