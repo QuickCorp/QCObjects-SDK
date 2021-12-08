@@ -108,6 +108,7 @@ Package("org.quickcorp.components.notifications", [
     },
     success(message) {
       var c = New(NotificationComponent, {
+        name: "notification",
         shadowed: this.shadowed,
         body: _DOMCreateElement("div"),
         data: {
@@ -122,6 +123,7 @@ Package("org.quickcorp.components.notifications", [
     },
     danger(message) {
       var c = New(NotificationComponent, {
+        name: "notification",
         shadowed: this.shadowed,
         body: _DOMCreateElement("div"),
         data: {
@@ -136,6 +138,7 @@ Package("org.quickcorp.components.notifications", [
     },
     info(message) {
       var c = New(NotificationComponent, {
+        name: "notification",
         shadowed: this.shadowed,
         body: _DOMCreateElement("div"),
         data: {
@@ -150,6 +153,7 @@ Package("org.quickcorp.components.notifications", [
     },
     warning(message) {
       var c = New(NotificationComponent, {
+        name: "notification",
         shadowed: this.shadowed,
         body: _DOMCreateElement("div"),
         data: {
