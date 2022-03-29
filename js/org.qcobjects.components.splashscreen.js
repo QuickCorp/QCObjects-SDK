@@ -1,5 +1,6 @@
+logger.debugEnabled = true;
 /**
- * QCObjects SDK 2.3
+ * QCObjects SDK 2.4.0
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -31,7 +32,7 @@ Package("org.qcobjects.components.splashscreen",[
     shadowed: true,
     _new_: function(o) {
       var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
-      var component = this;
+      let component = this;
       var isStartURL = (location.hash === ""
           && location.pathname === "/" && location.search === "")
           || CONFIG.get("routingWay") === "hash" && CONFIG.get("start_url","/") === location.hash
@@ -55,9 +56,10 @@ Package("org.qcobjects.components.splashscreen",[
             var _componentRoot = (component.shadowed)?(component.shadowRoot.host):(component.body);
             global.componentsStack.filter(c=>c.body.hasAttribute("splashscreen")).map(
               function (mainComponent){
+                logger.debug("Splash Screen of Main Component:",mainComponent.name);
                 mainComponent.splashScreenComponent = component;
-                var _splash_screen_ = function (){
-                  if (!_splash_screen_.executed){
+                function SplashScreenHandler (){
+                  if (!SplashScreenHandler.executed){
                     var mainComponent = this;
                     var component = mainComponent.splashScreenComponent;
                     var mainElement = (mainComponent.shadowed)?(mainComponent.shadowRoot.host):(mainComponent.body);
@@ -86,10 +88,9 @@ Package("org.qcobjects.components.splashscreen",[
                       _componentRoot.parentElement.remove();
                     }, duration);
                   }
-                  _splash_screen_.executed=true;
-                };
-                _splash_screen_.executed=false;
-                mainComponent.addComponentHelper(_splash_screen_.bind(mainComponent));
+                  SplashScreenHandler.executed=true;
+                }
+                mainComponent.addComponentHelper(SplashScreenHandler.bind(mainComponent));
               }
             );
             _helper_.executed=true;
@@ -100,7 +101,7 @@ Package("org.qcobjects.components.splashscreen",[
       } else {
         component.body.style.display="none";
       }
-      _super_("Component", "_new_").call(this, o);
+      _super_("Component", "_new_").call(this,o);
     }
   }),
   Class ("VideoSplashScreenComponent",
@@ -133,20 +134,27 @@ Package("org.qcobjects.components.splashscreen",[
       background-color: black;
     }
     #slot-logo::slotted(img) {
-      vertical-align: middle;
-      display: block;
-      width: 100vw;
-      left: 0;
-      margin: 0;
-      padding: 0;
-      top: 20vh;
-      bottom: 20vh;
-      position: absolute;
-      z-index: 9999999999;
-      transform-origin: center;
-      transform-style: preserve-3d;
-      filter: blur(0em);
-      transition: filter 0.5s;
+        vertical-align: middle;
+        display: block;
+        width: 40vw;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        z-index: 9999999999;
+        transform-origin: center;
+        transform-style: preserve-3d;
+        filter: blur(0em);
+        transition: filter 0.5s;
+        max-width: 300px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: fadeIn 5s;
+        -webkit-animation: fadeIn 5s;
+        -moz-animation: fadeIn 5s;
+        -o-animation: fadeIn 5s;
+        -ms-animation: fadeIn 5s;        
     }
 
     :host * {
@@ -221,11 +229,37 @@ Package("org.qcobjects.components.splashscreen",[
       overflow: hidden;
       z-index: 0;
       object-fit: cover;
+      filter: brightness(0.3);
     }
       .splashscreen,
       .fullscreen-bg {
         background-image: url('{{background}}');
       }
+
+      @keyframes fadeIn {
+        0% {opacity:0;}
+        100% {opacity:1;}
+      }
+      
+      @-moz-keyframes fadeIn {
+        0% {opacity:0;}
+        100% {opacity:1;}
+      }
+      
+      @-webkit-keyframes fadeIn {
+        0% {opacity:0;}
+        100% {opacity:1;}
+      }
+      
+      @-o-keyframes fadeIn {
+        0% {opacity:0;}
+        100% {opacity:1;}
+      }
+      
+      @-ms-keyframes fadeIn {
+        0% {opacity:0;}
+        100% {opacity:1;}
+      }      
 
     </style>
     <div class="splashscreen">
@@ -379,8 +413,8 @@ Package("org.qcobjects.components.splashscreen",[
       position: absolute;
       width: 200px;
       height: 200px;
-      background: #fff;
-      box-shadow: inset 0 0 40px #ccc;
+      background: none;
+      box-shadow: inset 0 0 40px #fff0;
       border-radius: 40px;
     }
 
@@ -510,6 +544,8 @@ Package("org.qcobjects.components.splashscreen",[
       width: 100%;
       height: 100%;
       background: var(--root-background, transparent);
+      background-size: cover;
+      background-origin: border-box;
     }
 
     #dice .side.front,
