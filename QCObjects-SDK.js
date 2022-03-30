@@ -25,9 +25,14 @@
 (function(_top) {
   "use strict";
   var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
-  var remoteImportsPath = ClassFactory("CONFIG").get("remoteImportsPath");
-  var external = (!ClassFactory("CONFIG").get("useLocalSDK"))?(true):(false);
-  ClassFactory("CONFIG").set("remoteImportsPath","https://sdk.qcobjects.dev/js/");
+  var remoteImportsPath = CONFIG.get("remoteImportsPath");
+  var relativeImportPath = CONFIG.get("relativeImportPath");
+  var external = (!CONFIG.get("useLocalSDK"))?(true):(false);
+  if (external){
+    CONFIG.set("remoteImportsPath","https://sdk.qcobjects.dev/js/");
+  } else {
+    CONFIG.set("relativeImportPath","qcobjects-sdk/js/");
+  }
   if (typeof _top._DOMCreateElement === "undefined"){
     _top._DOMCreateElement = function (elementName) {
       var _ret_;
@@ -63,7 +68,7 @@
       Import("org.qcobjects.tools.canvas",function (){},external),
       Import("org.qcobjects.tools.layouts",function (){},external),
       Import("org.qcobjects.cloud.auth.session.usertoken",function (){},external),
-      Import("org.qcobjects.cloud.auth.session.data",function (){},external)
+      Import("org.qcobjects.cloud.auth.session.data",function (){},external)      
     ];
   } else {
     // non-browsers environment
@@ -82,9 +87,9 @@
     ];
   }
   _top._sdk_ = Promise.all(_imports_).then(function (){
-    ClassFactory("CONFIG").set("useSDK",true);
-    ClassFactory("CONFIG").set("remoteImportsPath",remoteImportsPath);
-
+    CONFIG.set("useSDK",true);
+    CONFIG.set("remoteImportsPath",remoteImportsPath);
+    CONFIG.set("relativeImportPath",relativeImportPath);
     _top.__start__();
 
   });
