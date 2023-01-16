@@ -1,5 +1,5 @@
 /**
- * QCObjects SDK 2.3
+ * QCObjects SDK 2.4
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
