@@ -1,6 +1,6 @@
 {
   "name": "qcobjects-sdk",
-  "version": "2.3.30",
+  "version": "2.4.1",
   "description": "QCObjects SDK is a set of Controllers, Views and Components that are elementary and useful to assist developers to build applications under MVC patterns using QCObjects, Cross Browser Javascript Framework for MVC Patterns",
   "main": "QCObjects-SDK.js",
   "scripts": {
@@ -31,7 +31,7 @@
   "devDependencies": {
     "eslint": "^8.4.0",
     "eslint-config-qcobjects": "^0.0.13",
-    "qcobjects": "^2.3.44"
+    "qcobjects": "^2.4-beta"
   },
   "author": "Jean Machuca <correojean@gmail.com>",
   "license": "LGPL-3.0",
@@ -43,6 +43,6 @@
     "jasmine": "^3.6.3"
   },
   "peerDependencies": {
-    "qcobjects": ">= 2.3"
+    "qcobjects": ">=2.4"
   }
 }
