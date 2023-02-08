@@ -33,8 +33,8 @@ Package("org.qcobjects.i18n_messages", [
       });
     }
     
-    _new_() {
-      super._new_();
+    _new_(o) {
+      super._new_(o);
       var i18n = this;
       if (CONFIG.get("use_i18n")){
         CONFIG.set("lang", "en");

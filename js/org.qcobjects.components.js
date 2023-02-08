@@ -232,6 +232,7 @@
       }
 
       _new_(o){
+        super._new_(o);
         var component = this;
         component.data.modalId = component.__instanceID;
         var submodal = New(ClassFactory(component.modalEnclosureComponentClass),{
@@ -246,7 +247,6 @@
         } else {
           component.body.append(submodal.body);
         }
-        _super_("Component","_new_").call(this,o); // parent call
       }
 
       done({request,component}){

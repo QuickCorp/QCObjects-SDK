@@ -26,14 +26,16 @@
   "use strict";
 
   Package("org.qcobjects.cloud.auth.session.usertoken", [
-    class SessionUserToken {
+    class SessionUserToken extends InheritClass{
       constructor() {
+        super();
         this.user = {};
         this.__cache__ = null;
 
       }
 
       _new_(o) {
+        super._new_(o);
         var __instance__ = this;
         this.__cache__ = new ComplexStorageCache({
           index: __instance__.__instanceID.toString(),

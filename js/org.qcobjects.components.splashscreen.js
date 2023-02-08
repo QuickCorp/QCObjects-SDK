@@ -37,9 +37,8 @@ Package("org.qcobjects.components.splashscreen",[
       
     }
 
-    _new_() {
-      super._new_();
-      var o = this;
+    _new_(o) {
+      super._new_(o);
       var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
       let component = this;
       var isStartURL = (location.hash === ""

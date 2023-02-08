@@ -26,12 +26,13 @@
   "use strict";
   Package("org.qcobjects.cloud.auth.session.data", [
 
-    class SessionData {
+    class SessionData extends InheritClass{
 
       /**
        * Creates an instance of SessionData.
        */
       constructor() {
+        super();
         this.__session_container__ = null;
       }
 

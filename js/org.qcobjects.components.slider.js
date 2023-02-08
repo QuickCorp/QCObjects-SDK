@@ -64,8 +64,8 @@ Package("org.qcobjects.components.slider",[
   
     }
 
-    _new_ (){
-      super._new_();
+    _new_ (o){
+      super._new_(o);
       this.data.slideNumber = o.data.__dataIndex + 1;
     }
 
