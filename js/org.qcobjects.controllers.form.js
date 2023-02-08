@@ -44,6 +44,7 @@ Package("org.qcobjects.controllers.form",[
   class FormController extends Controller {
 
     constructor (){
+      super();
       this.dependencies=[];
       this.component=null;
       this.serviceClass="";

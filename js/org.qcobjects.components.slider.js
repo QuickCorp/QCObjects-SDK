@@ -29,6 +29,7 @@ Package("org.qcobjects.components.slider",[
   class SlideListComponent extends Component {
 
     constructor (){
+      super();
       this.name="slidelist";
       this.tplsource="inline";
       this.template="<p>Loading...</p>";
@@ -48,6 +49,7 @@ Package("org.qcobjects.components.slider",[
   class SlideItemComponent extends Component {
 
     constructor () {
+      super();
       this.name="slider_item";
       this.template= `
       <div class="qcoSlides" style="display:none">
@@ -73,6 +75,7 @@ Package("org.qcobjects.components.slider",[
   class SliderComponent extends Component {
 
     constructor () {
+      super();
       this.name="slider";
       this.template= `
       <style>

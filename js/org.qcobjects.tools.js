@@ -29,6 +29,7 @@
     class Process extends Timer {
 
       constructor () {
+        super();
         this.steps=[];
         this.currentStep=0;
   

@@ -28,6 +28,7 @@
 
     class ListController extends Controller {
       constructor() {
+        super();
         this.dependencies = [];
         this.component = null;
 

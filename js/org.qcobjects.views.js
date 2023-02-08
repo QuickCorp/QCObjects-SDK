@@ -29,6 +29,7 @@ Package("org.qcobjects.views",[
   class GridView extends View {
 
     constructor (){
+      super();
       this.dependencies=[];
       this.component=null;
         

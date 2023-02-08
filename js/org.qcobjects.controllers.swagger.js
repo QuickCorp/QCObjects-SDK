@@ -28,6 +28,7 @@
 
     class SwaggerUIController extends Controller {
       constructor() {
+        super();
         this.dependencies = [];
         this.component = null;
 

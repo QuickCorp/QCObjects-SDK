@@ -29,6 +29,7 @@ Package("org.qcobjects.models",[
   class Contact extends VO {
 
     constructor (){
+      super();
       this.first_name="";
       this.last_name="";
       this.address="";

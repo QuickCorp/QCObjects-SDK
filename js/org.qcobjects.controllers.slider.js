@@ -29,6 +29,7 @@
     class SliderController extends Controller {
 
       constructor() {
+        super();
         this.dependencies = [];
         this.component = null;
         this.slideIndex = 0;

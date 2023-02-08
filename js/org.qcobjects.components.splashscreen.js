@@ -29,6 +29,7 @@ Package("org.qcobjects.components.splashscreen",[
 
   class SplashScreenComponent extends Component {
     constructor () {
+      super();
       this.name= "splashscreen";
       this.cached= false;
       this.shadowed= true;
@@ -115,6 +116,7 @@ Package("org.qcobjects.components.splashscreen",[
 
   class VideoSplashScreenComponent extends SplashScreenComponent {
     constructor () {
+      super();
 
       this.name= "videosplashscreen";
       this.cached= false;
@@ -290,6 +292,7 @@ Package("org.qcobjects.components.splashscreen",[
   class CubeSplashScreenComponent extends SplashScreenComponent {
 
     constructor () {
+      super();
       this.name= "cubesplashscreen";
       this.cached= false;
       this.shadowed= true;

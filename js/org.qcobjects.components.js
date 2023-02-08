@@ -175,6 +175,7 @@
 
     class ModalComponent extends Component {
       constructor (){
+        super();
         this.name="modal";
         this.cached=false;
         this.modalEnclosureComponentClass="ModalEnclosureComponent";
@@ -267,6 +268,7 @@
 
     class SwaggerUIComponent extends Component {
       constructor (){
+        super();
         this.name="swagger-ui";
         this.cached=false;
         this.basePath= CONFIG.get("remoteSDKPath");

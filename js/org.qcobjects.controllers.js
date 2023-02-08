@@ -28,6 +28,7 @@ Package("org.qcobjects.controllers",[
 
   class GenericController extends Controller {
     constructor () {
+      super();
       this.dependencies=[];
       this.component=null;
   

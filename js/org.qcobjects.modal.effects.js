@@ -28,6 +28,7 @@ Package("org.qcobjects.modal.effects",[
 
   class ModalFade extends Fade {
     constructor () {
+      super();
       this.duration=500;
     }
     
@@ -35,6 +36,7 @@ Package("org.qcobjects.modal.effects",[
 
   class ModalMoveDown extends Move {
     constructor () {
+      super();
       this.duration=300;
 
     }
@@ -43,6 +45,7 @@ Package("org.qcobjects.modal.effects",[
 
   class ModalMoveUp extends Move {
     constructor () {
+      super();
       this.duration=800;
 
     }
