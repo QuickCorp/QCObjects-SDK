@@ -1,4 +1,4 @@
-[submodule "QCObjects-SDK"]
-	path = QCObjects-SDK
+[submodule "v2.4"]
+	path = v2.4
 	url = https://github.com/QuickCorp/QCObjects-SDK.git
 	branch = v2.4
