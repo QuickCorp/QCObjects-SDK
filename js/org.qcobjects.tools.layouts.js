@@ -25,16 +25,23 @@
 "use strict";
 (function() {
   Package("org.qcobjects.tools.layouts",[
-    Class("BasicLayout",Object,{
-      dependencies:[],
-      component:null,
-      load:function (){
+
+    class BasicLayout extends InheritClass {
+
+      constructor () {
+        this.dependencies=[];
+        this.component=null;
+  
+      }
+
+      load (){
         this.dependencies.push(New(SourceCSS,{
           external:(CONFIG.get("useLocalSDK"))?(false):(true),
           url:(CONFIG.get("useLocalSDK"))?("css/basic-layout.css"):(CONFIG.get("remoteSDKPath")+"css/basic-layout.css")
         }));
-      },
-      coloredBorder:function (){
+      }
+      
+      coloredBorder (){
         /*
         * A helper function to visualize the layout borders
         * Usage: BasicLayout.coloredBorder()
@@ -65,7 +72,10 @@
           Tag("component>article:nth-child(2)").map(element=>{element.style.display="block";element.width=element.offsetParent.scrollWidth;MoveXInFromRight.apply(element);});
         },300);
       }
-    })
+
+
+    }
+
   ]);
 
 }).call(null);

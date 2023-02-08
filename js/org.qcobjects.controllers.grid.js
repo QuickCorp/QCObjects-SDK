@@ -25,18 +25,25 @@
 (function() {
 "use strict";
 Package("org.qcobjects.controllers.grid",[
-  Class("GridController",Controller,{
-    dependencies:[],
-    component:null,
-    _new_:function (o){
-      this.__new__(o);
+
+  class GridComponent extends Controller {
+
+    constructor (){
+      this.dependencies=[];
+      this.component=null;
+  
+    }
+
+    _new_ (o){
+      super.__new__(o);
       var controller=this;
       controller.rows=controller.component.body.getAttribute("rows");
       controller.rows=(controller.rows !== null)?(controller.rows):(controller.component.rows);
       controller.cols=controller.component.body.getAttribute("cols");
       controller.cols=(controller.cols !== null)?(controller.cols):(controller.component.cols);
-    },
-    cssGrid: function (){
+    }
+
+    cssGrid (){
       var controller=this;
       var component = controller.component;
       var _componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
@@ -58,20 +65,27 @@ Package("org.qcobjects.controllers.grid",[
           _componentRoot.classList.add(className);
         }
       }
-    },
-    done: function (){
+    }
+
+    done (){
       var controller=this;
       controller.cssGrid();
 
       logger.debug("GridComponent built");
 
     }
-  }),
-  Class("DataGridController",Controller,{
-    dependencies:[],
-    component:null,
-    _new_:function (o){
-      this.__new__(o);
+
+  },
+
+  class DataGridController extends Controller {
+    constructor (){
+      this.dependencies=[];
+      this.component=null;
+  
+    }
+
+    _new_ (o){
+      super.__new__(o);
       var controller=this;
       var component = controller.component;
       controller._componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
@@ -80,15 +94,17 @@ Package("org.qcobjects.controllers.grid",[
       controller.cols=controller.component.body.getAttribute("cols");
       controller.cols=(controller.cols !== null)?(controller.cols):(controller.component.cols);
       logger.debug("DataGridController INIT");
-    },
-    getPageIndex: function (page, totalPage, totalElements) {
+    }
+
+    getPageIndex (page, totalPage, totalElements) {
       page = new Number(page);
       page = (page>0)?(page-1):(0);
       totalPage = new Number(totalPage);
       totalElements = new Number(totalElements);
       return [totalElements*page/ totalPage, (totalElements*page/ totalPage) + totalElements/totalPage];
-    },
-    addSubcomponents:function (){
+    }
+
+    addSubcomponents (){
       var controller = this;
       controller.component.subcomponents = [];
       controller._componentRoot.innerHTML = "";
@@ -181,8 +197,9 @@ Package("org.qcobjects.controllers.grid",[
       } catch (e){
         logger.debug("No data for component");
       }
-    },
-    cssGrid: function (){
+    }
+
+    cssGrid (){
       var controller=this;
       var component = controller.component;
       var _componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
@@ -205,8 +222,9 @@ Package("org.qcobjects.controllers.grid",[
           _componentRoot.classList.add(className);
         }
       }
-    },
-    done:function (){
+    }
+
+    done (){
       var controller = this;
       var componentInstance = controller.component;
       logger.debug("DataGridController DONE");
@@ -260,8 +278,9 @@ Package("org.qcobjects.controllers.grid",[
       }
 
     }
+    
 
-  })
+  }
 
 ]);
 

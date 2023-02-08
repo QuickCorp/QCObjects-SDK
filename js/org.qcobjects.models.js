@@ -25,16 +25,23 @@
 (function() {
 "use strict";
 Package("org.qcobjects.models",[
-  Class("Contact",VO,{
-    first_name:"",
-    last_name:"",
-    address:"",
-    postalCode:"",
-    city:"",
-    country:"",
-    email:"",
-    phone:""
-  })
+
+  class Contact extends VO {
+
+    constructor (){
+      this.first_name="";
+      this.last_name="";
+      this.address="";
+      this.postalCode="";
+      this.city="";
+      this.country="";
+      this.email="";
+      this.phone="";
+  
+    }
+    
+  }
+
 ]);
 
 }).call(null);

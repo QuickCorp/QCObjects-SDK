@@ -25,24 +25,33 @@
 (function() {
 "use strict";
 Package("org.qcobjects.components.list",[
-  Class("ListItemComponent",Component,{
-    name:"list-item",
-    shadowed: false,
-    tplsource: "inline",
-    template:"<a href=\"{{value}}\">{{label}}</a>",
-    cached: false
-  }),
-  Class("ListComponent",Component,{
-    name:"list",
-    shadowed: true,
-    tplsource: "inline",
-    template: "<p>Loading...</p>",
-    _new_ (o){
-      o.body.setAttribute("controllerClass","ListController");
-      o.body.setAttribute("subcomponentClass","ListItemComponent");
-      _super_("Component","_new_").call(this,o);
+
+  class ListItemComponent extends Component {
+    constructor (){
+      super();
+      this.name="list-item";
+      this.shadowed= false;
+      this.tplsource= "inline";
+      this.template="<a href=\"{{value}}\">{{label}}</a>";
+      this.cached= false;
+  
     }
-  })
+
+  },
+
+  class ListComponent extends Component {
+    constructor () {
+      super();
+      this.name="list";
+      this.shadowed= true;
+      this.tplsource= "inline";
+      this.template= "<p>Loading...</p>";
+      this.body.setAttribute("controllerClass","ListController");
+      this.body.setAttribute("subcomponentClass","ListItemComponent");
+    }
+
+  },
+
 ]);
 
 }).call(null);

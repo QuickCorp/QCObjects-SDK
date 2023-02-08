@@ -25,59 +25,66 @@
 (function() {
 "use strict";
 Package("org.quickcorp.components.notifications", [
-  Class("NotificationComponent", Component, {
-    name: "notification",
-    cached: false,
-    tplsource: "inline",
-    shadowed: false,
-    body: _DOMCreateElement("div"),
-    template: `
-    <style>
-    div.notification_background {
-      display: block; /* Hidden by default */
-      position: fixed; /* Stay in place */
-      z-index: 1; /* Sit on top */
-      padding-top: 100px; /* Location of the box */
-      left: 0;
-      top: 0;
-      bottom:0;
-      right:0;
-      width: 100%; /* Full width */
-      height: 100%; /* Full height */
-      overflow: auto; /* Enable scroll if needed */
-      background-color: rgb(0,0,0); /* Fallback color */
-      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-      border: none !important;
+  
+  class NotificationComponent extends Component {
+
+    constructor (){
+
+      this.name= "notification";
+      this.cached= false;
+      this.tplsource= "inline";
+      this.shadowed= false;
+      this.body= _DOMCreateElement("div");
+      this.template= `
+      <style>
+      div.notification_background {
+        display: block; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        bottom:0;
+        right:0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        border: none !important;
+      }
+      div.notification {
+        border-radius: 12px !important;
+        margin-bottom: 15px;
+        padding: 4px 12px;
+      }
+      .notification.danger {
+        background-color: #ffdddd;
+        border-left: 6px solid #f44336;
+      }
+      .notification.success {
+        background-color: #ddffdd;
+        border-left: 6px solid #4CAF50;
+      }
+      .notification.info {
+        background-color: #e7f3fe;
+        border-left: 6px solid #2196F3;
+      }
+      .notification.warning {
+        background-color: #ffffcc;
+        border-left: 6px solid #ffeb3b;
+      }
+      </style>
+      <div class="notification_background">
+      <div class="notification {{kind}}">
+        <p><strong>{{title}}</strong> {{message}}</p>
+      </div>
+      </div>
+      `;
+      this.kinds=["danger", "success", "info", "warning"];
+  
     }
-    div.notification {
-      border-radius: 12px !important;
-      margin-bottom: 15px;
-      padding: 4px 12px;
-    }
-    .notification.danger {
-      background-color: #ffdddd;
-      border-left: 6px solid #f44336;
-    }
-    .notification.success {
-      background-color: #ddffdd;
-      border-left: 6px solid #4CAF50;
-    }
-    .notification.info {
-      background-color: #e7f3fe;
-      border-left: 6px solid #2196F3;
-    }
-    .notification.warning {
-      background-color: #ffffcc;
-      border-left: 6px solid #ffeb3b;
-    }
-    </style>
-    <div class="notification_background">
-    <div class="notification {{kind}}">
-      <p><strong>{{title}}</strong> {{message}}</p>
-    </div>
-    </div>
-    `,
-    kinds: ["danger", "success", "info", "warning"],
+
     display(element) {
       var _display_ = function (element){
         element.style.display="block";
@@ -105,7 +112,8 @@ Package("org.quickcorp.components.notifications", [
       setTimeout(function (){
         element.remove();
       },2200);
-    },
+    }
+
     success(message) {
       var c = New(NotificationComponent, {
         name: "notification",
@@ -120,7 +128,8 @@ Package("org.quickcorp.components.notifications", [
       document.body.append(c);
       var _componentRoot = (c.shadowed)?(c.shadowRoot.host):(c.body);
       c.display(_componentRoot);
-    },
+    }
+
     danger(message) {
       var c = New(NotificationComponent, {
         name: "notification",
@@ -135,7 +144,8 @@ Package("org.quickcorp.components.notifications", [
       document.body.append(c);
       var _componentRoot = (c.shadowed)?(c.shadowRoot.host):(c.body);
       c.display(_componentRoot);
-    },
+    }
+
     info(message) {
       var c = New(NotificationComponent, {
         name: "notification",
@@ -150,7 +160,8 @@ Package("org.quickcorp.components.notifications", [
       document.body.append(c);
       var _componentRoot = (c.shadowed)?(c.shadowRoot.host):(c.body);
       c.display(_componentRoot);
-    },
+    }
+
     warning(message) {
       var c = New(NotificationComponent, {
         name: "notification",
@@ -166,7 +177,10 @@ Package("org.quickcorp.components.notifications", [
       var _componentRoot = (c.shadowed)?(c.shadowRoot.host):(c.body);
       c.display(_componentRoot);
     }
-  })
+    
+
+  }
+
 ]);
 
 }).call(null);

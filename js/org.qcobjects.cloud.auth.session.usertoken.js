@@ -21,75 +21,85 @@
  *
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
-*/
-(function() {
-"use strict";
+ */
+(function () {
+  "use strict";
 
-Package("org.qcobjects.cloud.auth.session.usertoken",[
-  Class ("SessionUserToken",Object, {
-    user: {},
-    __cache__: null,
-    _new_ (o) {
-      var __instance__ = this;
-      this.__cache__ = new ComplexStorageCache(
-        {
+  Package("org.qcobjects.cloud.auth.session.usertoken", [
+    class SessionUserToken {
+      constructor() {
+        this.user = {};
+        this.__cache__ = null;
+
+      }
+
+      _new_(o) {
+        var __instance__ = this;
+        this.__cache__ = new ComplexStorageCache({
           index: __instance__.__instanceID.toString(),
-          load () {
+          load() {
             var __token__;
-            if (typeof navigator !== "undefined" && typeof origin !== "undefined"){
-              __token__ = _Crypt.encrypt(`${navigator.userAgent}|${o.username}|${(+(new Date())).toString()}`,origin);
+            if (typeof navigator !== "undefined" && typeof origin !== "undefined") {
+              __token__ = _Crypt.encrypt(`${navigator.userAgent}|${o.username}|${(+(new Date())).toString()}`, origin);
             } else {
-              __token__ = _Crypt.encrypt(`${o.username}|${(+(new Date())).toString()}`,CONFIG.get("domain", "localhost"));
+              __token__ = _Crypt.encrypt(`${o.username}|${(+(new Date())).toString()}`, CONFIG.get("domain", "localhost"));
             }
             __instance__.user = {
-              priority:__instance__.__instanceID.toString(),
+              priority: __instance__.__instanceID.toString(),
               token: __token__
             };
             return __instance__.user;
           },
-          alternate (cacheController) {
+          alternate(cacheController) {
             __instance__.user = cacheController.cache.getCached(__instance__.__instanceID.toString()); // setting dataObject with the cached value
             return;
           }
         });
-    },
-    generateIndex (s) {
-      return (typeof Buffer !== "undefined")?(Buffer.from(s, "ascii").toString("base64")):(btoa(s));
-    },
-    getGlobalUser () {
-      var username = [...arguments].join("|");
-      var __index__ = "userToken_"+SessionUserToken.generateIndex(username);
-      if (typeof global.get(__index__) === "undefined" || global.get(__index__) === null){
-        global.set(__index__, New(SessionUserToken, {
-          username: username
-        }));
       }
-      SessionUserToken.user = global.get(__index__).user;
-      return global.get(__index__).user;
-    },
-    getGlobalUserToken () {
-      return this.getGlobalUser(...arguments).token;
-    },
-    getGlobalUserId () {
-      return this.getGlobalUser(...arguments).id;
-    },
-    getGlobalUserPriority () {
-      return this.getGlobalUser(...arguments).priority;
-    },
-    getLoginCredentialsToken (username, password) {
-      return _Crypt.encrypt(`${username}${password}`, this.getGlobalUserToken(username));
-    },
-    closeGlobalSession () {
-      this.getGlobalUser(...arguments);
-      var username = [...arguments].join("|");
-      var __index__ = "userToken_"+SessionUserToken.generateIndex(username);
-      if (typeof global.get(__index__) !== "undefined"){
-        global.get(__index__).__cache__.clear();
-        global.set(__index__, null);
-        SessionUserToken.user = {};
+
+      generateIndex(s) {
+        return (typeof Buffer !== "undefined") ? (Buffer.from(s, "ascii").toString("base64")) : (btoa(s));
+      }
+
+      getGlobalUser() {
+        var username = [...arguments].join("|");
+        var __index__ = "userToken_" + SessionUserToken.generateIndex(username);
+        if (typeof global.get(__index__) === "undefined" || global.get(__index__) === null) {
+          global.set(__index__, New(SessionUserToken, {
+            username: username
+          }));
+        }
+        SessionUserToken.user = global.get(__index__).user;
+        return global.get(__index__).user;
+      }
+
+      getGlobalUserToken() {
+        return this.getGlobalUser(...arguments).token;
+      }
+
+      getGlobalUserId() {
+        return this.getGlobalUser(...arguments).id;
+      }
+
+      getGlobalUserPriority() {
+        return this.getGlobalUser(...arguments).priority;
+      }
+
+      getLoginCredentialsToken(username, password) {
+        return _Crypt.encrypt(`${username}${password}`, this.getGlobalUserToken(username));
+      }
+
+      closeGlobalSession() {
+        this.getGlobalUser(...arguments);
+        var username = [...arguments].join("|");
+        var __index__ = "userToken_" + SessionUserToken.generateIndex(username);
+        if (typeof global.get(__index__) !== "undefined") {
+          global.get(__index__).__cache__.clear();
+          global.set(__index__, null);
+          SessionUserToken.user = {};
+        }
       }
     }
-  })
-]);
+  ]);
 
 }).call(null);

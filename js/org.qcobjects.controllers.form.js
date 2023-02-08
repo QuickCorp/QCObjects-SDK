@@ -25,7 +25,8 @@
 (function() {
 "use strict";
 Package("org.qcobjects.controllers.form",[
-  Class("FormValidations",Controller,{
+
+  class FormValidations extends Controller {
     getDefault (){
       return function (fieldName, dataValue, element){
         var _regex = {
@@ -37,16 +38,23 @@ Package("org.qcobjects.controllers.form",[
         return pattern.test(dataValue);
       };
     }
-  }),
-  Class("FormController",Controller,{
-    dependencies:[],
-    component:null,
-    serviceClass:"",
-    formSettings:{
-      backRouting:"#",
-      loadingRouting:"#loading",
-      nextRouting:"#signupsuccessful"
-    },
+
+  },
+
+  class FormController extends Controller {
+
+    constructor (){
+      this.dependencies=[];
+      this.component=null;
+      this.serviceClass="";
+      this.formSettings={
+        backRouting:"#",
+        loadingRouting:"#loading",
+        nextRouting:"#signupsuccessful"
+      };
+  
+    }
+
     hasValidation (element){
       var controller = this;
       var fieldName = element.getAttribute("data-field");
@@ -56,7 +64,8 @@ Package("org.qcobjects.controllers.form",[
         _hasValidation = true;
       }
       return _hasValidation;
-    },
+    }
+
     isInvalid (element){
       var controller = this;
       var _isInvalid = false;
@@ -75,10 +84,12 @@ Package("org.qcobjects.controllers.form",[
         _isInvalid = true;
       }
       return _isInvalid;
-    },
+    }
+
     isValid (element){
       return !this.isInvalid(element);
-    },
+    }
+
     save (){
       var controller = this;
       if (controller.serviceClass !== ""){
@@ -105,7 +116,8 @@ Package("org.qcobjects.controllers.form",[
         logger.debug("No service name declared on serviceClass property");
       }
 
-    },
+    }
+
     formSaveTouchHandler (){
       logger.debug("Saving data...");
       var controller = this;
@@ -157,13 +169,15 @@ Package("org.qcobjects.controllers.form",[
         logger.debug("Saving data...");
         controller.save();
       }
-    },
+    }
+
     _new_ (o){
+      super.__new__(o);
       var controller = this;
-      this.__new__(o);
       controller.component = o.component;
       controller.component = controller.component.Cast(FormField);
-    },
+    }
+
     done (){
       logger.debugEnabled=true;
       var controller=this;
@@ -190,7 +204,10 @@ Package("org.qcobjects.controllers.form",[
       });
 
     }
-  })
+
+
+  }
+
 ]);
 
 }).call(null);

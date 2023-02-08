@@ -25,13 +25,20 @@
 "use strict";
 (function() {
   Package("org.qcobjects.tools",[
-    Class("Process",Timer,{
-      steps:[],
-      currentStep:0,
-      stop: function (){
+
+    class Process extends Timer {
+
+      constructor () {
+        this.steps=[];
+        this.currentStep=0;
+  
+      }
+
+      stop (){
         this.alive=false;
-      },
-      start: function (){
+      }
+
+      start (){
         var process = this;
         process.alive=true;
         this.thread({
@@ -53,7 +60,8 @@
           }
         });
       }
-    })
+    }
+
   ]);
 
 }).call(null);

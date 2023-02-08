@@ -25,13 +25,16 @@
 (function() {
 "use strict";
 Package("org.qcobjects.i18n_messages", [
-  Class("i18n_messages",Object,{
-    _load_i18n_packages_: function (){
+
+  class i18n_messages extends InheritClass {
+    _load_i18n_packages_ (){
       return CONFIG.get("i18n_languages",[]).map((i18n_packagename)=>{
         Import(`org.quickcorp.i18n_messages.${i18n_packagename}`);
       });
-    },
-    _new_: function() {
+    }
+    
+    _new_() {
+      super._new_();
       var i18n = this;
       if (CONFIG.get("use_i18n")){
         CONFIG.set("lang", "en");
@@ -46,7 +49,9 @@ Package("org.qcobjects.i18n_messages", [
         }
       }
     }
-  }),
+
+  },
+
   {
     _i18n_messages:i18n_messages._load_i18n_packages_()
   }

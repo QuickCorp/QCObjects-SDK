@@ -25,23 +25,35 @@
 "use strict";
 (function() {
   Package("org.qcobjects.components",[
-    Class("ShadowedComponent",Component,{
-      container:null,
-      body:null,
-      shadowed:true,
-      cached:false,
-      controller:null,
-      view:null,
-      data:{},
-      _new_:function (o){
-        o.body = _DOMCreateElement("div");
-        _super_("Component","_new_").call(this,o);
+
+    class ShadowedComponent extends Component {
+      constructor (){
+        super ();
+        this.container=null;
+        this.body=null;
+        this.shadowed=true;
+        this.cached=false;
+        this.controller=null;
+        this.view=null;
+        this.data={};
       }
-    }),
-    Class("FormField",Component,{
-      cached:false,
-      reload:true,
-      createBindingEvents:function (){
+
+      _new_ (){
+        super._new_();
+        this.body = _DOMCreateElement("div");
+      }
+
+    },
+
+    class FormField extends Component {
+      constructor (){
+        super ();
+        this.cached = false;
+        this.reload = true;
+  
+      }
+
+      createBindingEvents(){
         var thisobj = this;
         var _objList;
         if (typeof this.fieldType =="undefined" || this.fieldType == null ){
@@ -68,13 +80,13 @@
               thisobj.executeBindings(e);
           });
         }
-      },
-      executeBinding:function (_obj){
+      }
+      executeBinding(_obj){
         var _datamodel = _obj.getAttribute("data-field");
         logger.debug("Binding "+_datamodel+" for "+this.name);
         this.data[_datamodel]=_obj.value;
-      },
-      executeBindings:function (){
+      }
+      executeBindings(){
         var _objList;
         if (typeof this.fieldType =="undefined" || this.fieldType == null ){
           _objList = this.body.subelements("*[data-field]"); // every child with data-field set
@@ -87,37 +99,61 @@
           logger.debug("Binding "+_datamodel+" for "+this.name);
           this.data[_datamodel]=_obj.value;
         }
-      },
-      done:function (){
+      }
+      done(){
         var thisobj = this;
         thisobj.executeBindings();
         thisobj.createBindingEvents();
         logger.debug("Field loaded: "+thisobj.fieldType+"[name="+thisobj.name+"]");
       }
-    }),
-    Class("ButtonField",FormField,{
-      fieldType:"button"
-    }),
-    Class("InputField",FormField,{
-      fieldType:"input"
-    }),
-    Class("TextField",FormField,{
-      fieldType:"textarea"
-    }),
-    Class("EmailField",FormField,{
-      fieldType:"input"
-    }),
-    Class("ModalEnclosureComponent",Component,{
-      name:"modal",
-      tplsource:"inline",
-      cached:false,
-      basePath:CONFIG.get("modalBasePath",CONFIG.get("remoteSDKPath")),
-      data:{},
-      _new_:function (o){
-        o.body = _DOMCreateElement("div");
-        _super_("Component","_new_").call(this,o);
-      },
-      template:`
+
+
+    },
+
+    class ButtonField extends FormField {
+      constructor (){
+        super();
+        this.fieldType="button";
+
+      }
+    },
+
+    class InputField extends FormField {
+      constructor (){
+        super();
+        this.fieldType="input";
+
+      }
+
+    },
+
+    class TextField extends FormField {
+      constructor (){
+        super();
+        this.fieldType="textarea";
+
+      }
+
+    },
+
+    class EmailField extends FormField {
+      constructor (){
+        super();
+        this.fieldType="input";
+
+      }
+
+    },
+
+    class ModalEnclosureComponent extends Component {
+      constructor (){
+        super();
+        this.name="modal";
+        this.tplsource="inline";
+        this.cached=false;
+        this.basePath=CONFIG.get("modalBasePath",CONFIG.get("remoteSDKPath"));
+        this.data={};
+        this.template=`
 <!-- The Modal -->
 <style>
   @import url('https://sdk.qcobjects.dev/css/modal.css');
@@ -131,23 +167,31 @@
 </div>
 
 </div>
-`
-    }),
-    Class("ModalComponent",Component,{
-      name:"modal",
-      cached:false,
-      modalEnclosureComponentClass:"ModalEnclosureComponent",
-      basePath: CONFIG.get("modalBasePath",CONFIG.get("remoteSDKPath")),
-      controller:null,
-      view:null,
-      tplsource:"none",
-      closeOnClickOutside:false,
-      data:{
-        content:"",
-        modalId:0
-      },
-      submodal:null,
-      modal: function (){
+`;
+        this.body = _DOMCreateElement("div");
+      }
+
+    },
+
+    class ModalComponent extends Component {
+      constructor (){
+        this.name="modal";
+        this.cached=false;
+        this.modalEnclosureComponentClass="ModalEnclosureComponent";
+        this.basePath= CONFIG.get("modalBasePath",CONFIG.get("remoteSDKPath"));
+        this.controller=null;
+        this.view=null;
+        this.tplsource="none";
+        this.closeOnClickOutside=false;
+        this.data={
+          content:"",
+          modalId:0
+        };
+        this.submodal=null;
+  
+      }
+
+      modal(){
         var modalId = this.data.modalId;
         var modalComponent = this;
 
@@ -168,8 +212,9 @@
             modalComponent.close();
           },false);
         }
-      },
-      close: function (){
+      }
+
+      close(){
         var modalId = this.data.modalId;
         Tag("#modalInstance_"+parseInt(modalId)+".modal").map(function (modal){
           modal.style.display="block";
@@ -183,8 +228,9 @@
             modal.style.display="none";
           });
         },900);
-      },
-      _new_:function (o){
+      }
+
+      _new_(o){
         var component = this;
         component.data.modalId = component.__instanceID;
         var submodal = New(ClassFactory(component.modalEnclosureComponentClass),{
@@ -200,11 +246,13 @@
           component.body.append(submodal.body);
         }
         _super_("Component","_new_").call(this,o); // parent call
-      },
-      done: function ({request,component}){
+      }
+
+      done({request,component}){
         _super_("Component","done").call(this,{request:request,component:component}); // parent call
-      },
-      rebuild:function (){
+      }
+
+      rebuild(){
         this.templateURI = ComponentURI({
           "COMPONENTS_BASE_PATH":CONFIG.get("componentsBasePath"),
           "COMPONENT_NAME":"modal",
@@ -213,13 +261,20 @@
         });
         return _super_("Component","rebuild").call(this); // parent call
       }
-    }),
-    Class("SwaggerUIComponent",Component,{
-      name:"swagger-ui",
-      cached:false,
-      basePath: CONFIG.get("remoteSDKPath"),
-      tplextension:"tpl.html"
-    })
+
+
+    },
+
+    class SwaggerUIComponent extends Component {
+      constructor (){
+        this.name="swagger-ui";
+        this.cached=false;
+        this.basePath= CONFIG.get("remoteSDKPath");
+        this.tplextension="tpl.html";
+  
+      }
+
+    }
 
   ]);
 

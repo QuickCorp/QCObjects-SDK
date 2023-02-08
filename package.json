@@ -30,8 +30,8 @@
   ],
   "devDependencies": {
     "eslint": "^8.4.0",
-    "eslint-config-qcobjects": "^0.0.13",
-    "qcobjects": "2.4-beta"
+    "eslint-config-qcobjects": "^0.0.14",
+    "qcobjects": "^2.4.23-beta"
   },
   "author": "Jean Machuca <correojean@gmail.com>",
   "license": "LGPL-3.0",

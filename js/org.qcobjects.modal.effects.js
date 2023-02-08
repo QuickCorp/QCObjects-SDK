@@ -25,24 +25,30 @@
 (function() {
 "use strict";
 Package("org.qcobjects.modal.effects",[
-  Class("ModalFade",Effect,{
-    duration:500,
-    apply: function (){
-      _super_("Fade","apply").apply(this,arguments);
+
+  class ModalFade extends Fade {
+    constructor () {
+      this.duration=500;
     }
-  }),
-  Class("ModalMoveDown",Effect,{
-    duration:300,
-    apply: function (){
-      _super_("Move","apply").apply(this,arguments);
+    
+  },
+
+  class ModalMoveDown extends Move {
+    constructor () {
+      this.duration=300;
+
     }
-  }),
-  Class("ModalMoveUp",Effect,{
-    duration:800,
-    apply: function (){
-      _super_("Move","apply").apply(this,arguments);
+
+  },
+
+  class ModalMoveUp extends Move {
+    constructor () {
+      this.duration=800;
+
     }
-  })
+
+  }
+
 ]);
 
 }).call(null);

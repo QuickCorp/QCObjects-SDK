@@ -25,13 +25,17 @@
 (function() {
 "use strict";
 Package("org.qcobjects.controllers",[
-  Class("GenericController",Controller,{
-    dependencies:[],
-    component:null,
-    _new_:function (o){
-      this.__new__(o);
+
+  class GenericController extends Controller {
+    constructor () {
+      this.dependencies=[];
+      this.component=null;
+  
     }
-  })
+
+
+  }
+
 ]);
 
 }).call(null);
