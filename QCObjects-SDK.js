@@ -29,7 +29,7 @@
   var relativeImportPath = CONFIG.get("relativeImportPath");
   var external = (!CONFIG.get("useLocalSDK")) ? (true) : (false);
   if (external) {
-    CONFIG.set("remoteImportsPath", "https://sdk.qcobjects.dev/js/");
+    CONFIG.set("remoteImportsPath", "https://sdk.qcobjects.dev/v2.4/js/");
   } else {
     CONFIG.set("relativeImportPath", "qcobjects-sdk/js/");
   }
