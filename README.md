@@ -16,6 +16,7 @@ If you like this code please [DONATE ](https://www.paypal.com/cgi-bin/webscr?cmd
 
 [QCObjects SDK](https://sdk.qcobjects.dev) is a set of Controllers, Views and Components that are elementary and useful to assist developers to build applications under MVC patterns using [QCObjects](https://qcobjects.dev).
 
+Checkout the [QCObjects SDK 2.4 beta version](https://sdk.qcobjects.dev/v2.4/)
 
 If you like more code samples feel free to write your questions to info@quickcorp.cl
 
