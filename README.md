@@ -24,20 +24,16 @@ If you like more code samples feel free to write your questions to info@quickcor
 # Installing with NPM:
 
 ```shell
-> npm install qcobjects-sdk
+> npm install qcobjects-sdk@v2.4
 ```
 
 # Using the code in the straight way into HTML5:
 
 ```html
-<script type="text/javascript" src="https://qcobjects.dev/QCObjects.js"></script>
-<script type="text/javascript" >
-CONFIG.set('useSDK',true);
-</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qcobjects/2.4.20/QCObjects.js"></script>
 ```
 
-NOTE: This dependence is included by default in the QCObjects runtime execution. You only need to install it if your having issues with default paths
-
+NOTE: SDK dependence is included by default in the QCObjects runtime execution. You only need to install it if your having issues with default paths
 
 
 ## SDK
@@ -52,6 +48,8 @@ NOTE: This dependence is included by default in the QCObjects runtime execution.
 
 ```html
 <component componentClass="ShadowedComponent"></component>
+
+<my-custom-widget componentClass="ShadowedComponent"></my-custom-widget>
 ```
 
 #### org.qcobjects.components.FormField
@@ -69,6 +67,13 @@ NOTE: This dependence is included by default in the QCObjects runtime execution.
 ```html
 <!-- Where you place the component -->
 <component name="myform" componentClass="FormField"></component>
+```
+
+```html
+<!-- usage using smart widgets -->
+
+<my-custom-widget name="myform" componentClass="FormField"></my-custom-widget>
+
 ```
 
 ```html
@@ -113,6 +118,11 @@ Inside of the body of your component, when it is a **FormField** component, ever
 <component name="name_of_component" componentClass="ButtonField"></component>
 ```
 
+```html
+<!-- using smart widgets -->
+<name-of-widget componentClass="ButtonField"></name-of-widget>
+```
+
 #### org.qcobjects.components.InputField
 
 **InputField** is a sub-definition of **FormField**, that is commonly used for almost the same purpose of FormField. The main difference between InputField and FormField is that InputField has a **<input>** DOM element as the body of the component by default. And FormField hasn't a pre-defined body.
@@ -121,6 +131,11 @@ Inside of the body of your component, when it is a **FormField** component, ever
 
 ```html
 <component name="name_of_component" componentClass="InputField"></component>
+```
+
+```html
+<!-- using smart widgets -->
+<name-of-widget componentClass="InputField"></name-of-widget>
 ```
 
 
@@ -134,6 +149,11 @@ Inside of the body of your component, when it is a **FormField** component, ever
 <component name="name_of_component" componentClass="TextField"></component>
 ```
 
+```html
+<!-- using smart widgets -->
+<name-of-widget componentClass="TextField"></name-of-widget>
+```
+
 
 #### org.qcobjects.components.EmailField
 
@@ -145,6 +165,12 @@ Inside of the body of your component, when it is a **FormField** component, ever
 <component name="name_of_component" componentClass="EmailField"></component>
 ```
 
+```html
+<!-- smart widget syntax -->
+<name-of-widget componentClass="EmailField"></name-of-widget>
+
+```
+
 #### org.qcobjects.components.GridComponent
 
 GridComponent has a predefined name assigned to the value "grid", so be aware of it when you use this component class. Also, GridComponent is intended to be used in conjunction with GridController to expand its behavior to a CSS Grid.
@@ -153,6 +179,8 @@ GridComponent has a predefined name assigned to the value "grid", so be aware of
 
 ```html
 <component componentClass="GridComponent" ...></component>
+
+<name-of-widget componentClass="GridComponent" ...></name-of-widget>
 ```
 
 ##### Example:
@@ -165,6 +193,16 @@ GridComponent has a predefined name assigned to the value "grid", so be aware of
 	<component name="name_of_subcomponent3"></component>
 	<component name="name_of_subcomponent4"></component>
 </controller>
+```
+
+```html
+<!-- syntax using smart widgets -->
+<name-of-widget rows="2" cols="2" componentClass="GridComponent" controllerClass="GridController">
+	<name-of-subwidget1></name-of-widget>
+	<name-of-subwidget2></name-of-widget>
+	<name-of-subwidget3></name-of-widget>
+	<name-of-subwidget4></name-of-widget>
+</name-of-widget>
 ```
 
 The above example will draw a css grid of two columns and two rows and place the subcomponents into it.
@@ -190,6 +228,11 @@ It is used to inject a swagger-ui DOM needed to the Swagger UI API. Learn more i
 <component componentClass="SwaggerUIComponent" controllerClass="SwaggerUIController" ></component>
 ```
 
+```html
+<!-- syntax using smart widgets -->
+<my-custom-widget componentClass="SwaggerUIComponent" controllerClass="SwaggerUIController" ></my-custom-widget>
+```
+
 #### org.qcobjects.components.splashscreen.VideoSplashScreenComponent
 
 A powerful component definition to allow you create an awesome Video Splash Screen for your progressive web app.
@@ -206,9 +249,25 @@ A powerful component definition to allow you create an awesome Video Splash Scre
 	<img slot="logo" alt="logo" src="./img/logo-qcobjects-white.svg"></div>
 </component>
 <!-- Then you can put your main component as always -->
-<component name="main" cached=true controllerClass="MainController">
+<component splashscreen name="main" cached=true controllerClass="MainController">
 </component>
 ```
+
+```html
+<!-- using smart widgets -->
+<!-- Add the splash screen component tag as the first component in your HTML document -->
+<splash-screen componentClass="VideoSplashScreenComponent"
+	data-background="./img/splash/splashscreen-aqua.png"
+	data-video_mp4="./img/splash/splashscreen-aqua.mp4"
+	data-video_webm="./img/splash/splashscreen-aqua.webm"
+	data-video_ogg="./img/splash/splashscreen-aqua.ogv" duration="5000">
+	<img slot="logo" alt="logo" src="./img/logo-qcobjects-white.svg"></div>
+</splash-screen>
+<!-- Then you can put your main layout as always -->
+<layout-basic splashscreen name="main" cached=true controllerClass="MainController">
+</layout-basic>
+```
+
 
 ### SDK Controllers
 
@@ -228,6 +287,13 @@ This is commonly used to render a dynamic list of components. It used a **subcom
 </component>
 ```
 
+```html
+<!-- Using smart widgets -->
+<my-custom-grid controllerClass="DataGridController" subcomponentClass="SubComponentClass">
+</my-custom-grid>
+```
+
+
 ##### Example:
 
 Suppose you have to render a list of profiles. Every profile has a profile picture, a name and an email.
@@ -236,14 +302,19 @@ You want to use a card to represent every profile in the list.
 So you define a CardComponent to render the picture, the name and email of an element in the list.
 
 ```javascript
-Class("CardComponent",Component,{
-	name:"card", // this will point to templates/components/card.tpl.html
-	data:{ // the value of this object will be overriden by DataGridController
-		name:"<name of contact>",
-		email:"email@example.com",
-		profilePicture:"img/photo.png"
+class CardComponent extends Component {
+	constructor () {
+		super();
+		this.name = "card"; // this will point to templates/components/card.tpl.html
+		this.data = { // the value of this object will be overriden by DataGridController
+			name:"<name of contact>",
+			email:"email@example.com",
+			profilePicture:"img/photo.png"
+		};
+
+		
 	}
-})
+}
 ```
 
 ```html
@@ -262,6 +333,12 @@ subcomponentClass="CardComponent">
 ```
 
 ```html
+<loading-list componentClass="MyListComponent" controllerClass="DataGridController"
+subcomponentClass="CardComponent">
+</loading-list>
+```
+
+```html
 <!-- template: loading_list.tpl.html -->
 <p>Loading list...</p>
 ```
@@ -269,25 +346,31 @@ subcomponentClass="CardComponent">
 Last, you have to define MyListComponent to assign the dynamic data of the list.
 
 ```javascript
-Class("MyListComponent",Component,{
-	data:[
-		{ // the value of this object will be mapped to a subcomponent by DataGridController
-			name:"<name of contact>",
-			email:"email@example.com",
-			profilePicture:"img/photo.png"
-		},
-		{ // the value of this object will be mapped to a subcomponent by DataGridController
-			name:"<name of contact>",
-			email:"email@example.com",
-			profilePicture:"img/photo.png"
-		},
-		{ // the value of this object will be mapped to a subcomponent by DataGridController
-			name:"<name of contact>",
-			email:"email@example.com",
-			profilePicture:"img/photo.png"
-		}
-	]
-})
+
+class MyListComponent extends Component {
+	constructor () {
+		super();
+		this.data=[
+			{ // the value of this object will be mapped to a subcomponent by DataGridController
+				name:"<name of contact>",
+				email:"email@example.com",
+				profilePicture:"img/photo.png"
+			},
+			{ // the value of this object will be mapped to a subcomponent by DataGridController
+				name:"<name of contact>",
+				email:"email@example.com",
+				profilePicture:"img/photo.png"
+			},
+			{ // the value of this object will be mapped to a subcomponent by DataGridController
+				name:"<name of contact>",
+				email:"email@example.com",
+				profilePicture:"img/photo.png"
+			}
+		]
+
+	}
+
+}
 ```
 
 The resulting component will be a list of **CardComponent** with the data of every profile mapped into them by **DataGridController**.
@@ -379,57 +462,67 @@ Below is a complete example of a definition for a Signup Form using FormControll
 
 ```javascript
 // First, define a service class that will be called on submit.
-Class('SignupClientService',JSONService,{
-	name:'signup',
-	external:true,
-	cached:false,
-	method:'POST',
-	url:Service.basePath+'createaccount',
-	withCredentials:false,
-	_new_:()=>{
-		// service instantiated
-	},
-	done:(successfulResponse)=>{
-		// service loaded
-			_super_('JSONService','done').call(successfulResponse.service,successfulResponse);
-			console.log(successfulResponse.service.JSONresponse);
+class SignupClientService extends JSONService {
+	constructor (){
+		this.name='signup';
+		this.external=true;
+		this.cached=false;
+		this.method='POST';
+		this.url=Service.basePath+'createaccount';
+		this.withCredentials=false;
+
 	}
-})
+
+	done (successfulResponse) {
+		// service loaded
+		super.done(successfulResponse.service, successfulResponse);
+		console.log(successfulResponse.service.JSONresponse);
+	}
+
+}
 ```
 
 ```javascript
 // To safe extend FormController, we extend first from Controller, then
 // we use a defaultController to instance a new FormController
-Class('SignupFormController',Controller,{
-	serviceClass: 'SignupClientService',
-	formSettings:{ /* routings that will be triggered once the serviceClass is called*/
-		backRouting:'#',
-		loadingRouting:'#loading',
-		nextRouting:'#signupsuccessful'
-	},
-	validations: { /* validation definitions for every field in the form to be validated before submit */
-		name (){
-			return FormValidations.getDefault('name')
-		},
-		email (){
-			return FormValidations.getDefault('email')
-		},
-		comment (){
-			return function (fieldName, dataValue, element){
-				return (dataValue !== '')?(true):(false);
+
+class SignupFormController extends Controller {
+	constructor () {
+		this.serviceClass= 'SignupClientService';
+		this.formSettings={ /* routings that will be triggered once the serviceClass is called*/
+			backRouting:'#'
+			loadingRouting:'#loading'
+			nextRouting:'#signupsuccessful'
+		};
+		this.validations: { /* validation definitions for every field in the form to be validated before submit */
+			name (){
+				return FormValidations.getDefault('name')
+			},
+			email (){
+				return FormValidations.getDefault('email')
+			},
+			comment (){
+				return function (fieldName, dataValue, element){
+					return (dataValue !== '')?(true):(false);
+				}
 			}
-		}
-	},
-	defaulController:null,
-	_new_:function (o){
+		};
+		this.defaulController=null;
+
+	}
+
+	_new_ (o){
+		super._new_(o);
 		o.serviceClass = this.serviceClass;
 		o.formSettings = this.formSettings;
 		o.validations = this.validations;
 		// here we instance a defaultController with a New FormController
 		// passing the o object declaration coming from the components stack building process.
-		this.defaulController = New(FormController,o);
-	},
-	done: function (){
+		this.defaulController = new FormController (o);
+	}
+
+	done (){
+		super.done();
 		// we define a custom done callback function to inject a custom behavior as well as calling the defaultController behavior
 		logger.debugEnabled=true;
 		var controller = this.defaulController;
@@ -439,7 +532,7 @@ Class('SignupFormController',Controller,{
 			logger.debug('Unable to execute default behavior');
 		}
 	}
-})
+}
 ```
 
 ```html
@@ -466,7 +559,7 @@ Class('SignupFormController',Controller,{
 ```html
 <!-- A signup form using the shadowed component signup-form -->
 <!-- template: signup.tpl.html -->
-<component name="signup-form" shadowed="true" controllerClass="SignupFormController">
+<signup-form shadowed="true" controllerClass="SignupFormController">
   <h1 slot="title">Signup Form</h1>
   <p slot="subtitle">Please fill up this form to ask for a quote.</p>
   <label slot="field-control" id="name_label" for="name"><b>&#x1F9D1; Full Name</b></label>
@@ -480,7 +573,11 @@ Class('SignupFormController',Controller,{
 	    <button aria-label="Cancel" onclick="location.href='/#'" role="button" tabindex="-1" type="button" class="cancelbtn"><p>Cancel</p></button>
 	    <button  aria-label="Send" role="button" tabindex="-1" type="button" class="signupbtn submit"><p>Send</p></button>
 	</div>
-</component>
+</signup-form>
+```
+
+```javascript
+RegisterWidget("signup-form");
 ```
 
 #### org.qcobjects.controllers.SwaggerUIController
@@ -491,6 +588,11 @@ It is used to inject a swagger-ui DOM needed to the Swagger UI API. Learn more i
 
 ```html
 <component componentClass="SwaggerUIComponent" controllerClass="SwaggerUIController" ></component>
+```
+
+```html
+<!-- using a smart widget -->
+<swagger-ui componentClass="SwaggerUIComponent" controllerClass="SwaggerUIController"></swagger-ui>
 ```
 
 
@@ -506,14 +608,15 @@ Moves a DOM object from one position to another.
 ##### Usage:
 
 ```javascript
-Move.apply(element, xfrom, yfrom, xto, yto)
+let move = new Move();
+move.apply(element, xfrom, yfrom, xto, yto);
 ```
 
 ##### Example:
 
 ```javascript
 // The next line will move all the images from (0,0) to (10,10)
-Tag('img').map(img => Move.apply(img,0,0,10,10))
+Tag('img').map(img => (new Move()).apply(img,0,0,10,10))
 ```
 
 #### org.qcobjects.tools.effects.MoveXInFromRight
@@ -523,14 +626,15 @@ Moves an element from the right side in X axis to the original position of the o
 ##### Usage:
 
 ```javascript
-MoveXInFromRight.apply(element)
+let moveXInFromRight = new MoveXInFromRight();
+moveXInFromRight.apply(element)
 ```
 
 ##### Example:
 
 ```javascript
 // the next line will move every canvas on the document from right side to its original position
-Tag('canvas').map(canvas => MoveXInFromRight.apply(canvas));
+Tag('canvas').map(canvas => (new MoveXInFromRight()).apply(canvas));
 ```
 
 #### org.qcobjects.tools.effects.MoveXInFromLeft
@@ -540,14 +644,15 @@ Moves an element from the left side in X axis to the original position of the ob
 ##### Usage:
 
 ```javascript
-MoveXInFromLeft.apply(element)
+let moveXInFromLeft = new MoveXInFromLeft();
+moveXInFromLeft.apply(element);
 ```
 
 ##### Example:
 
 ```javascript
 // the next line will move every canvas on the document from left side to its original position
-Tag('canvas').map(canvas => MoveXInFromLeft.apply(canvas));
+Tag('canvas').map(canvas => (new MoveXInFromLeft()).apply(canvas));
 ```
 
 #### org.qcobjects.tools.effects.MoveYInFromBottom
@@ -557,14 +662,15 @@ Moves an object of the DOM from bottom to its original position using Y axis.
 ##### Usage:
 
 ```javascript
-MoveYInFromBottom.apply(element)
+let moveYInFromBottom = new MoveYInFromBottom();
+moveYInFromBottom.apply(element);
 ```
 
 ##### Example:
 
 ```javascript
 // the next line will move the body of every component named "comp1" from bottom to its original position
-Tag('component[name=comp1]').map(componentBody => MoveYInFromBottom.apply(componentBody));
+Tag('component[name=comp1]').map(componentBody => (new MoveYInFromBottom()).apply(componentBody));
 ```
 
 #### org.qcobjects.tools.effects.MoveYInFromTop
@@ -574,14 +680,15 @@ Moves an object of the DOM from top to its original position using Y axis.
 ##### Usage:
 
 ```javascript
-MoveYInFromTop.apply(element)
+let moveYInFromTop = new MoveYInFromTop();
+moveYInFromTop.apply(element)
 ```
 
 ##### Example:
 
 ```javascript
 // the next line will move the body of every component named "comp1" from top to its original position
-Tag('component[name=comp1]').map(componentBody => MoveYInFromTop.apply(componentBody));
+Tag('component[name=comp1]').map(componentBody => (new MoveYInFromTop()).apply(componentBody));
 ```
 
 #### org.qcobjects.tools.effects.RotateX
@@ -591,7 +698,8 @@ Rotates an object in X axis.
 ##### Usage:
 
 ```javascript
-RotateX.apply(element, angleFrom, angleTo)
+let rotateX = new RotateX();
+RotateX.apply(element, angleFrom, angleTo);
 ```
 
 **angleFrom** and **angleTo** represent an angle value expressed in degrees, starting from 0 (zero) to 360.
@@ -600,7 +708,7 @@ RotateX.apply(element, angleFrom, angleTo)
 
 ```javascript
 // the next line will rotate in X axis the div called #id from 180 degrees to 240 degrees
-Tag('div#id').map(div => RotateX.apply(div, 180, 240));
+Tag('div#id').map(div => (new RotateX()).apply(div, 180, 240));
 ```
 
 
@@ -611,7 +719,8 @@ Rotates an object in Y axis.
 ##### Usage:
 
 ```javascript
-RotateY.apply(element, angleFrom, angleTo)
+let rotateY = new RotateY();
+rotateY.apply(element, angleFrom, angleTo)
 ```
 
 **angleFrom** and **angleTo** represent an angle value expressed in degrees, starting from 0 (zero) to 360.
@@ -620,7 +729,7 @@ RotateY.apply(element, angleFrom, angleTo)
 
 ```javascript
 // the next line will rotate in Y axis the div called #id from 0 degrees to 270 degrees
-Tag('div#id').map(div => RotateY.apply(div, 0, 270));
+Tag('div#id').map(div => (new RotateY()).apply(div, 0, 270));
 ```
 
 #### org.qcobjects.tools.effects.RotateZ
@@ -630,7 +739,8 @@ Rotates an object in Z axis.
 ##### Usage:
 
 ```javascript
-RotateZ.apply(element, angleFrom, angleTo)
+let rotateZ = new RotateZ();
+RotateZ.apply(element, angleFrom, angleTo);
 ```
 
 **angleFrom** and **angleTo** represent an angle value expressed in degrees, starting from 0 (zero) to 360.
@@ -639,7 +749,7 @@ RotateZ.apply(element, angleFrom, angleTo)
 
 ```javascript
 // the next line will rotate in Z axis the div called #id from 0 degrees to 60 degrees
-Tag('div#id').map(div => RotateZ.apply(div, 0, 60));
+Tag('div#id').map(div => (new RotateZ()).apply(div, 0, 60));
 ```
 
 
@@ -651,7 +761,8 @@ Rotates an object in X, Y, Z axes. All axes will rotate in paralell at the same 
 ##### Usage:
 
 ```javascript
-Rotate.apply(element, angleFrom, angleTo)
+let rotate = new Rotate ();
+Rotate.apply(element, angleFrom, angleTo);
 ```
 
 **angleFrom** and **angleTo** represent an angle value expressed in degrees, starting from 0 (zero) to 360.
@@ -660,7 +771,7 @@ Rotate.apply(element, angleFrom, angleTo)
 
 ```javascript
 // the next line will rotate in X, Y and Z axes the div called #id form 0 to 270 degrees
-Tag('div#id').map(div => Rotate.apply(div, 0, 270));
+Tag('div#id').map(div => (new Rotate()).apply(div, 0, 270));
 ```
 
 #### org.qcobjects.tools.effects.Fade
@@ -670,14 +781,15 @@ Produces a fade effect by lowering the opacity of the element.
 ##### Usage:
 
 ```javascript
-Fade.apply(element, alphaFrom, alphaTo)
+let fade = new Fade();
+Fade.apply(element, alphaFrom, alphaTo);
 ```
 
 **alphaFrom** and **alphaTo** are numbers between 0 (zero) and 1.
 
 ```javascript
 // the following line will fade a <b class="header"> element from 0.5 (mid visibility) to 1 (full visibility)
-Tag('b.header').map(header=>Fade.apply(header, 0.5, 1))
+Tag('b.header').map(header=>(new Fade()).apply(header, 0.5, 1))
 ```
 
 #### org.qcobjects.tools.effects.Radius
@@ -687,7 +799,8 @@ Rounds the corner of an element
 ##### Usage:
 
 ```javascript
-Radius.apply(element, radiusFrom, radiusTo)
+let radius = new Radius();
+radius.apply(element, radiusFrom, radiusTo)
 ```
 
 **radiusFrom** and **radiusTo** are numeric values.
@@ -696,7 +809,7 @@ Radius.apply(element, radiusFrom, radiusTo)
 
 ```javascript
 // the next line will round the corners of every image in the document
-Tag('img').map(element => Radius.apply(element, 0, 100))
+Tag('img').map(element => (new Radius()).apply(element, 0, 100))
 ```
 
 #### org.qcobjects.tools.effects.Resize
@@ -704,7 +817,8 @@ Tag('img').map(element => Radius.apply(element, 0, 100))
 ##### Usage:
 
 ```javascript
-Resize.apply(element, scaleFrom, scaleTo)
+let resize = new Resize ();
+resize.apply(element, scaleFrom, scaleTo)
 ```
 
 **scaleFrom** and **scaleTo** are numeric values.
@@ -714,13 +828,13 @@ A value of 1 is regular size, a value of 2 is double size, a value between 0 and
 
 ```javascript
 // the next line will make a zoom-out effect on every image in the document
-Tag('img').map(element => Resize.apply(element, 2,0))
+Tag('img').map(element => (new Resize()).apply(element, 2,0))
 
 // the next line will make a zoom-in effect on every image in the document
-Tag('img').map(element => Resize.apply(element, 0,1))
+Tag('img').map(element => (new Resize()).apply(element, 0,1))
 
 // the next line will make a zoom-in-out effect on every image in the document
-Tag('img').map(element => Resize.apply(element, 2,1))
+Tag('img').map(element => (new Resize()).apply(element, 2,1))
 ```
 
 #### org.qcobjects.tools.effects.WipeLeft
@@ -730,7 +844,8 @@ Makes a Wipe effect from Left side to the origin of the element.
 ##### Usage:
 
 ```javascript
-WipeLeft.apply(element, scaleFrom, scaleTo)
+let wipeLeft = new WipeLeft();
+wipeLeft.apply(element, scaleFrom, scaleTo)
 ```
 
 **scaleFrom** and **scaleTo** are numeric values.
@@ -739,7 +854,7 @@ A value of 1 is regular size, a value of 2 is double size, a value between 0 and
 ##### Example
 
 ```javascript
-Tag('img').map(element => WipeLeft.apply(element,0,1))
+Tag('img').map(element => (new WipeLeft()).apply(element,0,1))
 ```
 
 #### org.qcobjects.tools.effects.WipeRight
@@ -749,7 +864,8 @@ Makes a Wipe effect from right side to the origin of the element.
 ##### Usage:
 
 ```javascript
-WipeRight.apply(element, scaleFrom, scaleTo)
+let wipeRight = new WipeRight();
+wipeRight.apply(element, scaleFrom, scaleTo)
 ```
 
 **scaleFrom** and **scaleTo** are numeric values.
@@ -758,7 +874,7 @@ A value of 1 is regular size, a value of 2 is double size, a value between 0 and
 ##### Example
 
 ```javascript
-Tag('img').map(element => WipeRight.apply(element,0,1))
+Tag('img').map(element => (new WipeRight()).apply(element,0,1))
 ```
 
 
@@ -769,7 +885,8 @@ Makes a Wipe effect from down to up the origin of the element.
 ##### Usage:
 
 ```javascript
-WipeUp.apply(element, scaleFrom, scaleTo)
+let wipeUp = new WipeUp();
+wipeUp.apply(element, scaleFrom, scaleTo);
 ```
 
 **scaleFrom** and **scaleTo** are numeric values.
@@ -778,7 +895,7 @@ A value of 1 is regular size, a value of 2 is double size, a value between 0 and
 ##### Example
 
 ```javascript
-Tag('img').map(element => WipeUp.apply(element,0,1))
+Tag('img').map(element => (new WipeUp()).apply(element,0,1))
 ```
 
 #### org.qcobjects.tools.effects.WipeDown
@@ -788,7 +905,8 @@ Makes a Wipe effect from up to down the origin of the element.
 ##### Usage:
 
 ```javascript
-WipeDown.apply(element, scaleFrom, scaleTo)
+let wipeDown = new WipeDown();
+wipeDown.apply(element, scaleFrom, scaleTo);
 ```
 
 **scaleFrom** and **scaleTo** are numeric values.
@@ -797,7 +915,7 @@ A value of 1 is regular size, a value of 2 is double size, a value between 0 and
 ##### Example
 
 ```javascript
-Tag('img').map(element => WipeDown.apply(element,0,1))
+Tag('img').map(element => (new WipeDown()).apply(element,0,1))
 ```
 
 
@@ -826,9 +944,9 @@ Used to call the i18n engine.
 ##### Usage:
 
 ```javascript
-  Class('i18n_messages_<custom lang>', i18n_messages,{
+	class i18n_messages_<custom lang> extends i18n_messages {
 		...
-	})
+	}
 ```
 
 ##### Example
@@ -837,28 +955,27 @@ Used to call the i18n engine.
 'use strict';
 // file: js/packages/org.qcobjects.i18n_messages.es.js
 Package('org.qcobjects.i18n_messages.es', [
-  Class('i18n_messages_es', i18n_messages, {
-    messages: [
-       // ... your custom language dictionary is here
-      {
-         "en":"This is a paragraph",
-         "es":"Esto es un párrafo"
-      },
-      {
-         "en":"Welcome to my new app",
-         "es":"Bienvenido a mi nueva app"
-      }
-    ]
-  }),
-  {
+	class i18n_messages_es extends i18n_messages {
+		constructor () {
+			this.messages= [
+			// ... your custom language dictionary is here
+			{
+				"en":"This is a paragraph",
+				"es":"Esto es un párrafo"
+			},
+			{
+				"en":"Welcome to my new app",
+				"es":"Bienvenido a mi nueva app"
+			}
+			];
+		}
+	},
+	{
 		// the next line generates an instance of the i18n engine and attaches it automatically in the package
-    _i18n_messages_es: New(i18n_messages_es)
-  }
+		_i18n_messages_es: new i18n_messages_es()
+	}
 ]);
 ```
-
-##
-
 
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FQuickCorp%2FQCObjects-SDK.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FQuickCorp%2FQCObjects-SDK?ref=badge_large)
