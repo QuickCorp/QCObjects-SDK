@@ -72,6 +72,44 @@
     ];
   } else {
     // non-browsers environment
+    (function loadBackendSDKRoutes(){
+      if (!loadBackendSDKRoutes.loaded){
+        let backend = CONFIG.get("backend");
+        if (typeof backend === "undefined"){
+          backend = {};
+        }
+        if (typeof backend.routes === "undefined"){
+          backend.routes = [];
+        }
+        backend.routes = backend.routes.concat([
+          {
+            "name":"QCObjects-SDK",
+            "description":"Redirection of QCObjects SDK",
+            "path":"^/qcobjects-sdk/(.*)$",
+            "microservice":"com.qcobjects.backend.microservice.static",
+            "redirect_to": "./node_modules/qcobjects-sdk/$1",
+            "responseHeaders":{},
+            "cors":{
+              "allow_origins":"*"
+            }
+          },
+          {
+            "name":"QCObjects-SDK.js",
+            "description":"Redirection of QCObjects SDK",
+            "path":"^/js/packages/QCObjects-SDK.js$",
+            "microservice":"com.qcobjects.backend.microservice.static",
+            "redirect_to": "./node_modules/qcobjects-sdk/QCObjects-SDK.js",
+            "responseHeaders":{},
+            "cors":{
+              "allow_origins":"*"
+            }
+          }
+        ]);
+        CONFIG.set("backend", backend);
+        loadBackendSDKRoutes.loaded = true;
+      }
+    })();
+
     var _relative_path_ = "qcobjects-sdk/js/";
     _imports_ = [
       Import(_relative_path_ + "org.qcobjects.models", function () {}, external),
@@ -85,6 +123,8 @@
       Import(_relative_path_ + "org.qcobjects.cloud.auth.session.usertoken", function () {}, external),
       Import(_relative_path_ + "org.qcobjects.cloud.auth.session.data", function () {}, external)
     ];
+
+    
   }
   _top._sdk_ = Promise.all(_imports_).then(function () {
     CONFIG.set("useSDK", true);
