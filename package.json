@@ -42,6 +42,6 @@
     "jasmine": "^3.6.3"
   },
   "peerDependencies": {
-    "qcobjects": ">=2.4.23"
+    "qcobjects": ">=2.4.28-beta"
   }
 }
