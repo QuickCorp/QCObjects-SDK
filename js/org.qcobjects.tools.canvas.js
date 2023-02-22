@@ -27,6 +27,9 @@
   Package("org.qcobjects.tools.canvas",[
 
     class CanvasTool extends InheritClass {
+      constructor () {
+        super(...arguments);
+      }
 
       drawImageFilled (img, canvas, zoom=1, px=0, py=0){
         // get the scale

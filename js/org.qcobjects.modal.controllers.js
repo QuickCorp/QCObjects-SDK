@@ -29,7 +29,7 @@ Package("org.qcobjects.modal.controllers",[
   class ModalController extends Controller {
 
     constructor () {
-      super();
+      super(...arguments);
       this.dependencies=[];
       this.component=null;
     }

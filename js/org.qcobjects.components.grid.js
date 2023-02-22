@@ -29,7 +29,7 @@
     class GridItemComponent extends Component {
 
       constructor (){
-        super();
+        super(...arguments);
         this.name = "grid-item";
         this.shadowed= true;
         this.tplsource= "inline";
@@ -43,7 +43,7 @@
 
     class GridComponent extends Component {
       constructor (){
-        super();
+        super(...arguments);
         this.name= "grid";
         this.cached= false;
         this.view= null;

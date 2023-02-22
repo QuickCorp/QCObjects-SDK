@@ -29,7 +29,7 @@ Package("org.quickcorp.components.notifications", [
   class NotificationComponent extends Component {
 
     constructor (){
-      super();
+      super(...arguments);
 
       this.name= "notification";
       this.cached= false;

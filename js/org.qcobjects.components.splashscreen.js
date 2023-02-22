@@ -25,11 +25,10 @@ logger.debugEnabled = true;
 */
 (function() {
 "use strict";
-Package("org.qcobjects.components.splashscreen",[
-
+Package("org.qcobjects.components.base", [
   class SplashScreenComponent extends Component {
     constructor () {
-      super();
+      super(...arguments);
       this.name= "splashscreen";
       this.cached= false;
       this.shadowed= true;
@@ -111,11 +110,15 @@ Package("org.qcobjects.components.splashscreen",[
       }
     }
 
-  },
+  }
+
+]);
+Package("org.qcobjects.components.splashscreen",[
+
 
   class VideoSplashScreenComponent extends SplashScreenComponent {
     constructor () {
-      super();
+      super(...arguments);
 
       this.name= "videosplashscreen";
       this.cached= false;
@@ -291,7 +294,7 @@ Package("org.qcobjects.components.splashscreen",[
   class CubeSplashScreenComponent extends SplashScreenComponent {
 
     constructor () {
-      super();
+      super(...arguments);
       this.name= "cubesplashscreen";
       this.cached= false;
       this.shadowed= true;

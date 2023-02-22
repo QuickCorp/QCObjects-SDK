@@ -32,7 +32,7 @@
        * Creates an instance of SessionData.
        */
       constructor() {
-        super();
+        super(...arguments);
         this.__session_container__ = null;
       }
 

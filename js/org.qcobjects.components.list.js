@@ -28,7 +28,7 @@ Package("org.qcobjects.components.list",[
 
   class ListItemComponent extends Component {
     constructor (){
-      super();
+      super(...arguments);
       this.name="list-item";
       this.shadowed= false;
       this.tplsource= "inline";
@@ -41,7 +41,7 @@ Package("org.qcobjects.components.list",[
 
   class ListComponent extends Component {
     constructor () {
-      super();
+      super(...arguments);
       this.name="list";
       this.shadowed= true;
       this.tplsource= "inline";

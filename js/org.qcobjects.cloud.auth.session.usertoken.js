@@ -28,7 +28,7 @@
   Package("org.qcobjects.cloud.auth.session.usertoken", [
     class SessionUserToken extends InheritClass{
       constructor() {
-        super();
+        super(...arguments);
         this.user = {};
         this.__cache__ = null;
 

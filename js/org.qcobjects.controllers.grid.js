@@ -29,7 +29,7 @@ Package("org.qcobjects.controllers.grid",[
   class GridComponent extends Controller {
 
     constructor (){
-      super();
+      super(...arguments);
       this.dependencies=[];
       this.component=null;
   
@@ -80,7 +80,7 @@ Package("org.qcobjects.controllers.grid",[
 
   class DataGridController extends Controller {
     constructor (){
-      super();
+      super(...arguments);
       this.dependencies=[];
       this.component=null;
   

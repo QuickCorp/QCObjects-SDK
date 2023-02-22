@@ -24,35 +24,15 @@
 */
 "use strict";
 (function() {
-  Package("org.qcobjects.components",[
-
-    class ShadowedComponent extends Component {
-      constructor (){
-        super ();
-        this.container=null;
-        this.body=null;
-        this.shadowed=true;
-        this.cached=false;
-        this.controller=null;
-        this.view=null;
-        this.data={};
-      }
-
-      _new_ (){
-        super._new_();
-        this.body = _DOMCreateElement("div");
-      }
-
-    },
-
+  Package("org.qcobjects.base.components", [
     class FormField extends Component {
       constructor (){
-        super ();
+        super(...arguments);
         this.cached = false;
         this.reload = true;
   
       }
-
+  
       createBindingEvents(){
         var thisobj = this;
         var _objList;
@@ -106,13 +86,36 @@
         thisobj.createBindingEvents();
         logger.debug("Field loaded: "+thisobj.fieldType+"[name="+thisobj.name+"]");
       }
+  
+  
+    }
+  
+  ]);
+  Package("org.qcobjects.form.components",[
 
+    class ShadowedComponent extends Component {
+      constructor (){
+        super(...arguments);
+        this.container=null;
+        this.body=null;
+        this.shadowed=true;
+        this.cached=false;
+        this.controller=null;
+        this.view=null;
+        this.data={};
+      }
+
+      _new_ (){
+        super._new_();
+        this.body = _DOMCreateElement("div");
+      }
 
     },
 
+
     class ButtonField extends FormField {
       constructor (){
-        super();
+        super(...arguments);
         this.fieldType="button";
 
       }
@@ -120,7 +123,7 @@
 
     class InputField extends FormField {
       constructor (){
-        super();
+        super(...arguments);
         this.fieldType="input";
 
       }
@@ -129,7 +132,7 @@
 
     class TextField extends FormField {
       constructor (){
-        super();
+        super(...arguments);
         this.fieldType="textarea";
 
       }
@@ -138,7 +141,7 @@
 
     class EmailField extends FormField {
       constructor (){
-        super();
+        super(...arguments);
         this.fieldType="input";
 
       }
@@ -147,7 +150,7 @@
 
     class ModalEnclosureComponent extends Component {
       constructor (){
-        super();
+        super(...arguments);
         this.name="modal";
         this.tplsource="inline";
         this.cached=false;
@@ -175,7 +178,7 @@
 
     class ModalComponent extends Component {
       constructor (){
-        super();
+        super(...arguments);
         this.name="modal";
         this.cached=false;
         this.modalEnclosureComponentClass="ModalEnclosureComponent";
@@ -268,7 +271,7 @@
 
     class SwaggerUIComponent extends Component {
       constructor (){
-        super();
+        super(...arguments);
         this.name="swagger-ui";
         this.cached=false;
         this.basePath= CONFIG.get("remoteSDKPath");

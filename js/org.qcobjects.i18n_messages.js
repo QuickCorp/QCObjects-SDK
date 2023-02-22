@@ -27,14 +27,9 @@
 Package("org.qcobjects.i18n_messages", [
 
   class i18n_messages extends InheritClass {
-    _load_i18n_packages_ (){
-      return CONFIG.get("i18n_languages",[]).map((i18n_packagename)=>{
-        Import(`org.quickcorp.i18n_messages.${i18n_packagename}`);
-      });
-    }
-    
-    _new_(o) {
-      super._new_(o);
+
+    constructor () {
+      super(...arguments);
       var i18n = this;
       if (CONFIG.get("use_i18n")){
         CONFIG.set("lang", "en");
@@ -48,13 +43,16 @@ Package("org.qcobjects.i18n_messages", [
           });
         }
       }
+
     }
 
-  },
-
-  {
-    _i18n_messages:i18n_messages._load_i18n_packages_()
+    _load_i18n_packages_ (){
+      return CONFIG.get("i18n_languages",[]).map((i18n_packagename)=>{
+        Import(`org.quickcorp.i18n_messages.${i18n_packagename}`);
+      });
+    }
+    
   }
 ]);
-
+(new i18n_messages())._load_i18n_packages_();
 }).call(null);
