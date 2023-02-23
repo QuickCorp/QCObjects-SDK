@@ -183,5 +183,8 @@ Package("org.quickcorp.components.notifications", [
   }
 
 ]);
-
+NotificationComponent.success = () => (new NotificationComponent({name:"notification",tplsource:"none"})).success(...arguments);
+NotificationComponent.danger = () => (new NotificationComponent({name:"notification",tplsource:"none"})).danger(...arguments);
+NotificationComponent.info = () => (new NotificationComponent({name:"notification",tplsource:"none"})).info(...arguments);
+NotificationComponent.warning = () => (new NotificationComponent({name:"notification",tplsource:"none"})).warning(...arguments);
 }).call(null);

@@ -32,12 +32,8 @@ Package("org.qcobjects.components.base", [
       this.name= "splashscreen";
       this.cached= false;
       this.shadowed= true;
+      var o = this;
       
-      
-    }
-
-    _new_(o) {
-      super._new_(o);
       var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
       let component = this;
       var isStartURL = (location.hash === ""
@@ -83,13 +79,13 @@ Package("org.qcobjects.components.base", [
                         _componentRoot.subelements("#slot-logo").map(function (slotlogo){
                           slotlogo.style.display = "block";
                           slotlogo.style.transformOrigin = "center";
-                          Resize.apply(slotlogo,1,0);
+                          (new Resize()).apply(slotlogo,1,0);
                         });
-                        Fade.apply(_componentRoot, 1, 0);
+                        (new Fade()).apply(_componentRoot, 1, 0);
                       }
                     }, (duration-displayEffectDuration));
                     setTimeout(function() {
-                      Fade.apply(mainElement, 0, 1);
+                      (new Fade()).apply(mainElement, 0, 1);
                       mainElement.style.position = mainComponent._mainPosition;
                       document.body.style.backgroundColor = component._bgcolor;
                       _componentRoot.parentElement.remove();
@@ -108,11 +104,14 @@ Package("org.qcobjects.components.base", [
       } else {
         component.body.style.display="none";
       }
+      
     }
+
 
   }
 
 ]);
+
 Package("org.qcobjects.components.splashscreen",[
 
 
