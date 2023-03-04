@@ -6,4 +6,4 @@ describe('QCObjects SDK Main Test', function () {
     expect(true).toEqual(true);
   });
 
-})
+});
