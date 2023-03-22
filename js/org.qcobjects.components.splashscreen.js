@@ -27,11 +27,12 @@ logger.debugEnabled = true;
 "use strict";
 Package("org.qcobjects.components.base", [
   class SplashScreenComponent extends Component {
+    cached = false;
+    shadowed= true;
+
     constructor () {
       super(...arguments);
       this.name= "splashscreen";
-      this.cached= false;
-      this.shadowed= true;
       var o = this;
       
       var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
@@ -113,17 +114,11 @@ Package("org.qcobjects.components.base", [
 ]);
 
 Package("org.qcobjects.components.splashscreen",[
-
-
   class VideoSplashScreenComponent extends SplashScreenComponent {
-    constructor () {
-      super(...arguments);
-
-      this.name= "videosplashscreen";
-      this.cached= false;
-      this.shadowed= true;
-      this.tplsource= "inline";
-      this.template= `
+      cached= false;
+      shadowed= true;
+      tplsource= "inline";
+      template= `
       <style>
       :host * {
         box-sizing: border-box;
@@ -287,18 +282,17 @@ Package("org.qcobjects.components.splashscreen",[
       </div>
   
       `;
+
+
+    constructor () {
+      super(...arguments);
+
+      this.name= "videosplashscreen";
     }
   },
 
   class CubeSplashScreenComponent extends SplashScreenComponent {
-
-    constructor () {
-      super(...arguments);
-      this.name= "cubesplashscreen";
-      this.cached= false;
-      this.shadowed= true;
-      this.tplsource= "inline";
-      this.template= `
+      template= `
       <style>
       @keyframes spin {
         0% {
@@ -611,6 +605,14 @@ Package("org.qcobjects.components.splashscreen",[
       </div>
   
       `;
+
+
+    constructor () {
+      super(...arguments);
+      this.name= "cubesplashscreen";
+      this.cached= false;
+      this.shadowed= true;
+      this.tplsource= "inline";
   
     }    
 
