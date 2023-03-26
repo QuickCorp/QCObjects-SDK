@@ -27,21 +27,17 @@
 Package("org.qcobjects.controllers.grid",[
 
   class GridComponent extends Controller {
+    dependencies=[];
+    component=null;
 
     constructor (){
       super(...arguments);
-      this.dependencies=[];
-      this.component=null;
-  
-    }
-
-    _new_ (o){
-      super.__new__(o);
       var controller=this;
       controller.rows=controller.component.body.getAttribute("rows");
       controller.rows=(controller.rows !== null)?(controller.rows):(controller.component.rows);
       controller.cols=controller.component.body.getAttribute("cols");
       controller.cols=(controller.cols !== null)?(controller.cols):(controller.component.cols);
+  
     }
 
     cssGrid (){
@@ -79,23 +75,20 @@ Package("org.qcobjects.controllers.grid",[
   },
 
   class DataGridController extends Controller {
-    constructor (){
-      super(...arguments);
-      this.dependencies=[];
-      this.component=null;
-  
-    }
+    dependencies=[];
+    component=null;
 
-    _new_ (o){
-      super.__new__(o);
+    constructor ({component}){
+      super(...arguments);
       var controller=this;
-      var component = controller.component;
+      controller.component = component;
       controller._componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
       controller.rows=controller.component.body.getAttribute("rows");
       controller.rows=(controller.rows !== null)?(controller.rows):(controller.component.rows);
       controller.cols=controller.component.body.getAttribute("cols");
       controller.cols=(controller.cols !== null)?(controller.cols):(controller.component.cols);
       logger.debug("DataGridController INIT");
+  
     }
 
     getPageIndex (page, totalPage, totalElements) {

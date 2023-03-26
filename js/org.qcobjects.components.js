@@ -26,10 +26,10 @@
 (function () {
   Package("org.qcobjects.base.components", [
     class FormField extends Component {
+      cached = false;
+      reload = true;
       constructor() {
         super(...arguments);
-        this.cached = false;
-        this.reload = true;
 
       }
 
@@ -95,15 +95,16 @@
   Package("org.qcobjects.form.components", [
 
     class ShadowedComponent extends Component {
+      container = null;
+      body = null;
+      shadowed = true;
+      cached = false;
+      controller = null;
+      view = null;
+      data = {};
+
       constructor() {
         super(...arguments);
-        this.container = null;
-        this.body = null;
-        this.shadowed = true;
-        this.cached = false;
-        this.controller = null;
-        this.view = null;
-        this.data = {};
         this.body = _DOMCreateElement("div");
       }
 
@@ -147,28 +148,29 @@
     },
 
     class ModalEnclosureComponent extends Component {
-      constructor() {
-        super(...arguments);
-        this.name = "modal";
-        this.tplsource = "inline";
-        this.cached = false;
-        this.basePath = CONFIG.get("modalBasePath", CONFIG.get("remoteSDKPath"));
-        this.data = {};
-        this.template = `
+      tplsource = "inline";
+      cached = false;
+      basePath = CONFIG.get("modalBasePath", CONFIG.get("remoteSDKPath"));
+      template = `
 <!-- The Modal -->
 <style>
-  @import url('https://sdk.qcobjects.dev/css/modal.css');
+@import url('https://sdk.qcobjects.dev/css/modal.css');
 </style>
 <div id="modalInstance_{{modalId}}" class="modal">
 
 <!-- Modal content -->
 <div class="modal-content">
-  <span class="close">&times;</span>
-  {{content}}
+<span class="close">&times;</span>
+{{content}}
 </div>
 
 </div>
 `;
+
+      data = {};
+      constructor() {
+        super(...arguments);
+        this.name = "modal";
         this.body = _DOMCreateElement("div");
       }
 
@@ -261,12 +263,13 @@
     },
 
     class SwaggerUIComponent extends Component {
+      cached = false;
+      basePath = CONFIG.get("remoteSDKPath");
+      tplextension = "tpl.html";
+
       constructor() {
         super(...arguments);
         this.name = "swagger-ui";
-        this.cached = false;
-        this.basePath = CONFIG.get("remoteSDKPath");
-        this.tplextension = "tpl.html";
 
       }
 

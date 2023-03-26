@@ -27,16 +27,16 @@
   Package("org.qcobjects.controllers.list", [
 
     class ListController extends Controller {
-      constructor() {
+      dependencies = [];
+      component = null;
+      valueField = undefined;
+      labelField = undefined;
+
+      constructor({component}) {
         super(...arguments);
-        this.dependencies = [];
-        this.component = null;
-
-      }
-
-      _new_(o) {
-        super.__new__(o);
+        this.component = component;
         var controller = this;
+        controller.component = component;
         controller._componentRoot = (controller.component.shadowed) ? (controller.component.shadowRoot) : (controller.component.body);
 
         controller.labelField = controller.component.body.getAttribute("label-field");
@@ -45,6 +45,7 @@
         controller.rows = (controller.rows !== null) ? (controller.rows) : (controller.component.rows);
         controller.cols = 1;
         logger.debug("ListController INIT");
+
       }
 
       getPageIndex(page, totalPage, totalElements) {
@@ -61,6 +62,9 @@
         var layout = controller.component.body.getAttribute("layout");
         var basePath = CONFIG.get("listBasePath", CONFIG.get("remoteSDKPath"));
         var cssLayout = "";
+        controller.labelField = controller.component.body.getAttribute("label-field");
+        controller.valueField = controller.component.body.getAttribute("value-field");
+
         if (layout === "horizontal") {
           cssLayout = `@import url("${basePath}css/components/horizontal-list.css");`;
         } else {
@@ -103,6 +107,7 @@
                   record.label = record[controller.labelField];
                   record.value = record[controller.valueField];
                   var subcomponent = New(ClassFactory(subcomponentClass), {
+                    name:"list-item",
                     data: {
                       label: record[controller.labelField],
                       value: record[controller.valueField],

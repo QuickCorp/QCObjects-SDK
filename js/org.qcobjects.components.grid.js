@@ -27,41 +27,38 @@
   Package("org.qcobjects.components.grid", [
     
     class GridItemComponent extends Component {
-
-      constructor (){
-        super(...arguments);
-        this.name = "grid-item";
-        this.shadowed= true;
-        this.tplsource= "inline";
-        this.template= `
+      name = "grid-item";
+      shadowed= true;
+      tplsource= "inline";
+      template= `
 <img src="{{image}}" />
 <p>{{description}}</p>
 `;
-        this.cached= false;
+      cached= false;
+
+      constructor (){
+        super(...arguments);
       }
     },
 
     class GridComponent extends Component {
+      name= "grid";
+      cached= false;
+      view= null;
+      shadowed= true;
+      rows= 3;
+      cols= 3;
+      templateURI= "";
+      data= {};
+      tplsource= "inline";
+      template= "<p>Loading...</p>";
+
       constructor (){
         super(...arguments);
-        this.name= "grid";
-        this.cached= false;
-        this.view= null;
-        this.shadowed= true;
-        this.rows= 3;
-        this.cols= 3;
-        this.templateURI= "";
-        this.data= {};
-        this.tplsource= "inline";
-        this.template= "<p>Loading...</p>";
+        this.body.setAttribute("controllerClass", "DataGridController");
+        var subcomponentClass = (this.body.getAttribute("subcomponentClass") !== null) ? (this.body.getAttribute("subcomponentClass")) : ("GridItemComponent");
+        this.body.setAttribute("subcomponentClass", subcomponentClass);
   
-      }
-
-      _new_(o) {
-        super._new_(o);
-        o.body.setAttribute("controllerClass", "DataGridController");
-        var subcomponentClass = (o.body.getAttribute("subcomponentClass") !== null) ? (o.body.getAttribute("subcomponentClass")) : ("GridItemComponent");
-        o.body.setAttribute("subcomponentClass", subcomponentClass);
       }
 
 
