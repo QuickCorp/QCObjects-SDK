@@ -27,34 +27,31 @@
 Package("org.qcobjects.components.slider",[
 
   class SlideListComponent extends Component {
+    tplsource="inline";
+    template="<p>Loading...</p>";
 
     constructor (){
       super(...arguments);
       this.name="slidelist";
-      this.tplsource="inline";
-      this.template="<p>Loading...</p>";
-  
-    }
-
-    _new_ (o){
-      super._new_(o);
-      o.body.setAttribute("controllerClass","DataGridController");
-      var subcomponentClass = (o.body.getAttribute("subcomponentClass") !== null)?(o.body.getAttribute("subcomponentClass")):("GridItemComponent");
-      o.body.setAttribute("subcomponentClass",subcomponentClass);
+      this.body.setAttribute("controllerClass","DataGridController");
+      var subcomponentClass = (this.body.getAttribute("subcomponentClass") !== null)?(this.body.getAttribute("subcomponentClass")):("GridItemComponent");
+      this.body.setAttribute("subcomponentClass",subcomponentClass);
     }
 
 
   },
 
   class SlideItemComponent extends Component {
+    effectClass = "Fade";
+    name = "slider_item";
 
-    constructor () {
+    constructor ({data}) {
       super(...arguments);
-      this.name="slider_item";
+      this.data.slideNumber = data.__dataIndex+1;
       this.template= `
       <div class="qcoSlides" style="display:none">
         <div class="qco-slider__numbertext">{{slideNumber}} / {{__dataLength}}</div>
-        <img src="{{image}}" alt="{{name}}"/>
+        <img src="{{image}}" alt="{{title}}"/>
         <div class="qco-slider__text">
           <p>{{label}} <a href="{{link}}">{{category}}</a></p>
         </div>
@@ -64,19 +61,13 @@ Package("org.qcobjects.components.slider",[
   
     }
 
-    _new_ (o){
-      super._new_(o);
-      this.data.slideNumber = o.data.__dataIndex + 1;
-    }
-
-
   },
 
   class SliderComponent extends Component {
+    name = "slider";
 
     constructor () {
       super(...arguments);
-      this.name="slider";
       this.template= `
       <style>
       /* Slideshow container */
@@ -200,14 +191,10 @@ Package("org.qcobjects.components.slider",[
       `;
       this.tplsource= "inline";
       this.shadowed= true;
-  
-    }
-
-    _new_(){
-      super._new_();
       this.data.SERVICE_CLASS = this.body.getAttribute("serviceClass");
       this.data.sliderHandler = "slider_"+this.__instanceID.toString();
       this.body.setAttribute("controllerClass","SliderController");
+
     }
 
   }

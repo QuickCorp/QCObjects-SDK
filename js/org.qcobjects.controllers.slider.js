@@ -27,27 +27,24 @@
   Package("org.qcobjects.controllers.slider", [
 
     class SliderController extends Controller {
+      dependencies = [];
+      component = null;
+      slideIndex = 0;
+      duration = 7100;
+      interval = null;
+      sliderHandlerName = null;
 
-      constructor() {
+      constructor({component}) {
         super(...arguments);
-        this.dependencies = [];
-        this.component = null;
-        this.slideIndex = 0;
-        this.duration = 7100;
-        this.interval = null;
-        this.sliderHandlerName = null;
-
-      }
-
-      _new_(o) {
-        super.__new__(o);
         var controller = this;
-        var component = controller.component;
+        controller.component = component;
         controller._componentRoot = (component.shadowed) ? (component.shadowRoot) : (component.body);
         //TODO: Implement
         controller.sliderHandlerName = "slider_" + controller.component.__instanceID.toString();
         global.set(controller.sliderHandlerName, this);
+
       }
+
 
       stop() {
         if (this.interval != null) {
@@ -87,29 +84,27 @@
         if (n < 0) {
           controller.slideIndex = 0;
         }
-        slides.map((slide) => {
-          Fade.apply(slide, 1, 0);
+        slides.filter((slide, index)=> {return index!== controller.slideIndex;}).map((slide) => {
+          (New(ClassFactory("Fade"))).apply(slide, 1, 0);
         });
-        dots.map((dot) => {
+        dots.filter((dot, index)=> {return index!== controller.slideIndex;}).map((dot) => {
           dot.classList.remove("active");
         });
         try {
           dots[controller.slideIndex].classList.add("active");
         } catch (e) {
-          logger.debug("Something went wrong when trying to activate a slide");
-          logger.debug(e.message);
+          logger.debug(`Something went wrong when trying to activate a slide: ${controller.slideIndex} - ${e.message}`);
         }
         setTimeout(function () {
-          slides.map((slide) => {
+          slides.filter((slide, index)=> {return index!== controller.slideIndex;}).map((slide) => {
             slide.style.display = "none";
           });
           try {
             slides[controller.slideIndex].style.display = "block";
-            Fade.apply(slides[controller.slideIndex], 0, 1);
+            (New(ClassFactory("Fade"))).apply(slides[controller.slideIndex], 0, 1);
 
           } catch (e) {
-            logger.debug("Something went wrong when trying to show a slide");
-            logger.debug(e.message);
+            logger.debug(`Something went wrong when trying to show a slide: ${controller.slideIndex} - ${e.message}`);
           }
         }, 700);
       }
@@ -129,7 +124,7 @@
       done() {
         var controller = this;
         var slides = controller._componentRoot.subelements(".qcoSlides");
-        slides.map((slide) => {
+        slides.filter((slide, index)=> {return index!== controller.slideIndex;}).map((slide) => {
           slide.style.display = "none";
         });
         setTimeout(function () {

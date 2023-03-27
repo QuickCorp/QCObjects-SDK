@@ -42,17 +42,17 @@ Package("org.qcobjects.controllers.form",[
   },
 
   class FormController extends Controller {
+    dependencies=[];
+    component=null;
+    serviceClass="";
+    formSettings={
+      backRouting:"#",
+      loadingRouting:"#loading",
+      nextRouting:"#signupsuccessful"
+    };
 
     constructor (){
       super(...arguments);
-      this.dependencies=[];
-      this.component=null;
-      this.serviceClass="";
-      this.formSettings={
-        backRouting:"#",
-        loadingRouting:"#loading",
-        nextRouting:"#signupsuccessful"
-      };
   
     }
 

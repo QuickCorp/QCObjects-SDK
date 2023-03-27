@@ -149,6 +149,7 @@ Package("org.qcobjects.controllers.grid",[
                     __offset: offset
                   });
                   var subcomponent = New(ClassFactory(subcomponentClass),{
+                    name:"item",
                     data:record,
                     templateURI:ComponentURI({
                       "COMPONENTS_BASE_PATH":CONFIG.get("componentsBasePath"),
