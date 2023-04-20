@@ -124,15 +124,24 @@
 
     
   }
-  _top._sdk_ = Promise.all(_imports_).then(function () {
+  const __start__ = GlobalSettings.__start__.bind(_top);
+  _top._sdk_ = Promise.all(_imports_).then(()=>{
     CONFIG.set("useSDK", true);
     CONFIG.set("remoteImportsPath", remoteImportsPath);
     CONFIG.set("relativeImportPath", relativeImportPath);
-    _top.__start__();
-
+    __start__();
   });
 
-
-}).call(null, (typeof module === "object" && typeof module.exports === "object") ? (module.exports = global) : ((typeof global === "object") ? (global) : (
+})((typeof module === "object" && typeof module.exports === "object") ? (
+  module.exports = typeof globalThis !== "undefined"
+  ? globalThis
+  : typeof self !== "undefined"
+  ? self
+  : typeof window !== "undefined"
+  ? window
+  : typeof global !== "undefined"
+  ? global
+  : {}
+) : ((typeof global === "object") ? (global) : (
   (typeof window === "object") ? (window) : ({})
 )));
