@@ -37,7 +37,7 @@
     if (external) {
       CONFIG.set("remoteImportsPath", "https://sdk.qcobjects.dev/v2.4/js/");
     } else {
-      CONFIG.set("relativeImportPath", "qcobjects-sdk/js/src/");
+      CONFIG.set("relativeImportPath", "qcobjects-sdk/src/js");
     }
     if (typeof _top._DOMCreateElement === "undefined") {
       _top._DOMCreateElement = function (elementName) {
@@ -78,7 +78,7 @@
     } else {
       // non-browsers environment
   
-      var _relative_path_ = "qcobjects-sdk/js/src/";
+      var _relative_path_ = "qcobjects-sdk/src/js/";
       _imports_ = [
         Import(_relative_path_ + "org.qcobjects.models", function () {}, external),
         Import(_relative_path_ + "org.qcobjects.components", function () {}, external),
