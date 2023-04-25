@@ -37,7 +37,7 @@
     if (external) {
       CONFIG.set("remoteImportsPath", "https://sdk.qcobjects.dev/v2.4/js/");
     } else {
-      CONFIG.set("relativeImportPath", "qcobjects-sdk/js/");
+      CONFIG.set("relativeImportPath", "qcobjects-sdk/js/src/");
     }
     if (typeof _top._DOMCreateElement === "undefined") {
       _top._DOMCreateElement = function (elementName) {
@@ -77,45 +77,8 @@
       ];
     } else {
       // non-browsers environment
-      (function loadBackendSDKRoutes(){
-        if (!loadBackendSDKRoutes.loaded){
-          let backend = CONFIG.get("backend");
-          if (typeof backend === "undefined"){
-            backend = {};
-          }
-          if (typeof backend.routes === "undefined"){
-            backend.routes = [];
-          }
-          backend.routes = backend.routes.concat([
-            {
-              "name":"QCObjects-SDK",
-              "description":"Redirection of QCObjects SDK",
-              "path":"^/qcobjects-sdk/(.*)$",
-              "microservice":"com.qcobjects.backend.microservice.static",
-              "redirect_to": "./node_modules/qcobjects-sdk/$1",
-              "responseHeaders":{},
-              "cors":{
-                "allow_origins":"*"
-              }
-            },
-            {
-              "name":"QCObjects-SDK.js",
-              "description":"Redirection of QCObjects SDK",
-              "path":"^/js/packages/QCObjects-SDK.js$",
-              "microservice":"com.qcobjects.backend.microservice.static",
-              "redirect_to": "./node_modules/qcobjects-sdk/QCObjects-SDK.js",
-              "responseHeaders":{},
-              "cors":{
-                "allow_origins":"*"
-              }
-            }
-          ]);
-          CONFIG.set("backend", backend);
-          loadBackendSDKRoutes.loaded = true;
-        }
-      })();
   
-      var _relative_path_ = "qcobjects-sdk/js/";
+      var _relative_path_ = "qcobjects-sdk/js/src/";
       _imports_ = [
         Import(_relative_path_ + "org.qcobjects.models", function () {}, external),
         Import(_relative_path_ + "org.qcobjects.components", function () {}, external),
