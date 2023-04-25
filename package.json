@@ -70,6 +70,7 @@
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-config-qcobjects": "^0.0.23",
+    "eslint-config-qcobjects-typescript": "^2.4.5",
     "eslint-config-semistandard": "^17.0.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
@@ -77,6 +78,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "hint": "^2.0.0",
     "jasmine": "^3.7.0",
+    "qcobjects-tsconfig": "^2.4.10",
     "typescript": "^5.0.4"
   },
   "author": "Jean Machuca <correojean@gmail.com>",
