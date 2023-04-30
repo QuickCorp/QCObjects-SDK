@@ -37,7 +37,7 @@
     if (external) {
       CONFIG.set("remoteImportsPath", "https://sdk.qcobjects.dev/v2.4/js/");
     } else {
-      CONFIG.set("relativeImportPath", "qcobjects-sdk/src/js");
+      CONFIG.set("relativeImportPath", "qcobjects-sdk/src/js/");
     }
     if (typeof _top._DOMCreateElement === "undefined") {
       _top._DOMCreateElement = function (elementName) {
