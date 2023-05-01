@@ -24,7 +24,23 @@
  */
 (function __qcobjects_sdk__ (_top) {
   "use strict";
-  if (typeof __qcobjects_sdk__.__loaded__ === "undefined"){
+  if (typeof Object.defineProperty !== "undefined" && typeof _top !== "undefined"){
+    try {
+      Object.defineProperty(_top,"__qcobjects_sdk__", {
+        enumerable: true,
+        configurable: false,
+        writable: false,
+        value: __qcobjects_sdk__,
+      });
+    } catch (e){
+      if (typeof _top.__qcobjects_sdk__ !== "undefined"){
+        _top.__qcobjects_sdk__.loaded = true;
+      }
+    }
+  }
+
+  if (typeof _top.__qcobjects_sdk__.__loaded__ === "undefined"){
+    _top.__qcobjects_sdk__.__loaded__ = true;
     if (typeof _top === "undefined"){
       throw Error("Top context empty: It should either global, module or window");
     }
@@ -37,7 +53,7 @@
     if (external) {
       CONFIG.set("remoteImportsPath", "https://sdk.qcobjects.dev/v2.4/js/");
     } else {
-      CONFIG.set("relativeImportPath", "qcobjects-sdk/src/js/");
+      CONFIG.set("relativeImportPath", "qcobjects-sdk/js/");
     }
     if (typeof _top._DOMCreateElement === "undefined") {
       _top._DOMCreateElement = function (elementName) {
