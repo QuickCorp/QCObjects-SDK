@@ -87,6 +87,6 @@
   },
   "homepage": "https://sdk.qcobjects.dev",
   "peerDependencies": {
-    "qcobjects": "^2.4.78"
+    "qcobjects": ">=2.4.78<3"
   }
 }
