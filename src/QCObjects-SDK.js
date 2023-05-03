@@ -34,7 +34,7 @@
       });
     } catch (e){
       if (typeof _top.__qcobjects_sdk__ !== "undefined"){
-        _top.__qcobjects_sdk__.loaded = true;
+        _top.__qcobjects_sdk__.__loaded__ = true;
       }
     }
   }
