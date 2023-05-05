@@ -27,10 +27,8 @@
   Package("org.qcobjects.controllers.swagger", [
 
     class SwaggerUIController extends Controller {
-      constructor() {
-        super(...arguments);
-        this.dependencies = [];
-        this.component = null;
+      constructor({component, dependencies = []}) {
+        super({component, dependencies});
 
       }
 

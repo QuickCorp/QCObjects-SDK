@@ -28,11 +28,8 @@
 
     class BasicLayout extends InheritClass {
 
-      constructor () {
-        super(...arguments);
-        this.dependencies=[];
-        this.component=null;
-  
+      constructor ({component = null, dependencies = []}) {
+        super({component, dependencies});  
       }
 
       load (){

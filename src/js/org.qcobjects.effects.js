@@ -26,9 +26,12 @@
 (function () {
   Package("org.qcobjects.effects.base", [
     class Fade extends Effect {
-      
-      constructor () {
-        super(...arguments);
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element, alphaFrom, alphaTo) {
@@ -49,9 +52,12 @@
     },
 
     class Move extends Effect {
-
-      constructor () {
-        super(...arguments);
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element, xfrom, yfrom, xto, yto) {
@@ -82,8 +88,12 @@
 
 
     class MoveXInFromRight extends Move {
-      constructor () {
-        super(...arguments);
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element) {
@@ -92,8 +102,13 @@
     },
 
     class MoveXInFromLeft extends Move {
-      constructor () {
-        super(...arguments);
+
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element) {
@@ -102,8 +117,12 @@
     },
 
     class MoveYInFromBottom extends Move {
-      constructor () {
-        super(...arguments);
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element) {
@@ -113,8 +132,13 @@
     },
 
     class MoveYInFromTop extends Move {
-      constructor () {
-        super(...arguments);
+
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element) {
@@ -123,8 +147,13 @@
     },
 
     class RotateX extends Effect {
-      constructor () {
-        super(...arguments);
+
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element, angleFrom, angleTo) {
@@ -146,8 +175,13 @@
     },
 
     class RotateY extends Effect {
-      constructor () {
-        super(...arguments);
+
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element, angleFrom, angleTo) {
@@ -168,8 +202,13 @@
     },
 
     class RotateZ extends Effect {
-      constructor () {
-        super(...arguments);
+
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element, angleFrom, angleTo) {
@@ -191,8 +230,13 @@
     },
 
     class Rotate extends Effect {
-      constructor () {
-        super(...arguments);
+
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element, angleFrom, angleTo) {
@@ -213,8 +257,13 @@
     },
 
     class Radius extends Effect {
-      constructor () {
-        super(...arguments);
+
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element, radiusFrom, radiusTo) {
@@ -236,8 +285,13 @@
     },
 
     class Resize extends Effect {
-      constructor () {
-        super(...arguments);
+
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element, scaleFrom, scaleTo) {
@@ -260,8 +314,12 @@
     },
 
     class WipeLeft extends Effect {
-      constructor () {
-        super(...arguments);
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element, scaleFrom, scaleTo) {
@@ -284,8 +342,13 @@
     },
 
     class WipeRight extends Effect {
-      constructor () {
-        super(...arguments);
+
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element, scaleFrom, scaleTo) {
@@ -308,8 +371,13 @@
     },
 
     class WipeUp extends Effect {
-      constructor () {
-        super(...arguments);
+
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element, scaleFrom, scaleTo) {
@@ -332,8 +400,13 @@
     },
 
     class WipeDown extends Effect {
-      constructor () {
-        super(...arguments);
+
+      constructor({
+        duration = 1000
+      }) {
+        super({
+          duration
+        });
       }
 
       apply(element, scaleFrom, scaleTo) {
@@ -355,34 +428,43 @@
     }
 
   ]);
-  Package("org.qcobjects.modal.effects",[
+  Package("org.qcobjects.modal.effects", [
 
     class ModalFade extends Fade {
-      constructor () {
-        super(...arguments);
-        this.duration=500;
+      constructor({
+        duration = 500
+      }) {
+        super({
+          duration
+        });
       }
-      
+
     },
-  
+
     class ModalMoveDown extends Move {
-      constructor () {
-        super(...arguments);
-        this.duration=300;
-  
+      constructor({
+        duration = 300
+      }) {
+        super({
+          duration
+        });
+
       }
-  
+
     },
-  
+
     class ModalMoveUp extends Move {
-      constructor () {
-        super(...arguments);
-        this.duration=800;
-  
+      constructor({
+        duration = 800
+      }) {
+        super({
+          duration
+        });
+
       }
-  
+
     }
-  
+
   ]);
-  
+
 }).call(null);

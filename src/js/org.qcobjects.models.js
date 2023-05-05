@@ -21,28 +21,38 @@
  *
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
-*/
-(function() {
-"use strict";
-Package("org.qcobjects.models",[
+ */
+(function () {
+  "use strict";
+  Package("org.qcobjects.models", [
 
-  class Contact extends VO {
+    class Contact extends VO {
 
-    constructor (){
-      super(...arguments);
-      this.first_name="";
-      this.last_name="";
-      this.address="";
-      this.postalCode="";
-      this.city="";
-      this.country="";
-      this.email="";
-      this.phone="";
-  
+      constructor({
+        first_name = "",
+        last_name = "",
+        address = "",
+        postalCode = "",
+        city = "",
+        country = "",
+        email = "",
+        phone = ""
+      }) {
+        super({
+          first_name,
+          last_name,
+          address,
+          postalCode,
+          city,
+          country,
+          email,
+          phone
+        });
+
+      }
+
     }
-    
-  }
 
-]);
+  ]);
 
 }).call(null);

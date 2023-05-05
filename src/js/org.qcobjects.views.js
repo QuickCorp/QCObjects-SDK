@@ -28,10 +28,8 @@ Package("org.qcobjects.views",[
 
   class GridView extends View {
 
-    constructor (){
-      super(...arguments);
-      this.dependencies=[];
-      this.component=null;
+    constructor ({component = null, dependencies = []}){
+      super({component, dependencies});
         
     }
 

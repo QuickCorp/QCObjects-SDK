@@ -36,9 +36,6 @@
 `;
       cached= false;
 
-      constructor (){
-        super(...arguments);
-      }
     },
 
     class GridComponent extends Component {
@@ -53,8 +50,8 @@
       tplsource= "inline";
       template= "<p>Loading...</p>";
 
-      constructor (){
-        super(...arguments);
+      constructor (...o){
+        super(o);
         this.body.setAttribute("controllerClass", "DataGridController");
         var subcomponentClass = (this.body.getAttribute("subcomponentClass") !== null) ? (this.body.getAttribute("subcomponentClass")) : ("GridItemComponent");
         this.body.setAttribute("subcomponentClass", subcomponentClass);

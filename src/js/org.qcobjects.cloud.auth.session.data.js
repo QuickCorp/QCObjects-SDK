@@ -28,13 +28,7 @@
 
     class SessionData extends InheritClass{
 
-      /**
-       * Creates an instance of SessionData.
-       */
-      constructor() {
-        super(...arguments);
-        this.__session_container__ = null;
-      }
+      __session_container__ = null;
 
       /**
        * Sets the session container
@@ -131,6 +125,5 @@
     }
 
   ]);
-  Package("org.qcobjects.cloud.auth.session.data").map(c => Export(c));
 
 }).call(null);

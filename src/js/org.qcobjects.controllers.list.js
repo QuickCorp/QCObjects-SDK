@@ -32,18 +32,16 @@
       valueField = undefined;
       labelField = undefined;
 
-      constructor({component}) {
-        super(...arguments);
+      constructor({component, dependencies = [], valueField = undefined, labelField = undefined}) {
+        super({component, dependencies, valueField, labelField});
         this.component = component;
-        var controller = this;
-        controller.component = component;
-        controller._componentRoot = (controller.component.shadowed) ? (controller.component.shadowRoot) : (controller.component.body);
+        this._componentRoot = (this.component.shadowed) ? (this.component.shadowRoot) : (this.component.body);
 
-        controller.labelField = controller.component.body.getAttribute("label-field");
-        controller.valueField = controller.component.body.getAttribute("value-field");
-        controller.rows = controller.component.body.getAttribute("rows");
-        controller.rows = (controller.rows !== null) ? (controller.rows) : (controller.component.rows);
-        controller.cols = 1;
+        this.labelField = this.component.body.getAttribute("label-field");
+        this.valueField = this.component.body.getAttribute("value-field");
+        this.rows = this.component.body.getAttribute("rows");
+        this.rows = (this.rows !== null) ? (this.rows) : (this.component.rows);
+        this.cols = 1;
         logger.debug("ListController INIT");
 
       }

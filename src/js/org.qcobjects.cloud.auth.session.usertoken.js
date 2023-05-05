@@ -27,36 +27,33 @@
 
   Package("org.qcobjects.cloud.auth.session.usertoken", [
     class SessionUserToken extends InheritClass{
-      constructor() {
-        super(...arguments);
-        this.user = {};
-        this.__cache__ = null;
+      user = {};
+      __cache__ = null;
 
-      }
+      constructor(...o){
+       super(o); 
+       var __instance__ = this;
+       this.__cache__ = new ComplexStorageCache({
+         index: __instance__.__instanceID.toString(),
+         load() {
+           var __token__;
+           if (typeof navigator !== "undefined" && typeof origin !== "undefined") {
+             __token__ = _Crypt.encrypt(`${navigator.userAgent}|${o.username}|${(+(new Date())).toString()}`, origin);
+           } else {
+             __token__ = _Crypt.encrypt(`${o.username}|${(+(new Date())).toString()}`, CONFIG.get("domain", "localhost"));
+           }
+           __instance__.user = {
+             priority: __instance__.__instanceID.toString(),
+             token: __token__
+           };
+           return __instance__.user;
+         },
+         alternate(cacheController) {
+           __instance__.user = cacheController.cache.getCached(__instance__.__instanceID.toString()); // setting dataObject with the cached value
+           return;
+         }
+       });
 
-      _new_(o) {
-        super._new_(o);
-        var __instance__ = this;
-        this.__cache__ = new ComplexStorageCache({
-          index: __instance__.__instanceID.toString(),
-          load() {
-            var __token__;
-            if (typeof navigator !== "undefined" && typeof origin !== "undefined") {
-              __token__ = _Crypt.encrypt(`${navigator.userAgent}|${o.username}|${(+(new Date())).toString()}`, origin);
-            } else {
-              __token__ = _Crypt.encrypt(`${o.username}|${(+(new Date())).toString()}`, CONFIG.get("domain", "localhost"));
-            }
-            __instance__.user = {
-              priority: __instance__.__instanceID.toString(),
-              token: __token__
-            };
-            return __instance__.user;
-          },
-          alternate(cacheController) {
-            __instance__.user = cacheController.cache.getCached(__instance__.__instanceID.toString()); // setting dataObject with the cached value
-            return;
-          }
-        });
       }
 
       generateIndex(s) {

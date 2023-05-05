@@ -1,6 +1,6 @@
 {
   "name": "qcobjects-sdk",
-  "version": "2.4.35",
+  "version": "2.4.41",
   "description": "QCObjects SDK is a set of Controllers, Views and Components that are elementary and useful to assist developers to build applications under MVC patterns using QCObjects, Cross Browser Javascript Framework for MVC Patterns",
   "main": "src/index.cjs",
   "module": "src/index.mjs",
@@ -87,6 +87,6 @@
   },
   "homepage": "https://sdk.qcobjects.dev",
   "peerDependencies": {
-    "qcobjects": "^2.4.67"
+    "qcobjects": "^2.4.78"
   }
 }
