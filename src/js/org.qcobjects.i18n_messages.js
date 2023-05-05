@@ -21,37 +21,41 @@
  *
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
-*/
-(function() {
-"use strict";
-Package("org.qcobjects.i18n_messages", [
+ */
+(function () {
+  "use strict";
+  Package("org.qcobjects.i18n_messages", [
 
-  class i18n_messages extends InheritClass {
+    class i18n_messages extends InheritClass {
 
-    constructor ({messages}) {
-      super({messages});
-      if (CONFIG.get("use_i18n")){
-        CONFIG.set("lang", "en");
-        if (!global.get("i18n")){
-          global.set("i18n", {
-            messages: messages
-          });
-        } else {
-          global.set("i18n", {
-            messages: global.get("i18n").messages.concat(messages)
-          });
+      constructor({
+        messages = []
+      }) {
+        super({
+          messages
+        });
+        if (CONFIG.get("use_i18n")) {
+          CONFIG.set("lang", "en");
+          if (!global.get("i18n")) {
+            global.set("i18n", {
+              messages: messages
+            });
+          } else {
+            global.set("i18n", {
+              messages: global.get("i18n").messages.concat(messages)
+            });
+          }
         }
+
+      }
+
+      _load_i18n_packages_() {
+        return CONFIG.get("i18n_languages", []).map((i18n_packagename) => {
+          Import(`org.quickcorp.i18n_messages.${i18n_packagename}`);
+        });
       }
 
     }
-
-    _load_i18n_packages_ (){
-      return CONFIG.get("i18n_languages",[]).map((i18n_packagename)=>{
-        Import(`org.quickcorp.i18n_messages.${i18n_packagename}`);
-      });
-    }
-    
-  }
-]);
-(new i18n_messages())._load_i18n_packages_();
+  ]);
+  (new i18n_messages({}))._load_i18n_packages_();
 }).call(null);
