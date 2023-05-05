@@ -28,9 +28,9 @@ Package("org.qcobjects.components.base", [
   class SplashScreenComponent extends Component {
     cached = false;
     shadowed= true;
-    name = "splashscreen";
 
     constructor (...o) {
+      o.name = "splashscreen";
       super(o);
       
       var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
@@ -113,7 +113,6 @@ Package("org.qcobjects.components.base", [
 
 Package("org.qcobjects.components.splashscreen",[
   class VideoSplashScreenComponent extends SplashScreenComponent {
-      name = "videosplashscreen";
       cached= false;
       shadowed= true;
       tplsource= "inline";
@@ -284,12 +283,12 @@ Package("org.qcobjects.components.splashscreen",[
 
 
     constructor (...o) {
+        o.name = "videosplashscreen";
         super(o);
     }
   },
 
   class CubeSplashScreenComponent extends SplashScreenComponent {
-      name= "cubesplashscreen";
       cached= false;
       shadowed= true;
       tplsource= "inline";
@@ -608,6 +607,7 @@ Package("org.qcobjects.components.splashscreen",[
       `;
 
     constructor (...o) {
+      o.name= "cubesplashscreen";
       super(o);
     }    
 

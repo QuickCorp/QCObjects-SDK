@@ -27,25 +27,25 @@
 Package("org.qcobjects.components.list",[
 
   class ListItemComponent extends Component {
-    name="list-item";
     shadowed= false;
     tplsource= "inline";
     template="<a href=\"{{value}}\">{{label}}</a>";
     cached= false;
 
     constructor (...o){
+      o.name="list-item";
       super(o);
     }
 
   },
 
   class ListComponent extends Component {
-    name="list";
     shadowed= true;
     tplsource= "inline";
     template= "<p>Loading...</p>";
 
     constructor (...o){
+      o.name = "list";
       super(o);
       this.body.setAttribute("controllerClass","ListController");
       this.body.setAttribute("subcomponentClass","ListItemComponent");

@@ -27,12 +27,12 @@
 Package("org.quickcorp.components.notifications", [
   
   class NotificationComponent extends Component {
-    name= "notification";
     cached= false;
     tplsource= "inline";
     shadowed= false;
 
     constructor (...o){
+      o.name= "notification";
       o.body = _DOMCreateElement("div");
       super(o);
 
