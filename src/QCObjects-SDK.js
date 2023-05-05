@@ -51,9 +51,9 @@
     var relativeImportPath = CONFIG.get("relativeImportPath");
     var external = (!CONFIG.get("useLocalSDK")) ? (true) : (false);
     if (external) {
-      CONFIG.set("remoteImportsPath", "https://sdk.qcobjects.dev/v2.4/js/");
+      CONFIG.set("remoteImportsPath", "https://sdk.qcobjects.dev/v2.4/src/js/");
     } else {
-      CONFIG.set("relativeImportPath", "qcobjects-sdk/js/");
+      CONFIG.set("relativeImportPath", "qcobjects-sdk/src/js/");
     }
     if (typeof _top._DOMCreateElement === "undefined") {
       _top._DOMCreateElement = function (elementName) {
