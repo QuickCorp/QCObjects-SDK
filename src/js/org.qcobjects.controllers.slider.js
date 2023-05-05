@@ -34,13 +34,12 @@
       interval = null;
       sliderHandlerName = null;
 
-      constructor({component}) {
-        super(...arguments);
-        var controller = this;
-        controller.component = component;
-        controller._componentRoot = (component.shadowed) ? (component.shadowRoot) : (component.body);
+      constructor({component, dependencies= [], duration = 7100, slideIndex=0, interval = null, sliderHandlerName = null}) {
+        super({component, dependencies, duration, slideIndex, interval, sliderHandlerName});
+        this.component = component;
+        this._componentRoot = (component.shadowed) ? (component.shadowRoot) : (component.body);
         //TODO: Implement
-        controller.sliderHandlerName = "slider_" + controller.component.__instanceID.toString();
+        this.sliderHandlerName = "slider_" + this.component.__instanceID.toString();
         global.set(controller.sliderHandlerName, this);
 
       }

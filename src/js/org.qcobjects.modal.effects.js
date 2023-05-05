@@ -21,37 +21,46 @@
  *
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
-*/
-(function() {
-"use strict";
-Package("org.qcobjects.modal.effects",[
+ */
+(function () {
+  "use strict";
+  Package("org.qcobjects.modal.effects", [
 
-  class ModalFade extends Fade {
-    constructor () {
-      super();
-      this.duration=500;
+    class ModalFade extends Fade {
+      constructor({
+        duration = 500
+      }) {
+        super({
+          duration
+        });
+      }
+
+    },
+
+    class ModalMoveDown extends Move {
+      constructor({
+        duration = 300
+      }) {
+        super({
+          duration
+        });
+
+      }
+
+    },
+
+    class ModalMoveUp extends Move {
+      constructor({
+        duration = 800
+      }) {
+        super({
+          duration
+        });
+
+      }
+
     }
-    
-  },
 
-  class ModalMoveDown extends Move {
-    constructor () {
-      super();
-      this.duration=300;
-
-    }
-
-  },
-
-  class ModalMoveUp extends Move {
-    constructor () {
-      super();
-      this.duration=800;
-
-    }
-
-  }
-
-]);
+  ]);
 
 }).call(null);

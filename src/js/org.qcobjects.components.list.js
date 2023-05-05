@@ -33,8 +33,8 @@ Package("org.qcobjects.components.list",[
     template="<a href=\"{{value}}\">{{label}}</a>";
     cached= false;
 
-    constructor (){
-      super(...arguments);
+    constructor (...o){
+      super(o);
     }
 
   },
@@ -45,8 +45,8 @@ Package("org.qcobjects.components.list",[
     tplsource= "inline";
     template= "<p>Loading...</p>";
 
-    constructor () {
-      super(...arguments);
+    constructor (...o){
+      super(o);
       this.body.setAttribute("controllerClass","ListController");
       this.body.setAttribute("subcomponentClass","ListItemComponent");
   

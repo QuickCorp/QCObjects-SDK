@@ -27,15 +27,15 @@
 Package("org.quickcorp.components.notifications", [
   
   class NotificationComponent extends Component {
+    name= "notification";
+    cached= false;
+    tplsource= "inline";
+    shadowed= false;
 
-    constructor (){
-      super(...arguments);
+    constructor (...o){
+      o.body = _DOMCreateElement("div");
+      super(o);
 
-      this.name= "notification";
-      this.cached= false;
-      this.tplsource= "inline";
-      this.shadowed= false;
-      this.body= _DOMCreateElement("div");
       this.template= `
       <style>
       div.notification_background {

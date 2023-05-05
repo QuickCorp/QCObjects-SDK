@@ -29,15 +29,14 @@ Package("org.qcobjects.components.slider",[
   class SlideListComponent extends Component {
     tplsource="inline";
     template="<p>Loading...</p>";
+    name = "slidelist";
 
-    constructor (){
-      super(...arguments);
-      this.name="slidelist";
+    constructor (...o){
+      super(o);
       this.body.setAttribute("controllerClass","DataGridController");
       var subcomponentClass = (this.body.getAttribute("subcomponentClass") !== null)?(this.body.getAttribute("subcomponentClass")):("GridItemComponent");
       this.body.setAttribute("subcomponentClass",subcomponentClass);
     }
-
 
   },
 
@@ -45,9 +44,9 @@ Package("org.qcobjects.components.slider",[
     effectClass = "Fade";
     name = "slider_item";
 
-    constructor ({data}) {
-      super(...arguments);
-      this.data.slideNumber = data.__dataIndex+1;
+    constructor (...o) {
+      super(o);
+      this.data.slideNumber = this.data.__dataIndex+1;
       this.template= `
       <div class="qcoSlides" style="display:none">
         <div class="qco-slider__numbertext">{{slideNumber}} / {{__dataLength}}</div>
@@ -66,8 +65,8 @@ Package("org.qcobjects.components.slider",[
   class SliderComponent extends Component {
     name = "slider";
 
-    constructor () {
-      super(...arguments);
+    constructor (...o) {
+      super(o);
       this.template= `
       <style>
       /* Slideshow container */

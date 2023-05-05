@@ -28,18 +28,17 @@ Package("org.qcobjects.i18n_messages", [
 
   class i18n_messages extends InheritClass {
 
-    constructor () {
-      super(...arguments);
-      var i18n = this;
+    constructor ({messages}) {
+      super({messages});
       if (CONFIG.get("use_i18n")){
         CONFIG.set("lang", "en");
         if (!global.get("i18n")){
           global.set("i18n", {
-            messages: i18n.messages
+            messages: messages
           });
         } else {
           global.set("i18n", {
-            messages: global.get("i18n").messages.concat(i18n.messages)
+            messages: global.get("i18n").messages.concat(messages)
           });
         }
       }

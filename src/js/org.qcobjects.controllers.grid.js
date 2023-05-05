@@ -30,13 +30,12 @@ Package("org.qcobjects.controllers.grid",[
     dependencies=[];
     component=null;
 
-    constructor (){
-      super(...arguments);
-      var controller=this;
-      controller.rows=controller.component.body.getAttribute("rows");
-      controller.rows=(controller.rows !== null)?(controller.rows):(controller.component.rows);
-      controller.cols=controller.component.body.getAttribute("cols");
-      controller.cols=(controller.cols !== null)?(controller.cols):(controller.component.cols);
+    constructor ({component, dependencies=[]}){
+      super({component, dependencies});
+      this.rows=this.component.body.getAttribute("rows");
+      this.rows=(this.rows !== null)?(this.rows):(this.component.rows);
+      this.cols=this.component.body.getAttribute("cols");
+      this.cols=(this.cols !== null)?(this.cols):(this.component.cols);
   
     }
 

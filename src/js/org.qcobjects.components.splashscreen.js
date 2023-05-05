@@ -1,4 +1,3 @@
-logger.debugEnabled = true;
 /**
  * QCObjects SDK 2.4.0
  * ________________
@@ -29,11 +28,10 @@ Package("org.qcobjects.components.base", [
   class SplashScreenComponent extends Component {
     cached = false;
     shadowed= true;
+    name = "splashscreen";
 
-    constructor () {
-      super(...arguments);
-      this.name= "splashscreen";
-      var o = this;
+    constructor (...o) {
+      super(o);
       
       var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
       let component = this;
@@ -115,6 +113,7 @@ Package("org.qcobjects.components.base", [
 
 Package("org.qcobjects.components.splashscreen",[
   class VideoSplashScreenComponent extends SplashScreenComponent {
+      name = "videosplashscreen";
       cached= false;
       shadowed= true;
       tplsource= "inline";
@@ -284,14 +283,16 @@ Package("org.qcobjects.components.splashscreen",[
       `;
 
 
-    constructor () {
-      super(...arguments);
-
-      this.name= "videosplashscreen";
+    constructor (...o) {
+        super(o);
     }
   },
 
   class CubeSplashScreenComponent extends SplashScreenComponent {
+      name= "cubesplashscreen";
+      cached= false;
+      shadowed= true;
+      tplsource= "inline";
       template= `
       <style>
       @keyframes spin {
@@ -606,14 +607,8 @@ Package("org.qcobjects.components.splashscreen",[
   
       `;
 
-
-    constructor () {
-      super(...arguments);
-      this.name= "cubesplashscreen";
-      this.cached= false;
-      this.shadowed= true;
-      this.tplsource= "inline";
-  
+    constructor (...o) {
+      super(o);
     }    
 
   }

@@ -51,11 +51,6 @@ Package("org.qcobjects.controllers.form",[
       nextRouting:"#signupsuccessful"
     };
 
-    constructor (){
-      super(...arguments);
-  
-    }
-
     hasValidation (element){
       var controller = this;
       var fieldName = element.getAttribute("data-field");

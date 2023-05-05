@@ -28,9 +28,8 @@
     class FormField extends Component {
       cached = false;
       reload = true;
-      constructor() {
-        super(...arguments);
-
+      constructor (...o){
+        super(o);
       }
 
       createBindingEvents() {
@@ -103,9 +102,9 @@
       view = null;
       data = {};
 
-      constructor() {
-        super(...arguments);
-        this.body = _DOMCreateElement("div");
+      constructor (...o){
+        o.body = _DOMCreateElement("div");
+        super(o);
       }
 
 
@@ -113,41 +112,38 @@
 
 
     class ButtonField extends FormField {
-      constructor() {
-        super(...arguments);
-        this.fieldType = "button";
-
+      constructor(...o) {
+        o.fieldType = "button";
+        super(o);
       }
     },
 
     class InputField extends FormField {
-      constructor() {
-        super(...arguments);
-        this.fieldType = "input";
-
+      constructor(...o) {
+        o.fieldType = "input";
+        super(o);
       }
 
     },
 
     class TextField extends FormField {
-      constructor() {
-        super(...arguments);
-        this.fieldType = "textarea";
-
+      constructor(...o) {
+        o.fieldType = "textarea";
+        super(o);
       }
 
     },
 
     class EmailField extends FormField {
-      constructor() {
-        super(...arguments);
-        this.fieldType = "input";
-
+      constructor(...o) {
+        o.fieldType = "input";
+        super(o);
       }
 
     },
 
     class ModalEnclosureComponent extends Component {
+      name = "modalenclosure";
       tplsource = "inline";
       cached = false;
       basePath = CONFIG.get("modalBasePath", CONFIG.get("remoteSDKPath"));
@@ -168,43 +164,42 @@
 `;
 
       data = {};
-      constructor() {
-        super(...arguments);
-        this.name = "modal";
-        this.body = _DOMCreateElement("div");
+      constructor(...o) {
+        o.body = _DOMCreateElement("div");
+        super(o);
       }
 
     },
 
     class ModalComponent extends Component {
-      constructor() {
-        super(...arguments);
-        this.name = "modal";
-        this.cached = false;
-        this.modalEnclosureComponentClass = "ModalEnclosureComponent";
-        this.basePath = CONFIG.get("modalBasePath", CONFIG.get("remoteSDKPath"));
-        this.controller = null;
-        this.view = null;
-        this.tplsource = "none";
-        this.closeOnClickOutside = false;
-        this.data = {
-          content: "",
-          modalId: 0
-        };
-        this.submodal = null;
-        var component = this;
-        component.data.modalId = component.__instanceID;
-        var submodal = New(ClassFactory(component.modalEnclosureComponentClass), {
-          name: component.name,
-          basePath: component.basePath,
-          data: component.data
+      name = "modal";
+      cached = false;
+      modalEnclosureComponentClass = "ModalEnclosureComponent";
+      controller = null;
+      view = null;
+      tplsource = "none";
+      closeOnClickOutside = false;
+      data = {
+        content: "",
+        modalId: 0
+      };
+      submodal = null;
+
+      constructor(...o) {
+        o.basePath = CONFIG.get("modalBasePath", CONFIG.get("remoteSDKPath"));
+        super(o);
+        this.data.modalId = this.__instanceID;
+        var submodal = New(ClassFactory(this.modalEnclosureComponentClass), {
+          name: this.name,
+          basePath: this.basePath,
+          data: this.data
         });
-        component.subcomponents.push(submodal);
-        component.submodal = submodal;
+        this.subcomponents.push(submodal);
+        this.submodal = submodal;
         if (submodal.tplsource == "none") {
-          component.body.innerHTML = submodal.parsedAssignmentText;
+          this.body.innerHTML = submodal.parsedAssignmentText;
         } else {
-          component.body.append(submodal.body);
+          this.body.append(submodal.body);
         }
 
       }
@@ -266,10 +261,10 @@
       cached = false;
       basePath = CONFIG.get("remoteSDKPath");
       tplextension = "tpl.html";
-
-      constructor() {
-        super(...arguments);
-        this.name = "swagger-ui";
+      name = "swagger-ui";
+      
+      constructor(...o) {
+        super(o);
 
       }
 
