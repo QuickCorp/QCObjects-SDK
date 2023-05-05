@@ -86,6 +86,7 @@
     "url": "https://github.com/QuickCorp/QCObjects-SDK/issues"
   },
   "homepage": "https://sdk.qcobjects.dev",
+  "dependencies": {},
   "peerDependencies": {
     "qcobjects": "^2.4.78"
   }
