@@ -1,5 +1,6 @@
 module.exports = {
   extends: [
-    "qcobjects"
+    "qcobjects",
+    "qcobjects-typescript"
   ]
 };
