@@ -100,15 +100,27 @@
   
       var _relative_path_ = "qcobjects-sdk/src/js/";
       _imports_ = [
-        Import(_relative_path_ + "org.qcobjects.models", function () {}, external),
-        Import(_relative_path_ + "org.qcobjects.components", function () {}, external),
-        Import(_relative_path_ + "org.qcobjects.controllers", function () {}, external),
-        Import(_relative_path_ + "org.qcobjects.views", function () {}, external),
-        Import(_relative_path_ + "org.qcobjects.effects", function () {}, external),
-        Import(_relative_path_ + "org.qcobjects.tools.canvas", function () {}, external),
-        Import(_relative_path_ + "org.qcobjects.tools.layouts", function () {}, external),
-        Import(_relative_path_ + "org.qcobjects.cloud.auth.session.usertoken", function () {}, external),
-        Import(_relative_path_ + "org.qcobjects.cloud.auth.session.data", function () {}, external)
+        Import(_relative_path_ +"org.qcobjects.i18n_messages", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.models", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.components", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.components.grid", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.components.list", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.components.slider", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.components.notifications", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.components.splashscreen", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.controllers", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.controllers.grid", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.controllers.list", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.controllers.slider", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.controllers.form", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.controllers.swagger", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.effects", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.modal.controllers", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.views", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.tools.canvas", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.tools.layouts", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.cloud.auth.session.usertoken", function () {}, external),
+        Import(_relative_path_ +"org.qcobjects.cloud.auth.session.data", function () {}, external)
       ];
   
       
