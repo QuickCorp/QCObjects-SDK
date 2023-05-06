@@ -26,13 +26,7 @@
 (function () {
   Package("org.qcobjects.effects.base", [
     class Fade extends Effect {
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element, alphaFrom, alphaTo) {
         var da = alphaTo - alphaFrom;
@@ -52,13 +46,7 @@
     },
 
     class Move extends Effect {
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element, xfrom, yfrom, xto, yto) {
         var dx = xto - xfrom;
@@ -88,13 +76,7 @@
 
 
     class MoveXInFromRight extends Move {
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element) {
         super.apply.call(this, element, element.width, 0, 0, 0);
@@ -102,14 +84,7 @@
     },
 
     class MoveXInFromLeft extends Move {
-
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element) {
         super.apply.call(this, element, -element.width, 0, 0, 0);
@@ -117,13 +92,7 @@
     },
 
     class MoveYInFromBottom extends Move {
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element) {
         super.apply.call(this, element, 0, element.height, 0, 0);
@@ -132,14 +101,7 @@
     },
 
     class MoveYInFromTop extends Move {
-
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element) {
         super.apply.call(this, element, 0, -element.height, 0, 0);
@@ -147,14 +109,7 @@
     },
 
     class RotateX extends Effect {
-
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element, angleFrom, angleTo) {
         var da = angleTo - angleFrom;
@@ -175,14 +130,7 @@
     },
 
     class RotateY extends Effect {
-
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element, angleFrom, angleTo) {
         var da = angleTo - angleFrom;
@@ -202,14 +150,7 @@
     },
 
     class RotateZ extends Effect {
-
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element, angleFrom, angleTo) {
         var da = angleTo - angleFrom;
@@ -230,14 +171,7 @@
     },
 
     class Rotate extends Effect {
-
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element, angleFrom, angleTo) {
         var da = angleTo - angleFrom;
@@ -257,14 +191,7 @@
     },
 
     class Radius extends Effect {
-
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element, radiusFrom, radiusTo) {
         var dr = radiusTo - radiusFrom;
@@ -285,14 +212,7 @@
     },
 
     class Resize extends Effect {
-
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element, scaleFrom, scaleTo) {
         var ds = scaleTo - scaleFrom;
@@ -314,13 +234,7 @@
     },
 
     class WipeLeft extends Effect {
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element, scaleFrom, scaleTo) {
         var ds = scaleTo - scaleFrom;
@@ -342,14 +256,7 @@
     },
 
     class WipeRight extends Effect {
-
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element, scaleFrom, scaleTo) {
         var ds = scaleTo - scaleFrom;
@@ -372,13 +279,7 @@
 
     class WipeUp extends Effect {
 
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element, scaleFrom, scaleTo) {
         var ds = scaleTo - scaleFrom;
@@ -400,14 +301,7 @@
     },
 
     class WipeDown extends Effect {
-
-      constructor({
-        duration = 1000
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 1000;
 
       apply(element, scaleFrom, scaleTo) {
         var ds = scaleTo - scaleFrom;
@@ -431,37 +325,18 @@
   Package("org.qcobjects.modal.effects", [
 
     class ModalFade extends Fade {
-      constructor({
-        duration = 500
-      }) {
-        super({
-          duration
-        });
-      }
+      duration = 500;
 
     },
 
     class ModalMoveDown extends Move {
-      constructor({
-        duration = 300
-      }) {
-        super({
-          duration
-        });
-
-      }
+      duration = 300;
 
     },
 
     class ModalMoveUp extends Move {
-      constructor({
-        duration = 800
-      }) {
-        super({
-          duration
-        });
 
-      }
+      duration = 800;
 
     }
 

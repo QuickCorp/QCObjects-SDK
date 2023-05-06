@@ -29,40 +29,49 @@ Package("org.qcobjects.components.base", [
     cached = false;
     shadowed= true;
 
-    constructor (o) {
-      o.name = "splashscreen";
-      super(o);
+    constructor (component) {
+      component.name = "splashscreen";
       
       var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
-      let component = this;
       var isStartURL = (location.hash === ""
           && location.pathname === "/" && location.search === "")
           || CONFIG.get("routingWay") === "hash" && CONFIG.get("start_url","/") === location.hash
           || CONFIG.get("routingWay") === "pathname" && CONFIG.get("start_url","/") === location.pathname
           || CONFIG.get("routingWay") === "search" && CONFIG.get("start_url","/") === location.search;
       var _enabled_ = isBrowser && isStartURL;
+
       if (_enabled_){
         component.basePath = CONFIG.get("splashscreenBasePath",CONFIG.get("remoteSDKPath"));
-        o.data.basePath = component.basePath;
+        if (typeof component.data === "undefined"){
+          component.data = {};
+        }
+        component.data.basePath = component.basePath;
+      } else {
+        component.body.style.display="none";
+      }
+      super(component);
+      this._enabled_ = _enabled_;
+
+      if (this._enabled_){
         var displayEffectDuration = 1000;
-        var duration = component.body.getAttribute("duration");
+        var duration = this.body.getAttribute("duration");
         if (duration === null){
-          duration = 3000;
+          duration = displayEffectDuration;
         } else {
           duration = parseInt(duration);
         }
-        component._bgcolor = document.body.style.backgroundColor;
-        var _helper_ = function (){
+        this._bgcolor = this.body.style.backgroundColor;
+  
+        var _helper_ = () => {
           if (!_helper_.executed){
-            var component = this;
-            var _componentRoot = (component.shadowed)?(component.shadowRoot.host):(component.body);
+            var _componentRoot = (this.shadowed)?(this.shadowRoot.host):(this.body);
             global.componentsStack.filter(c=>c.body.hasAttribute("splashscreen")).map(
-              function (mainComponent){
+               (mainComponent) => {
                 logger.debug("Splash Screen of Main Component:",mainComponent.name);
-                mainComponent.splashScreenComponent = component;
+                mainComponent.splashScreenComponent = this;
                 function SplashScreenHandler (){
                   if (!SplashScreenHandler.executed){
-                    var mainComponent = this;
+                    var mainComponent = this; /* here this is bound to mainComponent */ 
                     var component = mainComponent.splashScreenComponent;
                     var mainElement = (mainComponent.shadowed)?(mainComponent.shadowRoot.host):(mainComponent.body);
                     mainComponent._mainPosition = mainElement.style.position;
@@ -99,11 +108,9 @@ Package("org.qcobjects.components.base", [
           }
         };
         _helper_.executed=false;
-        component.addComponentHelper(_helper_.bind(component));
-      } else {
-        component.body.style.display="none";
+        this.addComponentHelper(_helper_.bind(component));
       }
-      
+
     }
 
 
