@@ -28,7 +28,8 @@
     class FormField extends Component {
       cached = false;
       reload = true;
-      constructor (...o){
+      constructor (o){
+        o.name = (typeof o.name !== "undefined")?(o.name):("form-field");
         super(o);
       }
 
@@ -102,7 +103,7 @@
       view = null;
       data = {};
 
-      constructor (...o){
+      constructor (o){
         o.body = _DOMCreateElement("div");
         super(o);
       }
@@ -112,14 +113,14 @@
 
 
     class ButtonField extends FormField {
-      constructor(...o) {
+      constructor(o) {
         o.fieldType = "button";
         super(o);
       }
     },
 
     class InputField extends FormField {
-      constructor(...o) {
+      constructor(o) {
         o.fieldType = "input";
         super(o);
       }
@@ -127,7 +128,7 @@
     },
 
     class TextField extends FormField {
-      constructor(...o) {
+      constructor(o) {
         o.fieldType = "textarea";
         super(o);
       }
@@ -135,7 +136,7 @@
     },
 
     class EmailField extends FormField {
-      constructor(...o) {
+      constructor(o) {
         o.fieldType = "input";
         super(o);
       }
@@ -164,7 +165,7 @@
 `;
 
       data = {};
-      constructor(...o) {
+      constructor(o) {
         o.body = _DOMCreateElement("div");
         super(o);
       }
@@ -185,7 +186,7 @@
       };
       submodal = null;
 
-      constructor(...o) {
+      constructor(o) {
         o.basePath = CONFIG.get("modalBasePath", CONFIG.get("remoteSDKPath"));
         super(o);
         this.data.modalId = this.__instanceID;
@@ -263,7 +264,7 @@
       tplextension = "tpl.html";
       name = "swagger-ui";
       
-      constructor(...o) {
+      constructor(o) {
         super(o);
 
       }

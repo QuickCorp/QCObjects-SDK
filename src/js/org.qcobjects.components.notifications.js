@@ -31,7 +31,7 @@ Package("org.quickcorp.components.notifications", [
     tplsource= "inline";
     shadowed= false;
 
-    constructor (...o){
+    constructor (o){
       o.name= "notification";
       o.body = _DOMCreateElement("div");
       super(o);

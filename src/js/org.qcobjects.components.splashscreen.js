@@ -606,7 +606,7 @@ Package("org.qcobjects.components.splashscreen",[
   
       `;
 
-    constructor (...o) {
+    constructor (o) {
       o.name= "cubesplashscreen";
       super(o);
     }    
