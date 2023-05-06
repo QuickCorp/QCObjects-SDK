@@ -47,10 +47,11 @@
     var global = _top;
     _top.global = global;
     var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
+    var isNodeCommonJS = (typeof module !== "undefined") ? (true): (false);
     var remoteImportsPath = CONFIG.get("remoteImportsPath");
     var relativeImportPath = CONFIG.get("relativeImportPath");
     var external = (!CONFIG.get("useLocalSDK")) ? (true) : (false);
-    if (external) {
+    if (external && !isNodeCommonJS) {
       CONFIG.set("remoteImportsPath", "https://sdk.qcobjects.dev/v2.4/src/js/");
     } else {
       CONFIG.set("relativeImportPath", "qcobjects-sdk/src/js/");
@@ -67,7 +68,7 @@
       };
     }
     var _imports_;
-    if (isBrowser) {
+    if (isBrowser && !isNodeCommonJS) {
       _imports_ = [
         Import("org.qcobjects.i18n_messages", function () {}, external),
         Import("org.qcobjects.models", function () {}, external),
@@ -93,6 +94,9 @@
       ];
     } else {
       // non-browsers environment
+      if (isNodeCommonJS){
+        CONFIG.set("remoteImportsPath", CONFIG.get("basePath",""));
+      }
   
       var _relative_path_ = "qcobjects-sdk/src/js/";
       _imports_ = [
