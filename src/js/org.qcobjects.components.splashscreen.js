@@ -29,7 +29,7 @@ Package("org.qcobjects.components.base", [
     cached = false;
     shadowed= true;
 
-    constructor (...o) {
+    constructor (o) {
       o.name = "splashscreen";
       super(o);
       
@@ -282,7 +282,7 @@ Package("org.qcobjects.components.splashscreen",[
       `;
 
 
-    constructor (...o) {
+    constructor (o) {
         o.name = "videosplashscreen";
         super(o);
     }
