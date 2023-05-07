@@ -167,11 +167,10 @@ Package("org.qcobjects.controllers.form",[
       }
     }
 
-    _new_ (o){
-      super.__new__(o);
-      var controller = this;
-      controller.component = o.component;
-      controller.component = controller.component.Cast(FormField);
+    constructor (o){
+      super(o);
+      this.component = o.component;
+      this.component = this.component.Cast(FormField);
     }
 
     done (){

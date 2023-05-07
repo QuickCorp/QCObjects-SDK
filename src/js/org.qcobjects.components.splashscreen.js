@@ -22,88 +22,102 @@
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
 */
-(function() {
-"use strict";
+(function __splash_screen__ (global) {
+  "use strict";
 Package("org.qcobjects.components.base", [
   class SplashScreenComponent extends Component {
     cached = false;
     shadowed= true;
 
-    constructor (...o) {
-      o.name = "splashscreen";
-      super(o);
+    constructor (component) {
+      component.name = (typeof component.name === "undefined")? ("splashscreen"):(component.name);
       
       var isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
-      let component = this;
       var isStartURL = (location.hash === ""
           && location.pathname === "/" && location.search === "")
           || CONFIG.get("routingWay") === "hash" && CONFIG.get("start_url","/") === location.hash
           || CONFIG.get("routingWay") === "pathname" && CONFIG.get("start_url","/") === location.pathname
           || CONFIG.get("routingWay") === "search" && CONFIG.get("start_url","/") === location.search;
       var _enabled_ = isBrowser && isStartURL;
+
       if (_enabled_){
         component.basePath = CONFIG.get("splashscreenBasePath",CONFIG.get("remoteSDKPath"));
-        o.data.basePath = component.basePath;
+        if (typeof component.data === "undefined"){
+          component.data = {};
+        }
+        component.data.basePath = component.basePath;
+      } else {
+        if (typeof component !== "undefined"){
+          component.body.style.display="none";
+        }
+      }
+      super(component);
+      this._enabled_ = _enabled_;
+
+      if (this._enabled_){
         var displayEffectDuration = 1000;
-        var duration = component.body.getAttribute("duration");
+        var duration = this.body.getAttribute("duration");
         if (duration === null){
-          duration = 3000;
+          duration = displayEffectDuration;
         } else {
           duration = parseInt(duration);
         }
-        component._bgcolor = document.body.style.backgroundColor;
-        var _helper_ = function (){
-          if (!_helper_.executed){
-            var component = this;
-            var _componentRoot = (component.shadowed)?(component.shadowRoot.host):(component.body);
-            global.componentsStack.filter(c=>c.body.hasAttribute("splashscreen")).map(
-              function (mainComponent){
-                logger.debug("Splash Screen of Main Component:",mainComponent.name);
-                mainComponent.splashScreenComponent = component;
-                function SplashScreenHandler (){
-                  if (!SplashScreenHandler.executed){
-                    var mainComponent = this;
-                    var component = mainComponent.splashScreenComponent;
-                    var mainElement = (mainComponent.shadowed)?(mainComponent.shadowRoot.host):(mainComponent.body);
-                    mainComponent._mainPosition = mainElement.style.position;
-                    mainElement.style.position = "fixed";
-                    mainComponent._mainOpacity = mainElement.style.opacity;
-                    _componentRoot.style.width = "100%";
-                    _componentRoot.style.height = "100%";
-                    document.body.style.backgroundColor = "#111111";
-                    mainElement.style.opacity = 0;
-                    setTimeout(function() {
-                      if (typeof _componentRoot !== "undefined"){
-                        document.body.style.backgroundColor = component._bgcolor;
-                        _componentRoot.subelements("#slot-logo").map(function (slotlogo){
-                          slotlogo.style.display = "block";
-                          slotlogo.style.transformOrigin = "center";
-                          (new Resize()).apply(slotlogo,1,0);
-                        });
-                        (new Fade()).apply(_componentRoot, 1, 0);
-                      }
-                    }, (duration-displayEffectDuration));
-                    setTimeout(function() {
-                      (new Fade()).apply(mainElement, 0, 1);
-                      mainElement.style.position = mainComponent._mainPosition;
-                      document.body.style.backgroundColor = component._bgcolor;
-                      _componentRoot.parentElement.remove();
-                    }, duration);
-                  }
-                  SplashScreenHandler.executed=true;
-                }
-                mainComponent.addComponentHelper(SplashScreenHandler.bind(mainComponent));
+        this._bgcolor = this.body.style.backgroundColor;
+  
+        var _helper_ = () => {
+          setTimeout(()=>{
+            if (!_helper_.executed){
+              var _componentRoot = (this.shadowed)?(this.shadowRoot.host):(this.body);
+              if (typeof global.componentsStack !== "undefined"){
+                global.componentsStack.filter(c=>c.body.hasAttribute("splashscreen")).map(
+                  (mainComponent) => {
+                   logger.debug("Splash Screen of Main Component:",mainComponent.name);
+                   mainComponent.splashScreenComponent = this;
+                   function SplashScreenHandler (){
+                     if (!SplashScreenHandler.executed){
+                       var mainComponent = this; /* here this is bound to mainComponent */ 
+                       var component = mainComponent.splashScreenComponent;
+                       var mainElement = (mainComponent.shadowed)?(mainComponent.shadowRoot.host):(mainComponent.body);
+                       mainComponent._mainPosition = mainElement.style.position;
+                       mainElement.style.position = "fixed";
+                       mainComponent._mainOpacity = mainElement.style.opacity;
+                       _componentRoot.style.width = "100%";
+                       _componentRoot.style.height = "100%";
+                       document.body.style.backgroundColor = "#111111";
+                       mainElement.style.opacity = 0;
+                       setTimeout(function() {
+                         if (typeof _componentRoot !== "undefined"){
+                           document.body.style.backgroundColor = component._bgcolor;
+                           _componentRoot.subelements("#slot-logo").map(function (slotlogo){
+                             slotlogo.style.display = "block";
+                             slotlogo.style.transformOrigin = "center";
+                             (new Resize()).apply(slotlogo,1,0);
+                           });
+                           (new Fade()).apply(_componentRoot, 1, 0);
+                         }
+                       }, (duration-displayEffectDuration));
+                       setTimeout(function() {
+                         (new Fade()).apply(mainElement, 0, 1);
+                         mainElement.style.position = mainComponent._mainPosition;
+                         document.body.style.backgroundColor = component._bgcolor;
+                         _componentRoot.parentElement.remove();
+                       }, duration);
+                     }
+                     SplashScreenHandler.executed=true;
+                   }
+                   mainComponent.addComponentHelper(SplashScreenHandler.bind(mainComponent));
+                 }
+               );
               }
-            );
-            _helper_.executed=true;
-          }
+              _helper_.executed=true;
+            }
+  
+          });
         };
         _helper_.executed=false;
-        component.addComponentHelper(_helper_.bind(component));
-      } else {
-        component.body.style.display="none";
+        this.addComponentHelper(_helper_.bind(component));
       }
-      
+
     }
 
 
@@ -282,7 +296,7 @@ Package("org.qcobjects.components.splashscreen",[
       `;
 
 
-    constructor (...o) {
+    constructor (o) {
         o.name = "videosplashscreen";
         super(o);
     }
@@ -616,4 +630,16 @@ Package("org.qcobjects.components.splashscreen",[
 ]);
 
 
-}).call(null);
+}).call(null, (typeof module === "object" && typeof module.exports === "object") ? (
+  module.exports = (typeof globalThis !== "undefined"
+  ? globalThis
+  : typeof self !== "undefined"
+  ? self
+  : typeof window !== "undefined"
+  ? window
+  : typeof global !== "undefined"
+  ? global
+  : {})
+) : ((typeof global === "object") ? (global) : (
+  (typeof window === "object") ? (window) : ({})
+)));

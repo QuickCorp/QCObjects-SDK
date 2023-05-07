@@ -22,7 +22,7 @@
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
  */
-(function () {
+(function (global) {
   "use strict";
   Package("org.qcobjects.controllers.slider", [
 
@@ -139,4 +139,16 @@
 
   ]);
 
-}).call(null);
+}).call(null, (typeof module === "object" && typeof module.exports === "object") ? (
+  module.exports = (typeof globalThis !== "undefined"
+  ? globalThis
+  : typeof self !== "undefined"
+  ? self
+  : typeof window !== "undefined"
+  ? window
+  : typeof global !== "undefined"
+  ? global
+  : {})
+) : ((typeof global === "object") ? (global) : (
+  (typeof window === "object") ? (window) : ({})
+)));
