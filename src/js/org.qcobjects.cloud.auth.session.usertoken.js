@@ -30,8 +30,8 @@
       user = {};
       __cache__ = null;
 
-      constructor(...o){
-       super(o); 
+      constructor(o){
+       super(o);
        var __instance__ = this;
        this.__cache__ = new ComplexStorageCache({
          index: __instance__.__instanceID.toString(),

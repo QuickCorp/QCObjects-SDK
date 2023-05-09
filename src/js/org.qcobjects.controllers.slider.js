@@ -40,7 +40,7 @@
         this._componentRoot = (component.shadowed) ? (component.shadowRoot) : (component.body);
         //TODO: Implement
         this.sliderHandlerName = "slider_" + this.component.__instanceID.toString();
-        global.set(controller.sliderHandlerName, this);
+        global.set(this.sliderHandlerName, this);
 
       }
 

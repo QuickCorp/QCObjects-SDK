@@ -50,7 +50,7 @@
       tplsource= "inline";
       template= "<p>Loading...</p>";
 
-      constructor (...o){
+      constructor (o){
         super(o);
         this.body.setAttribute("controllerClass", "DataGridController");
         var subcomponentClass = (this.body.getAttribute("subcomponentClass") !== null) ? (this.body.getAttribute("subcomponentClass")) : ("GridItemComponent");

@@ -26,7 +26,7 @@
 "use strict";
 Package("org.qcobjects.controllers.grid",[
 
-  class GridComponent extends Controller {
+  class GridController extends Controller {
     dependencies=[];
     component=null;
 
