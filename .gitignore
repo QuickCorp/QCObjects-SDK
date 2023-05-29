@@ -1,7 +1,11 @@
+lighthouse*
 .DS_Store
-.DS_Store
-config.json
 build
+public
+dist
+.parcel*
+.husky
+hint-report
 # Logs
 logs
 *.log
@@ -44,6 +48,7 @@ bower_components
 build/Release
 
 # Dependency directories
+**/node_modules
 node_modules
 node_modules/
 jspm_packages/
