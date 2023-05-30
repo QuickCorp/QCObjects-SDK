@@ -47,7 +47,7 @@ jobs:
       - name: Build Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          destination: "./public"        
+          destination: "./build"        
 
       - name: npm install, build, and test
         run: |
