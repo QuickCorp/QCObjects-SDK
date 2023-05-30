@@ -50,6 +50,7 @@
     "qcobjects": "qcobjects",
     "cli": "qcobjects",
     "build:static": "npx qcobjects-cli publish:static src/ build/ --exclude js --exclude=.DS_Store",
+    "build:jekyll": "npx qcobjects-cli publish:static jekyll/ public/ --exclude=.DS_Store",
     "build:static:css": "npx qcobjects-cli publish:static src/css build/css --exclude js --exclude=.DS_Store",
     "build:static:templates": "npx qcobjects-cli publish:static src/templates build/templates --exclude js --exclude=.DS_Store",
     "build:ts": "npm test && npx tsc",
