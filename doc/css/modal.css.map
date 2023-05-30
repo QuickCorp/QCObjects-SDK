@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../build/css/modal.css"],
+  "sourcesContent": ["@import url(\"./base-modal.css\");\n\n.modal details {\n    border: 1px 0 0 1px solid #aaa;\n    border-radius: 4px;\n    padding: .5em .5em 0;\n}\n\n.modal summary {\n    font-weight: bold;\n    margin: -.5em -.5em 0;\n    padding: .5em;\n}\n\n.modal details[open] {\n    padding: .5em;\n}\n\n.modal details[open] summary {\n    border-bottom: 1px solid #aaa;\n    margin-bottom: .5em;\n}\n\n.modal summary::-webkit-details-marker {\n  display: none\n}\n\n.modal summary:after {\n  border-radius: 5px;\n  content: \"+\";\n  color: #111111;\n  float: left;\n  font-size: 1.5em;\n  font-weight: bold;\n  margin: -5px 10px 0 0;\n  padding: 0;\n  text-align: center;\n  width: 20px;\n}\n.modal details[open] summary:after {\n  content: \"-\";\n}\n\n.modal ul {\n  list-style-type: none;\n}\n"],
+  "mappings": "0BAEA,eACI,8BAHJ,sCAQA,eACI,gBATJ,kCAcA,qBAdA,aAkBA,6BACI,6BACA,mBAGJ,uCACE,aAGF,qBA3BA,kBA6BE,YACA,WACA,WACA,gBACA,gBAjCF,+BAoCE,kBACA,WAEF,mCACE,YAGF,UACE",
+  "names": []
+}
