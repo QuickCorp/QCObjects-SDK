@@ -57,6 +57,12 @@ jobs:
         with:
           # Upload entire repository
           path: './public'
+      - name: Upload artifact README
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # Upload README
+          path: './README.md'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
