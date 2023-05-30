@@ -1,2 +1,2 @@
-import sdk from "qcobjects-sdk";
+import * as sdk from "./QCObjects-SDK";
 export default sdk;

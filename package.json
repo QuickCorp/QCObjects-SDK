@@ -1,13 +1,13 @@
 {
   "name": "qcobjects-sdk",
-  "version": "2.4.59",
+  "version": "2.4.60",
   "description": "QCObjects SDK is a set of Controllers, Views and Components that are elementary and useful to assist developers to build applications under MVC patterns using QCObjects, Cross Browser Javascript Framework for MVC Patterns",
-  "main": "src/index.cjs",
-  "module": "src/index.mjs",
+  "main": "public/QCObjects-SDK.js",
+  "module": "public/index.mjs",
   "exports": {
     ".": {
-      "require": "./src/index.cjs",
-      "import": "./src/index.mjs"
+      "require": "./public/index.cjs",
+      "import": "./public/index.mjs"
     },
     "./package.json": "./package.json",
     "./js/org.qcobjects.cloud.auth.session.data": "./src/js/org.qcobjects.cloud.auth.session.data.js",
@@ -39,11 +39,29 @@
   "types": "./src/index.d.ts",
   "license": "LGPL-3.0",
   "scripts": {
+    "test": "npm run lint",
+    "lint": "(npx eslint \"src/**/*.ts\" --fix --ext ts)",
     "sync": "git add . && git commit -am ",
-    "test": "(npm run lint && (npx jasmine))",
-    "lint": "(npx eslint ./**/*.ts --fix --ext ts)",
-    "preversion": "npm cache verify && npm test",
-    "postversion": "git push && git push --tags"
+    "preversion": "npm i --upgrade && npm test",
+    "postversion": "git push && git push --tags",
+    "v-patch": "qcobjects v-patch",
+    "v-minor": "qcobjects v-minor",
+    "v-major": "qcobjects v-major",
+    "qcobjects": "qcobjects",
+    "cli": "qcobjects",
+    "build:static": "npx qcobjects-cli publish:static src/ build/ --exclude js --exclude=.DS_Store",
+    "build:static:css": "npx qcobjects-cli publish:static src/css build/css --exclude js --exclude=.DS_Store",
+    "build:static:templates": "npx qcobjects-cli publish:static src/templates build/templates --exclude js --exclude=.DS_Store",
+    "build:ts": "npm test && npx tsc",
+    "build:ts-types": "npx tsc --project tsconfig.d.json",
+    "build": "npm run build:static:css && npm run build:static:templates && npm run build:ts-types && npm run build:ts && npm run publish:static && npm run publish:esbuild && npm run minify:css",
+    "publish:static": "(npx qcobjects-cli publish:static build/ public/ --exclude js --exclude=.DS_Store)",
+    "publish:esbuild": "npx esbuild \"build/QCObjects-SDK.js\" --bundle --outdir=public --keep-names --minify --global-name=global --sourcemap --splitting --chunk-names=chunks/[name]-[hash] --format=esm --target=es2020",
+    "minify:css": "(npx esbuild build/css/*.css build/css/**/*.css --outdir=public/css --keep-names --minify --global-name=global --sourcemap --loader:.svg=file)",
+    "prepare": "node -e \"if(!require('fs').existsSync('.git')){process.exit(0)}\" || npx -y husky install",
+    "prestart": "npm run publish:web",
+    "cli:help": "qcobjects --help",
+    "tree": "tree -d --gitignore"
   },
   "repository": {
     "type": "git",
@@ -65,6 +83,8 @@
     "webcomponents"
   ],
   "devDependencies": {
+    "@types/qcobjects": "github:QCObjects/-types-qcobjects",
+    "@types/qcobjects-sdk": "github:QCObjects/-types-qcobjects-sdk",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
     "eslint": "^8.38.0",
@@ -78,6 +98,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "hint": "^2.0.0",
     "jasmine": "^3.7.0",
+    "qcobjects-command-publish-static": "^1.0.2",
     "qcobjects-tsconfig": "^2.4.10",
     "typescript": "^5.0.4"
   },
