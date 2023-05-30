@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../build/css/basic-layout-embedded-nav.css"],
-  "sourcesContent": ["/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */\n@media (max-width: 600px),\n@media (max-width:460px),\n@media (aspect-ratio: 9/16),\n@media (aspect-ratio: 10/16),\n@media (aspect-ratio: 5/8),\n@media (aspect-ratio: 3/4),\n@media (aspect-ratio: 2/3){\n nav, article {\n   width: 100%;\n   height: auto;\n   position: relative;\n }\n}\n"],
-  "mappings": "AACA,6LAOC,YACE,WACA,YACA",
-  "names": []
-}
