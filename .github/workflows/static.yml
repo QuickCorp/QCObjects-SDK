@@ -52,11 +52,11 @@ jobs:
           name: node-app
           path: ./public
 
-      - name: Upload artifact v2.4
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: './v2.4'
+          path: './public'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
