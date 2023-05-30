@@ -71,9 +71,9 @@ import { Fade, MoveXInFromLeft, MoveXInFromRight, MoveYInFromBottom } from "./or
           Tag("component>article").map((element:HTMLElement)=>Fade.apply(element,0,1));
           Tag("component>footer").map((element:HTMLElement)=>Fade.apply(element,0,1));
           Tag("component>header").map((element:HTMLElement)=>Fade.apply(element,0,1));
-          Tag("nav").map((element:HTMLElement)=>{element.style.display="block";element.style.width=element.offsetParent.scrollWidth.toString();MoveXInFromLeft.apply(element);});
-          Tag("component>article").map((element:HTMLElement)=>{element.style.display="block";element.style.height=element.offsetParent.scrollHeight.toString();MoveYInFromBottom.apply(element);});
-          Tag("component>article:nth-child(2)").map((element:HTMLElement)=>{element.style.display="block";element.style.width=element.offsetParent.scrollWidth.toString();MoveXInFromRight.apply(element);});
+          Tag("nav").map((element:HTMLElement)=>{element.style.display="block";element.style.width=element.offsetParent?.scrollWidth.toString() || element.clientWidth.toString() ;MoveXInFromLeft.apply(element);});
+          Tag("component>article").map((element:HTMLElement)=>{element.style.display="block";element.style.height=element.offsetParent?.scrollHeight.toString() || element.clientHeight.toString();MoveYInFromBottom.apply(element);});
+          Tag("component>article:nth-child(2)").map((element:HTMLElement)=>{element.style.display="block";element.style.width=element.offsetParent?.scrollWidth.toString() || element.clientWidth.toString();MoveXInFromRight.apply(element);});
         },300);
       }
 

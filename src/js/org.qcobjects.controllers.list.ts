@@ -1,3 +1,5 @@
+import { Package, Controller, logger, CONFIG, _DataStringify, _DOMCreateElement, New, ClassFactory, ComponentURI, serviceLoader, ControllerParams, QCObjectsElement, QCObjectsShadowedElement, Component } from "qcobjects";
+import { ListComponent } from "./org.qcobjects.components.list";
 /**
  * QCObjects SDK 2.4
  * ________________
@@ -24,21 +26,30 @@
  */
 (function () {
   "use strict";
+  type ListControllerParams = ControllerParams & {
+    component: typeof ListComponent;
+    valueField:string | undefined;
+    labelField:string | undefined;
+
+  };
   Package("org.qcobjects.controllers.list", [
 
     class ListController extends Controller {
-      dependencies = [];
-      component = null;
-      valueField = undefined;
-      labelField = undefined;
+      __instanceID!: number;
+      component: typeof ListComponent;
+      valueField:string | undefined;
+      labelField:string | undefined;
+      rows:number | string | null;
+      cols:number;
+      _componentRoot:QCObjectsElement | QCObjectsShadowedElement | HTMLElement | undefined;
 
-      constructor({component, dependencies = [], valueField = undefined, labelField = undefined}) {
-        super({component, dependencies, valueField, labelField});
+      constructor({component, dependencies = [], valueField = undefined, labelField = undefined}:ListControllerParams) {
+        super({component, dependencies, valueField, labelField} as ListControllerParams);
         this.component = component;
         this._componentRoot = (this.component.shadowed) ? (this.component.shadowRoot) : (this.component.body);
 
-        this.labelField = this.component.body.getAttribute("label-field");
-        this.valueField = this.component.body.getAttribute("value-field");
+        this.labelField = this.component.body.getAttribute("label-field") as string;
+        this.valueField = this.component.body.getAttribute("value-field") as string;
         this.rows = this.component.body.getAttribute("rows");
         this.rows = (this.rows !== null) ? (this.rows) : (this.component.rows);
         this.cols = 1;
@@ -46,47 +57,46 @@
 
       }
 
-      getPageIndex(page, totalPage, totalElements) {
-        page = new Number(page);
+      getPageIndex(page:number, totalPage:number, totalElements:number) {
         page = (page > 0) ? (page - 1) : (0);
-        totalPage = new Number(totalPage);
-        totalElements = new Number(totalElements);
         return [totalElements * page / totalPage, (totalElements * page / totalPage) + totalElements / totalPage];
       }
 
       addSubcomponents() {
-        var controller = this;
-        controller.component.subcomponents = [];
-        var layout = controller.component.body.getAttribute("layout");
-        var basePath = CONFIG.get("listBasePath", CONFIG.get("remoteSDKPath"));
-        var cssLayout = "";
-        controller.labelField = controller.component.body.getAttribute("label-field");
-        controller.valueField = controller.component.body.getAttribute("value-field");
+        this.component.subcomponents = [];
+        const layout = this.component.body.getAttribute("layout");
+        const basePath = CONFIG.get("listBasePath", CONFIG.get("remoteSDKPath", ""));
+        let cssLayout = "";
+        this.labelField = this.component.body.getAttribute("label-field");
+        this.valueField = this.component.body.getAttribute("value-field");
 
         if (layout === "horizontal") {
           cssLayout = `@import url("${basePath}css/components/horizontal-list.css");`;
         } else {
           cssLayout = `@import url("${basePath}css/components/list.css");`;
         }
-        controller._componentRoot.innerHTML = `<style>${cssLayout}</style><ul></ul>`;
-        logger.debug(_DataStringify(controller.component.data));
+        if (typeof this._componentRoot !== "undefined"){
+          this._componentRoot.innerHTML = `<style>${cssLayout}</style><ul></ul>`;
+        }
+        logger.debug(_DataStringify(this.component.data));
         try {
-          var subcomponentClass = controller.component.body.getAttribute("subcomponentClass");
+          const subcomponentClass = this.component.body.getAttribute("subcomponentClass");
           if (subcomponentClass != null) {
-            var offset;
-            var limit;
-            var pagesNumber;
-            var list = [...controller.component.data];
-            var paginateIn = controller.component.body.getAttribute("paginate-in");
+            let offset:number;
+            let limit:number;
+            let pagesNumber:number;
+            let list = [...this.component.data];
+            let paginateIn = this.component.body.getAttribute("paginate-in");
             paginateIn = (paginateIn !== null) ? (paginateIn) : ("client");
+            let page:number;
             if (paginateIn === "client") {
-              var page = controller.component.body.getAttribute("page-number");
+              page = this.component.body.getAttribute("page-number");
               page = (isNaN(page) || page === null) ? (-1) : (page);
               if (page !== -1) {
-                pagesNumber = controller.component.body.getAttribute("total-pages");
+                pagesNumber = this.component.body.getAttribute("total-pages");
                 pagesNumber = (isNaN(pagesNumber)) ? (1) : (pagesNumber);
-                offset = controller.getPageIndex(page, pagesNumber, list.length)[0];
-                limit = controller.getPageIndex(page, pagesNumber, list.length)[1];
+                offset = this.getPageIndex(page, pagesNumber, list.length)[0];
+                limit = this.getPageIndex(page, pagesNumber, list.length)[1];
               } else {
                 offset = 0;
                 limit = list.length;
@@ -99,16 +109,17 @@
               pagesNumber = 1;
             }
             list.map(
-              function (record, dataIndex) {
+               (record, dataIndex) => {
+                const _ret_=undefined;
                 try {
-                  var _body = _DOMCreateElement("li");
-                  record.label = record[controller.labelField];
-                  record.value = record[controller.valueField];
-                  var subcomponent = New(ClassFactory(subcomponentClass), {
+                  const _body = _DOMCreateElement("li");
+                  record.label = record[this.labelField as string];
+                  record.value = record[this.valueField as string];
+                  const subcomponent = New(ClassFactory(subcomponentClass), {
                     name:"list-item",
                     data: {
-                      label: record[controller.labelField],
-                      value: record[controller.valueField],
+                      label: record[this.labelField as string],
+                      value: record[this.valueField as string],
                       __dataIndex: dataIndex,
                       __page: page,
                       __totalPages: pagesNumber,
@@ -116,25 +127,25 @@
                       __offset: offset
                     },
                     templateURI: ComponentURI({
-                      "COMPONENTS_BASE_PATH": CONFIG.get("componentsBasePath"),
+                      "COMPONENTS_BASE_PATH": CONFIG.get("componentsBasePath", ""),
                       "COMPONENT_NAME": ClassFactory(subcomponentClass).name,
-                      "TPLEXTENSION": CONFIG.get("tplextension"),
+                      "TPLEXTENSION": CONFIG.get("tplextension", ""),
                       "TPL_SOURCE": ClassFactory(subcomponentClass).tplsource
                     }),
                     body: _body,
                     template: ClassFactory(subcomponentClass).template
                   });
-                  subcomponent.done = controller.component.done.bind(subcomponent);
+                  subcomponent.done = this.component.done.bind(subcomponent);
                   try {
                     if (subcomponent) {
                       subcomponent.data.__dataIndex = dataIndex;
-                      if (controller.component.data.hasOwnProperty.call(controller.component.data, "length")) {
-                        subcomponent.data.__dataLength = controller.component.data.length;
+                      if (Object.hasOwnProperty.call(this.component.data, "length")) {
+                        subcomponent.data.__dataLength = this.component.data.length;
                       }
                       logger.debug("adding subcomponent to body");
-                      controller._componentRoot.subelements("ul").map(ul => ul.append(subcomponent));
+                      (this._componentRoot as QCObjectsElement).subelements("ul").map(ul => ul.append(subcomponent));
                       try {
-                        controller.component.subcomponents.push(subcomponent);
+                        this.component.subcomponents.push(subcomponent);
                       } catch (e) {
                         logger.debug("ERROR LOADING SUBCOMPONENT IN DATAGRID");
                       }
@@ -148,6 +159,7 @@
                 } catch (e) {
                   logger.debug("ERROR LOADING SUBCOMPONENT IN DATAGRID");
                 }
+                return _ret_;
               }
             );
           } else {
@@ -160,47 +172,45 @@
       }
 
       cssGrid() {
-        var controller = this;
-        var component = controller.component;
-        var _componentRoot = (component.shadowed) ? (component.shadowRoot) : (component.body);
-        if (typeof controller.rows !== "undefined" && typeof controller.cols !== "undefined") {
-          var s = _DOMCreateElement("style");
-          var templateRows = "auto ".repeat(controller.rows);
-          var templateCols = "auto ".repeat(controller.cols);
-          var className = "grid" + this.__instanceID.toString();
-          s.innerHTML = "." + className + " { \
-                          display: grid; \
-                          grid-template-rows: " + templateRows + "; \
-                          grid-template-columns: " + templateCols + "; \
-                          margin:0 auto; \
-                      }";
+        const component = this.component;
+        const _componentRoot = (component.shadowed) ? (component.shadowRoot) : (component.body);
+        if (typeof this.rows !== "undefined" && typeof this.cols !== "undefined") {
+          const s = _DOMCreateElement("style");
+          const templateRows = "auto ".repeat(this.rows as number);
+          const templateCols = "auto ".repeat(this.cols);
+          const className = "grid" + this.__instanceID.toString();
+          s.innerHTML = `.${className}{
+            display: grid; \
+            grid-template-rows: ${templateRows}; \
+            grid-template-columns: ${templateCols}; \
+            margin:0 auto; \
+          }`;
           _componentRoot.append(s);
           _componentRoot.classList.add(className);
         }
       }
 
       done() {
-        var controller = this;
-        controller.cssGrid();
+        this.cssGrid();
 
-        var componentInstance = controller.component;
+        const componentInstance = this.component;
         logger.debug("ListController DONE");
-        var serviceClass = controller.component.body.getAttribute("serviceClass");
+        const serviceClass = this.component.body.getAttribute("serviceClass");
         if (serviceClass != null) {
-          var offset;
-          var limit;
-          var paginateIn = componentInstance.body.getAttribute("paginate-in");
+          let offset;
+          let limit;
+          let paginateIn = componentInstance.body.getAttribute("paginate-in");
           paginateIn = (paginateIn !== null) ? (paginateIn) : ("client");
           if (paginateIn === "server") {
-            var page = componentInstance.body.getAttribute("page-number");
+            let page = componentInstance.body.getAttribute("page-number");
             page = (isNaN(page) || page === null) ? (-1) : (page);
-            var pagesNumber;
+            let pagesNumber;
             if (page !== -1) {
-              var serverDataCount = (controller.component.body.getAttribute("server-data-count") !== null) ? (controller.component.body.getAttribute("server-data-count")) : (1);
-              pagesNumber = controller.component.body.getAttribute("total-pages");
+              const serverDataCount = (this.component.body.getAttribute("server-data-count") !== null) ? (this.component.body.getAttribute("server-data-count")) : (1);
+              pagesNumber = this.component.body.getAttribute("total-pages");
               pagesNumber = (isNaN(pagesNumber)) ? (1) : (pagesNumber);
-              offset = controller.getPageIndex(page, pagesNumber, serverDataCount)[0];
-              limit = controller.getPageIndex(page, pagesNumber, serverDataCount)[1];
+              offset = this.getPageIndex(page, pagesNumber, serverDataCount)[0];
+              limit = this.getPageIndex(page, pagesNumber, serverDataCount)[1];
               // send params in jsonrpc 2.0 style
               componentInstance.serviceData = (typeof componentInstance.serviceData !== "undefined") ? (componentInstance.serviceData) : ({});
               componentInstance.serviceData.params = (typeof componentInstance.serviceData.params !== "undefined") ? (componentInstance.serviceData.params) : ({});
@@ -211,7 +221,7 @@
 
           serviceLoader(New(ClassFactory(serviceClass), {
             data: componentInstance.serviceData
-          })).then(
+          }), false).then(
             (successfulResponse) => {
               // This will show the service response as a plain text
               logger.debug("DONE SERVICE COMPONENT");
@@ -222,7 +232,7 @@
               } else {
                 componentInstance.data = successfulResponse.service.JSONresponse;
               }
-              controller.addSubcomponents();
+              this.addSubcomponents();
 
             },
             (failedResponse) => {

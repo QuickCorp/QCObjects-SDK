@@ -1,3 +1,5 @@
+import { CONFIG, Controller, New, Package, SourceCSS, SourceJS } from "qcobjects";
+
 /**
  * QCObjects SDK 2.4
  * ________________
@@ -22,15 +24,13 @@
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
  */
+declare let SwaggerUIBundle:any;
+declare let SwaggerUIStandalonePreset:any;
 (function () {
   "use strict";
   Package("org.qcobjects.controllers.swagger", [
 
     class SwaggerUIController extends Controller {
-      constructor({component, dependencies = []}) {
-        super({component, dependencies});
-
-      }
 
       startSwaggerUI() {
         // Begin Swagger UI call region
@@ -50,29 +50,28 @@
             layout: "StandaloneLayout"
           });
           // End Swagger UI call region
-          window.ui = ui;
+          (window as any).ui = ui;
         }
 
       }
 
       done() {
-        var controller = this;
-        controller.component.body.innerHTML = "<div id=\"" + CONFIG.get("swagger-ui-dom_id", "swagger-ui") + "\"></div>";
-        var swaggerUIPackagePath = CONFIG.get("swagger-ui-package-path", "node_modules/swagger-ui-dist/");
+        this.component.body.innerHTML = "<div id=\"" + CONFIG.get("swagger-ui-dom_id", "swagger-ui") + "\"></div>";
+        const swaggerUIPackagePath = CONFIG.get("swagger-ui-package-path", "node_modules/swagger-ui-dist/");
 
-        this.dependencies.push(New(SourceJS, {
+        this.dependencies?.push(New(SourceJS, {
           url: swaggerUIPackagePath + "swagger-ui-standalone-preset.js",
           external: CONFIG.get("swagger-ui-external", false)
         }));
-        this.dependencies.push(New(SourceCSS, {
+        this.dependencies?.push(New(SourceCSS, {
           url: swaggerUIPackagePath + "swagger-ui.css",
           external: CONFIG.get("swagger-ui-external", false)
         }));
-        this.dependencies.push(New(SourceJS, {
+        this.dependencies?.push(New(SourceJS, {
           url: swaggerUIPackagePath + "swagger-ui-bundle.js",
           external: CONFIG.get("swagger-ui-external", false),
-          done: function () {
-            controller.startSwaggerUI();
+          done: () => {
+            this.startSwaggerUI();
           }
         }));
       }

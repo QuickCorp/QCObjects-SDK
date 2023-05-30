@@ -1,4 +1,5 @@
 import { Package, Controller } from "qcobjects";
+import { ModalComponent } from "./org.qcobjects.components";
 
 /**
  * QCObjects SDK 2.4
@@ -31,7 +32,7 @@ Package("org.qcobjects.modal.controllers",[
   class ModalController extends Controller {
 
     done (){
-      const component = this.component;
+      const component = this.component as typeof ModalComponent;
       component.body.innerHTML = component.body.innerHTML.replace("/{{content}}/g",component.submodal.template);
 
     }

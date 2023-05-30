@@ -24,38 +24,60 @@ import { Component, ComponentParams, Package } from "qcobjects";
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
 */
-(function() {
+const _top = (typeof module === "object" && typeof module.exports === "object") ? (
+  module.exports = (typeof globalThis !== "undefined"
+  ? globalThis
+  : typeof self !== "undefined"
+  ? self
+  : typeof window !== "undefined"
+  ? window
+  : typeof global !== "undefined"
+  ? global
+  : {})
+) : ((typeof global === "object") ? (global) : (
+  (typeof window === "object") ? (window) : ({})
+));
+(function(global:any) {
 "use strict";
+class ListItemComponent extends Component {
+  shadowed= false;
+  tplsource= "inline";
+  template="<a href=\"{{value}}\">{{label}}</a>";
+  cached= false;
+
+  constructor (o:ComponentParams){
+    o.name="list-item";
+    super(o);
+  }
+
+}
+
+class ListComponent extends Component {
+  shadowed= true;
+  tplsource= "inline";
+  template= "<p>Loading...</p>";
+
+  constructor (o:ComponentParams){
+    o.name = "list";
+    super(o);
+    this.body.setAttribute("controllerClass","ListController");
+    this.body.setAttribute("subcomponentClass","ListItemComponent");
+
+  }
+
+}
+
 Package("org.qcobjects.components.list",[
-
-  class ListItemComponent extends Component {
-    shadowed= false;
-    tplsource= "inline";
-    template="<a href=\"{{value}}\">{{label}}</a>";
-    cached= false;
-
-    constructor (o:ComponentParams){
-      o.name="list-item";
-      super(o);
-    }
-
-  },
-
-  class ListComponent extends Component {
-    shadowed= true;
-    tplsource= "inline";
-    template= "<p>Loading...</p>";
-
-    constructor (o:ComponentParams){
-      o.name = "list";
-      super(o);
-      this.body.setAttribute("controllerClass","ListController");
-      this.body.setAttribute("subcomponentClass","ListItemComponent");
-  
-    }
-
-  },
-
+  ListItemComponent,
+  ListComponent
 ]);
 
-})();
+global.ListComponent = ListComponent;
+global.ListItemComponent = ListItemComponent;
+
+})(_top);
+
+const ListComponent = (_top as any).ListComponent;
+const ListItemComponent = (_top as any).ListItemComponent;
+
+export {ListComponent, ListItemComponent};

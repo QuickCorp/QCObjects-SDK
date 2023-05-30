@@ -24,7 +24,7 @@
  * license document, but changing it is not allowed.
  */
 
-import { CONFIG, GlobalSettings, Import } from "qcobjects";
+import { CONFIG, GlobalSettings } from "qcobjects";
 
 const _top = (typeof module === "object" && typeof module.exports === "object") ? (
   module.exports = (typeof globalThis !== "undefined"
@@ -66,90 +66,40 @@ const _top = (typeof module === "object" && typeof module.exports === "object") 
     if (typeof _top === "undefined"){
       throw Error("Top context empty: It should either global, module or window");
     }
-    const global = _top;
-    _top.global = global;
-    const isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
-    const isNodeCommonJS = (typeof module !== "undefined");
-    const remoteImportsPath = CONFIG.get("remoteImportsPath", "");
-    const relativeImportPath = CONFIG.get("relativeImportPath", "");
-    const external = (!CONFIG.get("useLocalSDK", false));
-    if (external && !isNodeCommonJS) {
-      CONFIG.set("remoteImportsPath", "https://sdk.qcobjects.dev/js/");
-    } else {
-      CONFIG.set("relativeImportPath", "qcobjects-sdk/src/js/");
-    }
-    if (typeof _top._DOMCreateElement === "undefined") {
-      _top._DOMCreateElement = function (elementName: any) {
-        let _ret_;
-        if (isBrowser) {
-          _ret_ = document.createElement(elementName);
-        } else {
-          _ret_ = {};
-        }
-        return _ret_;
-      };
-    }
+
     const __start__ = GlobalSettings.__start__.bind(_top);
 
     let _imports_: any[] = [];
-    if (isBrowser && !isNodeCommonJS) {
-      _imports_ = [
-        Import("org.qcobjects.i18n_messages", function () {}, external),
-        Import("org.qcobjects.models", function () {}, external),
-        Import("org.qcobjects.components", function () {}, external),
-        Import("org.qcobjects.components.grid", function () {}, external),
-        Import("org.qcobjects.components.list", function () {}, external),
-        Import("org.qcobjects.components.slider", function () {}, external),
-        Import("org.qcobjects.components.notifications", function () {}, external),
-        Import("org.qcobjects.components.splashscreen", function () {}, external),
-        Import("org.qcobjects.controllers", function () {}, external),
-        Import("org.qcobjects.controllers.grid", function () {}, external),
-        Import("org.qcobjects.controllers.list", function () {}, external),
-        Import("org.qcobjects.controllers.slider", function () {}, external),
-        Import("org.qcobjects.controllers.form", function () {}, external),
-        Import("org.qcobjects.controllers.swagger", function () {}, external),
-        Import("org.qcobjects.effects", function () {}, external),
-        Import("org.qcobjects.modal.controllers", function () {}, external),
-        Import("org.qcobjects.views", function () {}, external),
-        Import("org.qcobjects.tools.canvas", function () {}, external),
-        Import("org.qcobjects.tools.layouts", function () {}, external),
-        Import("org.qcobjects.cloud.auth.session.usertoken", function () {}, external),
-        Import("org.qcobjects.cloud.auth.session.data", function () {}, external)
-      ];
-    } else if (typeof require !== "undefined") {
-      // non-browsers environment
+
+      // non-browsers environment // esbuild compatible
       _imports_ = [
         new Promise<void> ((resolve)=> {
-          require("qcobjects-sdk/js/org.qcobjects.i18n_messages");
-          require("qcobjects-sdk/js/org.qcobjects.models");
-          require("qcobjects-sdk/js/org.qcobjects.components");
-          require("qcobjects-sdk/js/org.qcobjects.components.grid");
-          require("qcobjects-sdk/js/org.qcobjects.components.list");
-          require("qcobjects-sdk/js/org.qcobjects.components.slider");
-          require("qcobjects-sdk/js/org.qcobjects.components.notifications");
-          require("qcobjects-sdk/js/org.qcobjects.components.splashscreen");
-          require("qcobjects-sdk/js/org.qcobjects.controllers");
-          require("qcobjects-sdk/js/org.qcobjects.controllers.grid");
-          require("qcobjects-sdk/js/org.qcobjects.controllers.list");
-          require("qcobjects-sdk/js/org.qcobjects.controllers.slider");
-          require("qcobjects-sdk/js/org.qcobjects.controllers.form");
-          require("qcobjects-sdk/js/org.qcobjects.controllers.swagger");
-          require("qcobjects-sdk/js/org.qcobjects.effects");
-          require("qcobjects-sdk/js/org.qcobjects.modal.controllers");
-          require("qcobjects-sdk/js/org.qcobjects.views");
-          require("qcobjects-sdk/js/org.qcobjects.tools.canvas");
-          require("qcobjects-sdk/js/org.qcobjects.tools.layouts");
-          require("qcobjects-sdk/js/org.qcobjects.cloud.auth.session.usertoken");
-          require("qcobjects-sdk/js/org.qcobjects.cloud.auth.session.data");
+          require("./js/org.qcobjects.i18n_messages");
+          require("./js/org.qcobjects.models");
+          require("./js/org.qcobjects.components");
+          require("./js/org.qcobjects.components.grid");
+          require("./js/org.qcobjects.components.list");
+          require("./js/org.qcobjects.components.slider");
+          require("./js/org.qcobjects.components.notifications");
+          require("./js/org.qcobjects.components.splashscreen");
+          require("./js/org.qcobjects.controllers");
+          require("./js/org.qcobjects.controllers.grid");
+          require("./js/org.qcobjects.controllers.list");
+          require("./js/org.qcobjects.controllers.slider");
+          require("./js/org.qcobjects.controllers.form");
+          require("./js/org.qcobjects.controllers.swagger");
+          require("./js/org.qcobjects.effects");
+          require("./js/org.qcobjects.modal.controllers");
+          require("./js/org.qcobjects.views");
+          require("./js/org.qcobjects.tools.canvas");
+          require("./js/org.qcobjects.tools.layouts");
+          require("./js/org.qcobjects.cloud.auth.session.usertoken");
+          require("./js/org.qcobjects.cloud.auth.session.data");
           resolve();
         })
       ];
-      
-    }
     _top._sdk_ = Promise.all(_imports_).then(()=>{
       CONFIG.set("useSDK", true);
-      CONFIG.set("remoteImportsPath", remoteImportsPath);
-      CONFIG.set("relativeImportPath", relativeImportPath);
       __start__();
     });
   

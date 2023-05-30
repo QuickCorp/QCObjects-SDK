@@ -1,3 +1,5 @@
+import { Package, Controller, _DOMCreateElement, logger, _DataStringify, ClassFactory, New, ComponentURI, CONFIG, serviceLoader, ControllerParams, QCObjectsElement, QCObjectsShadowedElement } from "qcobjects";
+import { GridComponent } from "./org.qcobjects.components.grid";
 /**
  * QCObjects SDK 2.4
  * ________________
@@ -22,50 +24,54 @@
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
 */
+
 (function() {
 "use strict";
+type DataGridControllerParams = ControllerParams & {
+  rows:number | string | null;
+  cols: number | string | null;
+}
 Package("org.qcobjects.controllers.grid",[
 
   class GridController extends Controller {
-    dependencies=[];
-    component=null;
+    __instanceID!:number;
+    rows:number | string | null;
+    cols:number | string | null;
 
-    constructor ({component, dependencies=[]}){
-      super({component, dependencies});
+    constructor (controller:ControllerParams){
+      super(controller);
       this.rows=this.component.body.getAttribute("rows");
-      this.rows=(this.rows !== null)?(this.rows):(this.component.rows);
+      this.rows=(this.rows !== null)?(this.rows):((this.component as typeof GridComponent).rows);
       this.cols=this.component.body.getAttribute("cols");
-      this.cols=(this.cols !== null)?(this.cols):(this.component.cols);
+      this.cols=(this.cols !== null)?(this.cols):((this.component as typeof GridComponent).cols);
   
     }
 
     cssGrid (){
-      var controller=this;
-      var component = controller.component;
-      var _componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
-      if (typeof controller.rows !== "undefined" && typeof controller.cols !== "undefined"){
-        var s = _DOMCreateElement("style");
-        var templateRows = "auto ".repeat(controller.rows);
-        var templateCols = "auto ".repeat(controller.cols);
-        var className = "grid"+this.__instanceID.toString();
-        s.innerHTML = "."+className+" { \
-                          display: grid; \
-                          grid-template-rows: "+templateRows+"; \
-                          grid-template-columns: "+templateCols+"; \
-                          margin:0 auto; \
-                      }";
-        _componentRoot.append(s);
+      const component = this.component;
+      const _componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
+      if (typeof this.rows !== "undefined" && typeof this.cols !== "undefined"){
+        const s = _DOMCreateElement("style");
+        const templateRows = "auto ".repeat(this.rows as number);
+        const templateCols = "auto ".repeat(this.cols as number);
+        const className = "grid"+this.__instanceID.toString();
+        s.innerHTML = `.${className}{
+          display: grid; \
+          grid-template-rows: ${templateRows}; \
+          grid-template-columns: ${templateCols}; \
+          margin:0 auto; \
+        }`;
+        _componentRoot?.append(s);
         if (component.shadowed){
-          _componentRoot.host.classList.add(className);
+          (_componentRoot as ShadowRoot)?.host.classList.add(className);
         } else {
-          _componentRoot.classList.add(className);
+          ((_componentRoot as HTMLDivElement).classList).add(className);
         }
       }
     }
 
     done (){
-      var controller=this;
-      controller.cssGrid();
+      this.cssGrid();
 
       logger.debug("GridComponent built");
 
@@ -74,53 +80,52 @@ Package("org.qcobjects.controllers.grid",[
   },
 
   class DataGridController extends Controller {
-    dependencies=[];
-    component=null;
+    __instanceID!:number;
+    rows:number | string | null;
+    cols: number | string | null;
+    _componentRoot:QCObjectsElement | QCObjectsShadowedElement | HTMLElement | ShadowRoot | undefined;
 
-    constructor ({component}){
-      super(...arguments);
-      var controller=this;
-      controller.component = component;
-      controller._componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
-      controller.rows=controller.component.body.getAttribute("rows");
-      controller.rows=(controller.rows !== null)?(controller.rows):(controller.component.rows);
-      controller.cols=controller.component.body.getAttribute("cols");
-      controller.cols=(controller.cols !== null)?(controller.cols):(controller.component.cols);
+    constructor (controller:DataGridControllerParams){
+      super(controller);
+      this._componentRoot = (controller.component.shadowed)?(controller.component.shadowRoot):(controller.component.body);
+      this.rows=controller.component.body.getAttribute("rows");
+      this.rows=(controller.rows !== null)?(controller.rows):((controller.component as typeof GridComponent).rows);
+      this.cols=controller.component.body.getAttribute("cols");
+      this.cols=(controller.cols !== null)?(controller.cols):((controller.component as typeof GridComponent).cols);
       logger.debug("DataGridController INIT");
   
     }
 
-    getPageIndex (page, totalPage, totalElements) {
-      page = new Number(page);
+    getPageIndex (page:number, totalPage:number, totalElements:number) {
       page = (page>0)?(page-1):(0);
-      totalPage = new Number(totalPage);
-      totalElements = new Number(totalElements);
       return [totalElements*page/ totalPage, (totalElements*page/ totalPage) + totalElements/totalPage];
     }
 
     addSubcomponents (){
-      var controller = this;
-      controller.component.subcomponents = [];
-      controller._componentRoot.innerHTML = "";
-      controller.cssGrid();
-      logger.debug(_DataStringify(controller.component.data));
+      this.component.subcomponents = [];
+      if (typeof this._componentRoot !== "undefined"){
+        this._componentRoot.innerHTML = "";
+      }
+      this.cssGrid();
+      logger.debug(_DataStringify(this.component.data));
       try {
-        var subcomponentClass = controller.component.body.getAttribute("subcomponentClass");
+        const subcomponentClass = this.component.body.getAttribute("subcomponentClass");
         if (subcomponentClass != null){
-          var offset;
-          var limit;
-          var pagesNumber;
-          var list = [...controller.component.data];
-          var paginateIn = controller.component.body.getAttribute("paginate-in");
+          let offset:number;
+          let limit:number;
+          let pagesNumber:number;
+          let list = [...this.component.data];
+          let paginateIn = this.component.body.getAttribute("paginate-in");
+          let page:number | string | null | undefined;
           paginateIn = (paginateIn !== null)?(paginateIn):("client");
           if (paginateIn === "client"){
-            var page = controller.component.body.getAttribute("page-number");
+            page = this.component.body.getAttribute("page-number") as unknown as number;
             page = (isNaN(page) || page === null)?(-1):(page);
             if (page !== -1){
-              pagesNumber = controller.component.body.getAttribute("total-pages");
+              pagesNumber = this.component.body.getAttribute("total-pages") as unknown as number;
               pagesNumber = (isNaN(pagesNumber))?(1):(pagesNumber);
-              offset = controller.getPageIndex(page, pagesNumber, list.length)[0];
-              limit = controller.getPageIndex(page, pagesNumber, list.length)[1];
+              offset = this.getPageIndex(page, pagesNumber, list.length)[0];
+              limit = this.getPageIndex(page, pagesNumber, list.length)[1];
             } else {
               offset = 0;
               limit = list.length;
@@ -133,9 +138,10 @@ Package("org.qcobjects.controllers.grid",[
             pagesNumber = 1;
           }
           list.map(
-            function (record,dataIndex, list){
+             (record,dataIndex, list) => {
+              const _ret_ = undefined;
                 try {
-                  var _body = _DOMCreateElement("component");
+                  const _body = _DOMCreateElement("component");
                   _body.setAttribute("name",ClassFactory(subcomponentClass).name);
                   _body.setAttribute("shadowed",ClassFactory(subcomponentClass).shadowed);
                   _body.setAttribute("cached",ClassFactory(subcomponentClass).cached);
@@ -147,29 +153,29 @@ Package("org.qcobjects.controllers.grid",[
                     __limit: limit,
                     __offset: offset
                   });
-                  var subcomponent = New(ClassFactory(subcomponentClass),{
+                  const subcomponent = New(ClassFactory(subcomponentClass),{
                     name:"item",
                     data:record,
                     templateURI:ComponentURI({
-                      "COMPONENTS_BASE_PATH":CONFIG.get("componentsBasePath"),
+                      "COMPONENTS_BASE_PATH":CONFIG.get("componentsBasePath", ""),
                       "COMPONENT_NAME":ClassFactory(subcomponentClass).name,
-                      "TPLEXTENSION":CONFIG.get("tplextension"),
+                      "TPLEXTENSION":CONFIG.get("tplextension", ""),
                       "TPL_SOURCE":ClassFactory(subcomponentClass).tplsource
                     }),
                     body:_body,
                     template:ClassFactory(subcomponentClass).template
                   });
-                  subcomponent.done = controller.component.done.bind(subcomponent);
+                  subcomponent.done = this.component.done.bind(subcomponent);
                   try {
                     if (subcomponent){
                       subcomponent.data.__dataIndex = dataIndex;
-                      if (controller.component.data.hasOwnProperty.call(controller.component.data,"length")){
-                        subcomponent.data.__dataLength = controller.component.data.length;
+                      if (Object.hasOwnProperty.call(this.component.data,"length")){
+                        subcomponent.data.__dataLength = this.component.data.length;
                       }
                       logger.debug("adding subcomponent to body");
-                      controller._componentRoot.append(subcomponent.body);
+                      this._componentRoot?.append(subcomponent.body);
                       try {
-                        controller.component.subcomponents.push(subcomponent);
+                        this.component.subcomponents.push(subcomponent);
                       }catch (e){
                         logger.debug("ERROR LOADING SUBCOMPONENT IN DATAGRID");
                       }
@@ -183,6 +189,7 @@ Package("org.qcobjects.controllers.grid",[
                 } catch (e) {
                   logger.debug("ERROR LOADING SUBCOMPONENT IN DATAGRID");
                 }
+                return _ret_;
             }
           );
         } else {
@@ -195,50 +202,48 @@ Package("org.qcobjects.controllers.grid",[
     }
 
     cssGrid (){
-      var controller=this;
-      var component = controller.component;
-      var _componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
-      if (typeof controller.rows !== "undefined" && typeof controller.cols !== "undefined"){
-        var s = _DOMCreateElement("style");
-        var templateRows = "auto ".repeat(controller.rows);
-        var templateCols = "auto ".repeat(controller.cols);
-        var className = "grid"+this.__instanceID.toString();
-        s.innerHTML = "."+className+" { \
-                          display: grid; \
-                          grid-template-rows: "+templateRows+"; \
-                          grid-template-columns: "+templateCols+"; \
-                          margin:0 auto; \
-                      }";
+      const component = this.component;
+      const _componentRoot = (component.shadowed)?(component.shadowRoot):(component.body);
+      if (typeof this.rows !== "undefined" && typeof this.cols !== "undefined"){
+        const s = _DOMCreateElement("style");
+        const templateRows = "auto ".repeat(this.rows as number);
+        const templateCols = "auto ".repeat(this.cols as number);
+        const className = "grid"+this.__instanceID.toString();
+        s.innerHTML = `.${className}{
+          display: grid; \
+          grid-template-rows: ${templateRows}; \
+          grid-template-columns: ${templateCols}; \
+          margin:0 auto; \
+        }`;
         if (component.shadowed){
           component.body.append(s);
-          _componentRoot.host.classList.add(className);
+          (_componentRoot as ShadowRoot).host.classList.add(className);
         } else {
-          _componentRoot.append(s);
-          _componentRoot.classList.add(className);
+          _componentRoot?.append(s);
+          (_componentRoot as HTMLElement).classList.add(className);
         }
       }
     }
 
     done (){
-      var controller = this;
-      var componentInstance = controller.component;
+      const componentInstance = this.component;
       logger.debug("DataGridController DONE");
-      var serviceClass = controller.component.body.getAttribute("serviceClass");
+      const serviceClass = this.component.body.getAttribute("serviceClass");
       if (serviceClass != null){
-        var offset;
-        var limit;
-        var paginateIn = componentInstance.body.getAttribute("paginate-in");
+        let offset;
+        let limit;
+        let paginateIn = componentInstance.body.getAttribute("paginate-in");
         paginateIn = (paginateIn !== null)?(paginateIn):("client");
         if (paginateIn === "server"){
-          var page = componentInstance.body.getAttribute("page-number");
+          let page = componentInstance.body.getAttribute("page-number") as unknown as number;
           page = (isNaN(page) || page === null)?(-1):(page);
-          var pagesNumber;
+          let pagesNumber;
           if (page !== -1){
-            var serverDataCount = (controller.component.body.getAttribute("server-data-count")!==null)?(controller.component.body.getAttribute("server-data-count")):(1);
-            pagesNumber = controller.component.body.getAttribute("total-pages");
+            const serverDataCount = (this.component.body.getAttribute("server-data-count")!==null)?(this.component.body.getAttribute("server-data-count") as unknown as number):(1);
+            pagesNumber = this.component.body.getAttribute("total-pages") as unknown as number;
             pagesNumber = (isNaN(pagesNumber))?(1):(pagesNumber);
-            offset = controller.getPageIndex(page, pagesNumber, serverDataCount)[0];
-            limit = controller.getPageIndex(page, pagesNumber, serverDataCount)[1];
+            offset = this.getPageIndex(page, pagesNumber, serverDataCount)[0];
+            limit = this.getPageIndex(page, pagesNumber, serverDataCount)[1];
             // send params in jsonrpc 2.0 style
             componentInstance.serviceData = (typeof componentInstance.serviceData !== "undefined")?(componentInstance.serviceData):({});
             componentInstance.serviceData.params = (typeof componentInstance.serviceData.params !== "undefined")?(componentInstance.serviceData.params):({});
@@ -249,7 +254,7 @@ Package("org.qcobjects.controllers.grid",[
 
         serviceLoader(New(ClassFactory(serviceClass),{
             data:componentInstance.serviceData
-        })).then(
+        }), false).then(
           (successfulResponse)=>{
             // This will show the service response as a plain text
             logger.debug("DONE SERVICE COMPONENT");
@@ -260,7 +265,7 @@ Package("org.qcobjects.controllers.grid",[
             } else {
               componentInstance.data = successfulResponse.service.JSONresponse;
             }
-            controller.addSubcomponents();
+            this.addSubcomponents();
 
           },
           (failedResponse)=>{

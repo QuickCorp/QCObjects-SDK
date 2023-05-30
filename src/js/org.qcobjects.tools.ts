@@ -24,16 +24,19 @@
 */
 "use strict";
 
-import { Timer, Package } from "qcobjects";
+import { Timer, Package, logger } from "qcobjects";
 
 (function() {
   Package("org.qcobjects.tools",[
 
     class Process extends Timer {
       alive:boolean;
+      steps:any[] = [];
+      currentStep = 0;
 
-      constructor ({steps = [], currentStep = 0}) {
-        super({steps, currentStep});
+      constructor ({steps = [], currentStep = 0, alive = false}) {
+        super({steps, currentStep, alive});
+        this.alive = alive;
   
       }
 
@@ -42,23 +45,24 @@ import { Timer, Package } from "qcobjects";
       }
 
       start (){
-        const process = this;
-        process.alive=true;
+        this.alive=true;
         this.thread({
           duration: this.duration,
-          timing(timeFraction) {
-            process.currentStep+=1;
-            process.map(function (p){
+          timing: (timeFraction:number) => {
+            this.currentStep+=1;
+            this.steps.map((p:()=> void):Promise<void> | undefined => {
+              let _ret_;
               if (typeof p === "function"){
-                Promise.resolve().then(
+                _ret_ = Promise.resolve().then(
                   function (){
                     p.call(process);
                   });
               }
+              return _ret_;
             });
             return timeFraction;
           },
-          draw(progress) {
+          intervalInterceptor(progress:number) {
             logger.debug("process execution progress: "+progress.toString());
           }
         });

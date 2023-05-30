@@ -1,3 +1,5 @@
+import { Package, View, ViewParams } from "qcobjects";
+
 /**
  * QCObjects SDK 2.4
  * ________________
@@ -28,10 +30,6 @@ Package("org.qcobjects.views",[
 
   class GridView extends View {
 
-    constructor ({component = null, dependencies = []}){
-      super({component, dependencies});
-        
-    }
 
   }
 

@@ -1,4 +1,4 @@
-import { Effect, Package } from "qcobjects";
+import { Effect, Package, QCObjectsElement, logger } from "qcobjects";
 
 /**
  * QCObjects SDK 2.4
@@ -41,11 +41,16 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
 (function () {
   "use strict";
 
+  type MoveElement = HTMLElement & {
+    width:number;
+    height:number;
+  };
+
   class Fade extends Effect {
     duration = 1000;
 
-    apply(element, alphaFrom, alphaTo) {
-      var da = alphaTo - alphaFrom;
+    apply(element:HTMLElement, alphaFrom:number, alphaTo:number) {
+      const da = alphaTo - alphaFrom;
       this.animate({
         duration: this.duration,
         timing(timeFraction) {
@@ -53,7 +58,7 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
         },
         draw(progress) {
           logger.debug("animation progress: " + progress.toString());
-          var alpha = alphaFrom + (progress * da / 100);
+          const alpha = alphaFrom + (progress * da / 100);
           logger.debug("alpha: " + alpha.toString());
           element.style.opacity = alpha.toString();
         }
@@ -64,9 +69,9 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
   class Move extends Effect {
     duration = 1000;
 
-    apply(element, xfrom, yfrom, xto, yto) {
-      var dx = xto - xfrom;
-      var dy = yto - yfrom;
+    apply(element:MoveElement, xfrom:number, yfrom:number, xto:number, yto:number) {
+      const dx = xto - xfrom;
+      const dy = yto - yfrom;
       element.style.transform = "translate(" + xfrom + "px," + yfrom + "px)";
       this.animate({
         duration: this.duration,
@@ -75,8 +80,8 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
         },
         draw(progress) {
           logger.debug("animation progress: " + progress.toString());
-          var y = yfrom + (progress * dy / 100);
-          var x = xfrom + (progress * dx / 100);
+          const y = yfrom + (progress * dy / 100);
+          const x = xfrom + (progress * dx / 100);
           logger.debug("x: " + x.toString() + " y:" + y.toString());
           element.style.transform = "translate(" + x + "px," + y + "px)";
         }
@@ -91,10 +96,11 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
   ]);
 
 
+
   class MoveXInFromRight extends Move {
     duration = 1000;
 
-    apply(element) {
+    apply(element:MoveElement) {
       super.apply.call(this, element, element.width, 0, 0, 0);
     }
   }
@@ -102,7 +108,7 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
   class MoveXInFromLeft extends Move {
     duration = 1000;
 
-    apply(element) {
+    apply(element:MoveElement) {
       super.apply.call(this, element, -element.width, 0, 0, 0);
     }
   }
@@ -110,7 +116,7 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
   class MoveYInFromBottom extends Move {
     duration = 1000;
 
-    apply(element) {
+    apply(element:MoveElement) {
       super.apply.call(this, element, 0, element.height, 0, 0);
     }
 
@@ -119,7 +125,7 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
   class MoveYInFromTop extends Move {
     duration = 1000;
 
-    apply(element) {
+    apply(element:MoveElement ) {
       super.apply.call(this, element, 0, -element.height, 0, 0);
     }
   }
@@ -127,8 +133,8 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
   class RotateX extends Effect {
     duration = 1000;
 
-    apply(element, angleFrom, angleTo) {
-      var da = angleTo - angleFrom;
+    apply(element:HTMLElement, angleFrom:number, angleTo:number) {
+      const da = angleTo - angleFrom;
       this.animate({
         duration: this.duration,
         timing(timeFraction) {
@@ -136,7 +142,7 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
         },
         draw(progress) {
           logger.debug("animation progress: " + progress.toString());
-          var angle = Math.round(angleFrom + (progress * da / 100));
+          const angle = Math.round(angleFrom + (progress * da / 100));
           logger.debug("angle: " + angle.toString());
           element.style.transform = "rotate3d(1,0,0," + angle.toString() + "deg)";
         }
@@ -148,8 +154,8 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
   class RotateY extends Effect {
     duration = 1000;
 
-    apply(element, angleFrom, angleTo) {
-      var da = angleTo - angleFrom;
+    apply(element:HTMLElement, angleFrom:number, angleTo:number) {
+      const da = angleTo - angleFrom;
       this.animate({
         duration: this.duration,
         timing(timeFraction) {
@@ -157,7 +163,7 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
         },
         draw(progress) {
           logger.debug("animation progress: " + progress.toString());
-          var angle = Math.round(angleFrom + (progress * da / 100));
+          const angle = Math.round(angleFrom + (progress * da / 100));
           logger.debug("angle: " + angle.toString());
           element.style.transform = "rotate3d(0,1,0," + angle.toString() + "deg)";
         }
@@ -168,8 +174,8 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
   class RotateZ extends Effect {
     duration = 1000;
 
-    apply(element, angleFrom, angleTo) {
-      var da = angleTo - angleFrom;
+    apply(element:HTMLElement, angleFrom:number, angleTo:number) {
+      const da = angleTo - angleFrom;
       this.animate({
         duration: this.duration,
         timing(timeFraction) {
@@ -177,7 +183,7 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
         },
         draw(progress) {
           logger.debug("animation progress: " + progress.toString());
-          var angle = Math.round(angleFrom + (progress * da / 100));
+          const angle = Math.round(angleFrom + (progress * da / 100));
           logger.debug("angle: " + angle.toString());
           element.style.transform = "rotate3d(0,0,1," + angle.toString() + "deg)";
         }
@@ -189,8 +195,8 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
   class Rotate extends Effect {
     duration = 1000;
 
-    apply(element, angleFrom, angleTo) {
-      var da = angleTo - angleFrom;
+    apply(element:HTMLElement, angleFrom:number, angleTo:number) {
+      const da = angleTo - angleFrom;
       this.animate({
         duration: this.duration,
         timing(timeFraction) {
@@ -198,7 +204,7 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
         },
         draw(progress) {
           logger.debug("animation progress: " + progress.toString());
-          var angle = Math.round(angleFrom + (progress * da / 100));
+          const angle = Math.round(angleFrom + (progress * da / 100));
           logger.debug("angle: " + angle.toString());
           element.style.transform = "rotate3d(1,1,1," + angle.toString() + "deg)";
         }
@@ -209,8 +215,8 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
   class Radius extends Effect {
     duration = 1000;
 
-    apply(element, radiusFrom, radiusTo) {
-      var dr = radiusTo - radiusFrom;
+    apply(element:HTMLElement, radiusFrom:number, radiusTo:number) {
+      const dr = radiusTo - radiusFrom;
       this.animate({
         duration: this.duration,
         timing(timeFraction) {
@@ -218,7 +224,7 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
         },
         draw(progress) {
           logger.debug("animation progress: " + progress.toString());
-          var radius = radiusFrom + (progress * dr / 100);
+          const radius = radiusFrom + (progress * dr / 100);
           logger.debug("radius: " + radius.toString());
           element.style.borderRadius = radius.toString() + "px";
         }
@@ -230,8 +236,8 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
   class Resize extends Effect {
     duration = 1000;
 
-    apply(element, scaleFrom, scaleTo) {
-      var ds = scaleTo - scaleFrom;
+    apply(element:HTMLElement, scaleFrom:number, scaleTo:number) {
+      const ds = scaleTo - scaleFrom;
       this.animate({
         duration: this.duration,
         timing(timeFraction) {
@@ -239,7 +245,7 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
         },
         draw(progress) {
           logger.debug("animation progress: " + progress.toString());
-          var scale = scaleFrom + (progress * ds / 100);
+          const scale = scaleFrom + (progress * ds / 100);
           logger.debug("resize: " + scale.toString());
           element.style.transformOrigin = "center";
           element.style.transform = "scale(" + scale + "," + scale + ")";
@@ -252,8 +258,8 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
   class WipeLeft extends Effect {
     duration = 1000;
 
-    apply(element, scaleFrom, scaleTo) {
-      var ds = scaleTo - scaleFrom;
+    apply(element:HTMLElement, scaleFrom:number, scaleTo:number) {
+      const ds = scaleTo - scaleFrom;
       this.animate({
         duration: this.duration,
         timing(timeFraction) {
@@ -261,7 +267,7 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
         },
         draw(progress) {
           logger.debug("animation progress: " + progress.toString());
-          var scale = scaleFrom + (progress * ds / 100);
+          const scale = scaleFrom + (progress * ds / 100);
           logger.debug("wipe: " + scale.toString());
           element.style.transformOrigin = "right";
           element.style.transform = "scaleX(" + scale + ")";
@@ -274,8 +280,8 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
   class WipeRight extends Effect {
     duration = 1000;
 
-    apply(element, scaleFrom, scaleTo) {
-      var ds = scaleTo - scaleFrom;
+    apply(element:HTMLElement, scaleFrom:number, scaleTo:number) {
+      const ds = scaleTo - scaleFrom;
       this.animate({
         duration: this.duration,
         timing(timeFraction) {
@@ -283,7 +289,7 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
         },
         draw(progress) {
           logger.debug("animation progress: " + progress.toString());
-          var scale = scaleFrom + (progress * ds / 100);
+          const scale = scaleFrom + (progress * ds / 100);
           logger.debug("wipe: " + scale.toString());
           element.style.transformOrigin = "left";
           element.style.transform = "scaleX(" + scale + ")";
@@ -297,8 +303,8 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
 
     duration = 1000;
 
-    apply(element, scaleFrom, scaleTo) {
-      var ds = scaleTo - scaleFrom;
+    apply(element:HTMLElement, scaleFrom:number, scaleTo:number) {
+      const ds = scaleTo - scaleFrom;
       this.animate({
         duration: this.duration,
         timing(timeFraction) {
@@ -306,7 +312,7 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
         },
         draw(progress) {
           logger.debug("animation progress: " + progress.toString());
-          var scale = scaleFrom + (progress * ds / 100);
+          const scale = scaleFrom + (progress * ds / 100);
           logger.debug("wipe: " + scale.toString());
           element.style.transformOrigin = "bottom";
           element.style.transform = "scaleY(" + scale + ")";
@@ -319,8 +325,8 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
   class WipeDown extends Effect {
     duration = 1000;
 
-    apply(element, scaleFrom, scaleTo) {
-      var ds = scaleTo - scaleFrom;
+    apply(element:HTMLElement, scaleFrom:number, scaleTo:number) {
+      const ds = scaleTo - scaleFrom;
       this.animate({
         duration: this.duration,
         timing(timeFraction) {
@@ -328,7 +334,7 @@ const _top:any = (typeof module === "object" && typeof module.exports === "objec
         },
         draw(progress) {
           logger.debug("animation progress: " + progress.toString());
-          var scale = scaleFrom + (progress * ds / 100);
+          const scale = scaleFrom + (progress * ds / 100);
           logger.debug("wipe: " + scale.toString());
           element.style.transformOrigin = "top";
           element.style.transform = "scaleY(" + scale + ")";

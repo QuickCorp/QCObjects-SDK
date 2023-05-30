@@ -1,3 +1,5 @@
+import { Controller, Package } from "qcobjects";
+
 /**
  * QCObjects SDK 2.4
  * ________________
@@ -27,11 +29,6 @@
 Package("org.qcobjects.controllers",[
 
   class GenericController extends Controller {
-    constructor ({component, dependencies = []}) {
-      super({component, dependencies});
-  
-    }
-
 
   }
 

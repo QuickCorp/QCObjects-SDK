@@ -32,6 +32,7 @@ import { SessionUserToken } from "./org.qcobjects.cloud.auth.session.usertoken";
     class SessionData extends InheritClass{
 
       __session_container__:any = null;
+      sessionData:any;
 
       /**
        * Sets the session container
@@ -62,10 +63,12 @@ import { SessionUserToken } from "./org.qcobjects.cloud.auth.session.usertoken";
        * @return {*} sessionData
        */
       getSessionData(...args: any[]) {
-        const __instance__ = this;
         // eslint-disable-next-line prefer-rest-params
-        const s = sessionStorage.getItem(`${__instance__.index(args)}`);
-        let sessionData = JSON.parse(s);
+        const s = sessionStorage.getItem(`${this.index(args)}`);
+        let sessionData;
+        if (s!== null) {
+          sessionData = JSON.parse(s);
+        }
         if (typeof sessionData === "undefined" || sessionData === null) {
           sessionData = {};
         }
@@ -91,10 +94,9 @@ import { SessionUserToken } from "./org.qcobjects.cloud.auth.session.usertoken";
        * Saves the session instance
        *
        */
-      save() {
-        const __instance__ = this;
-        const s = _DataStringify(__instance__.sessionData);
-        sessionStorage.setItem(`${__instance__.index(...arguments)}`, s);
+      save(...args:any[]) {
+        const s = _DataStringify(this.sessionData);
+        sessionStorage.setItem(`${this.index(args)}`, s);
       }
 
 
@@ -106,9 +108,8 @@ import { SessionUserToken } from "./org.qcobjects.cloud.auth.session.usertoken";
        * @param {*} defaultValue
        * @return {*} 
        */
-      get(name, defaultValue) {
-        const __instance__ = this;
-        const sessionData = __instance__.getSessionData(__instance__.getSessionContainer());
+      get(name:string, defaultValue:any) {
+        const sessionData = this.getSessionData(this.getSessionContainer());
         return (typeof sessionData[name] !== "undefined") ? (sessionData[name]) : (defaultValue);
       }
 
@@ -119,13 +120,12 @@ import { SessionUserToken } from "./org.qcobjects.cloud.auth.session.usertoken";
        * @param {*} name
        * @param {*} value
        */
-      set(name, value) {
-        const __instance__ = this;
-        const __session_container__ = __instance__.getSessionContainer();
-        const sessionData = __instance__.getSessionData(__session_container__);
-        __instance__.sessionData = sessionData;
-        __instance__.sessionData[name] = value;
-        __instance__.save(__session_container__);
+      set(name:string, value:any) {
+        const sessionContainer = this.getSessionContainer();
+        const sessionData = this.getSessionData(sessionContainer);
+        this.sessionData = sessionData;
+        this.sessionData[name] = value;
+        this.save(sessionContainer);
       }
 
     }

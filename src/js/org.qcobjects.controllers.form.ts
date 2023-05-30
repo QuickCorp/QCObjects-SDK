@@ -1,3 +1,6 @@
+import { Package, Controller, serviceLoader, New, ClassFactory, logger, _DOMCreateElement, Tag, QCObjectsElement, ControllerParams } from "qcobjects";
+import { FormField, ModalComponent } from "./org.qcobjects.components";
+
 /**
  * QCObjects SDK 2.4
  * ________________
@@ -28,13 +31,13 @@ Package("org.qcobjects.controllers.form",[
 
   class FormValidations extends Controller {
     getDefault (){
-      return function (fieldName, dataValue, element){
-        var _regex = {
+      return function (fieldName:string, dataValue:any, element:HTMLElement){
+        const _regex = {
                       name:"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$",
                       email:"^([A-Za-z0-9]+)@([A-Za-z0-9]+).([A-Za-z0-9]+)$"
                     };
-        var _pattern_ = (element.getAttribute("pattern") || _regex[fieldName]);
-        var pattern = new RegExp(_pattern_);
+        const _pattern_ = (element.getAttribute("pattern") || _regex[fieldName as keyof typeof _regex]);
+        const pattern = new RegExp(_pattern_);
         return pattern.test(dataValue);
       };
     }
@@ -42,8 +45,8 @@ Package("org.qcobjects.controllers.form",[
   },
 
   class FormController extends Controller {
-    dependencies=[];
-    component=null;
+    validations:any[]=[];
+    formValidatorModal:typeof ModalComponent;
     serviceClass="";
     formSettings={
       backRouting:"#",
@@ -51,48 +54,45 @@ Package("org.qcobjects.controllers.form",[
       nextRouting:"#signupsuccessful"
     };
 
-    hasValidation (element){
-      var controller = this;
-      var fieldName = element.getAttribute("data-field");
-      var _hasValidation = false;
-      if (typeof controller.validations !== "undefined"
-        && controller.validations.hasOwnProperty.call(controller.validations,fieldName)){
+    hasValidation (element:HTMLElement){
+      const fieldName = element.getAttribute("data-field") as string;
+      let _hasValidation = false;
+      if (typeof this.validations !== "undefined"
+        && Object.hasOwnProperty.call(this.validations,fieldName)){
         _hasValidation = true;
       }
       return _hasValidation;
     }
 
-    isInvalid (element){
-      var controller = this;
-      var _isInvalid = false;
-      var fieldName = element.getAttribute("data-field");
-      var dataValue = this.component.data[fieldName];
+    isInvalid (element:HTMLElement){
+      let _isInvalid = false;
+      const fieldName = element.getAttribute("data-field");
+      const dataValue = this.component.data[fieldName as string];
 
-      var _execValidation = function (fieldName, dataValue, element){
-        return (typeof controller.validations !== "undefined"
-        && controller.validations.hasOwnProperty.call(controller.validations,fieldName)
-        && controller.validations[fieldName].call(controller).call(controller,fieldName,dataValue, element));
+      const _execValidation =  (fieldName:string, dataValue:any, element:HTMLElement) => {
+        return (typeof this.validations !== "undefined"
+        && Object.hasOwnProperty.call(this.validations,fieldName as string)
+        && this.validations[fieldName as keyof typeof this.validations].call(null,fieldName,dataValue, element));
       };
 
       if (typeof this.validations !== "undefined" && (
-        !_execValidation(fieldName, dataValue, element)
+        !_execValidation(fieldName as string, dataValue, element)
       )){
         _isInvalid = true;
       }
       return _isInvalid;
     }
 
-    isValid (element){
+    isValid (element:HTMLElement){
       return !this.isInvalid(element);
     }
 
     save (){
-      var controller = this;
-      if (controller.serviceClass !== ""){
-        location.href=controller.formSettings.loadingRouting;
-        serviceLoader(New(ClassFactory(controller.serviceClass),{
-            data:controller.component.data
-        })).then(
+      if (this.serviceClass !== ""){
+        location.href=this.formSettings.loadingRouting;
+        serviceLoader(New(ClassFactory(this.serviceClass),{
+            data:this.component.data
+        }), false).then(
           (successfulResponse)=>{
             // This will show the service response as a plain text
             console.log("DONE SERVICE COMPONENT");
@@ -101,12 +101,12 @@ Package("org.qcobjects.controllers.form",[
             }catch (e){
                 // no json
             }
-            location.href=controller.formSettings.nextRouting;
+            location.href=this.formSettings.nextRouting;
 
           },
           (failedResponse)=>{
             logger.debug(failedResponse);
-            location.href=controller.formSettings.backRouting;
+            location.href=this.formSettings.backRouting;
           });
       } else {
         logger.debug("No service name declared on serviceClass property");
@@ -116,19 +116,18 @@ Package("org.qcobjects.controllers.form",[
 
     formSaveTouchHandler (){
       logger.debug("Saving data...");
-      var controller = this;
-      var _componentRoot_ = (controller.component.shadowed)?(controller.component.shadowRoot.host):(controller.component.body);
-      controller.component.executeBindings();
-      if (controller.formValidatorModal!=null){
-        var componentElementFields = _componentRoot_.subelements("*[data-field]");
-        var fieldsToValidate = componentElementFields.filter(
-          f => controller.hasValidation.call(controller,f)
+      const _componentRoot_ = (this.component.shadowed)?((this.component?.shadowRoot as ShadowRoot).host):(this.component.body);
+      (this.component as typeof FormField).executeBindings();
+      if (this.formValidatorModal!=null){
+        const componentElementFields = (_componentRoot_ as QCObjectsElement).subelements("*[data-field]");
+        const fieldsToValidate = componentElementFields.filter(
+          f => this.hasValidation(f)
         );
 
-        var _labelledby = function (parentElement, element){
-          var _arialabelledby = function (parentElement, element){
-            return (element.getAttribute("aria-labelledby") !== null)?(element.getAttribute("aria-labelledby").split(" ").map(
-              e => parentElement.subelements(`#${e}`).map(_e => _e.innerHTML)
+        const _labelledby = function (parentElement:HTMLElement, element:HTMLElement){
+          const _arialabelledby =  (parentElement:HTMLElement, element:HTMLElement) => {
+            return (element.getAttribute("aria-labelledby") !== null)?((element.getAttribute("aria-labelledby") || "").split(" ").map(
+              e => (parentElement as QCObjectsElement).subelements(`#${e}`).map(_e => _e.innerHTML)
             ).join(" ")):(null);
           };
 
@@ -139,35 +138,35 @@ Package("org.qcobjects.controllers.form",[
                   || element.getAttribute("data-field") );
         };
 
-        var _ariatitle = function (element){
+        const _ariatitle = function (element:HTMLElement){
           return (element.getAttribute("title") || element.getAttribute("aria-title") || "");
         };
 
-        var invalidFields = fieldsToValidate.filter(f=>controller.isInvalid(f));
+        const invalidFields = fieldsToValidate.filter(f=>this.isInvalid(f));
         if (invalidFields.length>0){
-          var validationMessage = `
+          const validationMessage = `
 <details>
     <summary>Please verify the following incorrect fields:</summary>
     <ul>
       <div>
-      ${invalidFields.map(element => "<li><div>"+_labelledby(_componentRoot_,element)+"</div><div>"+_ariatitle(element)+"</div></li>").join("")}
+      ${invalidFields.map(element => "<li><div>"+_labelledby(_componentRoot_ as HTMLElement,element)+"</div><div>"+_ariatitle(element)+"</div></li>").join("")}
       </div>
     </ul>
 </details>
 `;
-          controller.formValidatorModal.body.subelements(".validationMessage")[0].innerHTML=validationMessage;
-          controller.formValidatorModal.modal();
+          this.formValidatorModal.body.subelements(".validationMessage")[0].innerHTML=validationMessage;
+          this.formValidatorModal.modal();
         } else {
-          controller.save();
+          this.save();
         }
       } else {
         logger.debug("Unable to find the modal validator...");
         logger.debug("Saving data...");
-        controller.save();
+        this.save();
       }
     }
 
-    constructor (o){
+    constructor (o:ControllerParams){
       super(o);
       this.component = o.component;
       this.component = this.component.Cast(FormField);
@@ -175,12 +174,11 @@ Package("org.qcobjects.controllers.form",[
 
     done (){
       logger.debugEnabled=true;
-      var controller=this;
       try {
-        controller.component.createBindingEvents();
-        var modalBody = _DOMCreateElement("div");
+        (this.component as typeof FormField).createBindingEvents();
+        const modalBody = _DOMCreateElement("div");
         modalBody.className="modal_body";
-        controller.formValidatorModal = New(ModalComponent,{
+        this.formValidatorModal = New(ModalComponent,{
           body:modalBody,
           subcomponents:[],
           data:{
@@ -189,13 +187,13 @@ Package("org.qcobjects.controllers.form",[
         });
 
         Tag(".modal_body").map(e=>document.body.removeChild(e));
-        document.body.append(controller.formValidatorModal);
+        document.body.append(this.formValidatorModal);
 
       } catch (e){
         logger.debug("Unable to create the modal");
       }
-      controller.onpress(".submit",function (){
-        controller.formSaveTouchHandler();
+      this.onpress(".submit", () => {
+        this.formSaveTouchHandler();
       });
 
     }
