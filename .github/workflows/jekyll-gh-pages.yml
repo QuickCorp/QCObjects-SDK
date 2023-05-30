@@ -1,8 +1,10 @@
 name: Testing the GitHub Pages publication
 
 on:
-  push
-
+    # Runs on pushes targeting the default branch
+    push:
+        branches: ["main"]
+  
 jobs:
   jekyll:
     runs-on: ubuntu-latest
