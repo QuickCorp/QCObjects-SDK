@@ -1,4 +1,4 @@
-import { Package, View, ViewParams } from "qcobjects";
+import { Package, View } from "qcobjects";
 
 /**
  * QCObjects SDK 2.4
