@@ -43,8 +43,6 @@ const _top = (typeof module === "object" && typeof module.exports === "object") 
 // eslint-disable-next-line camelcase
 (function __qcobjects_sdk__ (_top:any) {
   "use strict";
-  // eslint-disable-next-line camelcase
-  _top.__qcobjects_sdk__ = __qcobjects_sdk__;
   if (typeof Object.defineProperty !== "undefined" && typeof _top !== "undefined"){
     try {
       Object.defineProperty(_top,"__qcobjects_sdk__", {

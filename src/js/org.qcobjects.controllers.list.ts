@@ -1,4 +1,4 @@
-import { Package, Controller, logger, CONFIG, _DataStringify, _DOMCreateElement, New, ClassFactory, ComponentURI, serviceLoader, ControllerParams, QCObjectsElement, QCObjectsShadowedElement, Component } from "qcobjects";
+import { Package, Controller, logger, CONFIG, _DataStringify, _DOMCreateElement, New, ClassFactory, ComponentURI, serviceLoader, ControllerParams, QCObjectsElement, QCObjectsShadowedElement } from "qcobjects";
 import { ListComponent } from "./org.qcobjects.components.list";
 /**
  * QCObjects SDK 2.4

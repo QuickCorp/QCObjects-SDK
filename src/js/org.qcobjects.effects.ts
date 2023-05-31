@@ -1,4 +1,4 @@
-import { Effect, Package, QCObjectsElement, logger } from "qcobjects";
+import { Effect, Package, logger } from "qcobjects";
 
 /**
  * QCObjects SDK 2.4
