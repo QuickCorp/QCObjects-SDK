@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../build/css/components/list.css"],
+  "sourcesContent": ["ul {\n  padding: 15px 0 15px 0;\n  background-color: #f7f6f6 !important;\n  border-radius: 13px;\n  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px !important;\n}\n\nul li {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  padding-top: 7px;\n  padding-bottom: 7px;\n  padding-left: 10px;\n  border-bottom: 1px solid white;\n}\n\nul {\n  list-style-type: none;\n}\n\n\nul, li {display: block;}\nli:hover {\n  background: white;\n  cursor: pointer;\n}\n\nul li ul {\n  background: white;\n  visibility: hidden;\n  opacity: 0;\n  min-width: 5rem;\n  position: relative;\n  transition: all 0.5s ease;\n  margin-top: 1rem;\n  left: 0;\n  display: none;\n}\n\nul li:hover > ul,\nul li ul:hover {\n  visibility: visible;\n  opacity: 1;\n  display: inline-block;\n  margin: 0 auto;\n  width: 95%;\n}\n\nul li ul li {\n  clear: both;\n  width: 100%;\n  padding: 1%;\n}\n ul li {\n  overflow-x: hidden;\n}\n"],
+  "mappings": "AAAA,kBAEE,mCAFF,mBAIE,qCAGF,MACE,gBARF,gCAcE,8BAGF,GACE,qBAIF,MAAQ,cACR,SACE,iBACA,eAGF,SACE,iBACA,kBACA,UACA,eACA,kBACA,wBACA,gBACA,OACA,aAGF,8BAEE,mBACA,UACA,qBA5CF,cA8CE,UAGF,YACE,WACA,WAnDF,WAsDC,MACC",
+  "names": []
+}

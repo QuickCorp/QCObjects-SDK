@@ -1,7 +1,5 @@
 lighthouse*
 .DS_Store
-build
-public
 dist
 .parcel*
 .husky
