@@ -76,7 +76,7 @@ const _top = (typeof module === "object" && typeof module.exports === "object") 
       return (typeof Buffer !== "undefined") ? (Buffer.from(s, "ascii").toString("base64")) : (btoa(s));
     }
 
-    getGlobalUser(...args:any[]) {
+    static getGlobalUser(...args:any[]) {
       const username = [args].join("|");
       const __index__ = "userToken_" + SessionUserToken.generateIndex(username);
       if (typeof (global as any).get(__index__) === "undefined" || (global as any).get(__index__) === null) {
@@ -88,24 +88,24 @@ const _top = (typeof module === "object" && typeof module.exports === "object") 
       return (global as any).get(__index__).user;
     }
 
-    getGlobalUserToken(...args:any[]) {
-      return this.getGlobalUser(args).token;
+    static getGlobalUserToken(...args:any[]) {
+      return SessionUserToken.getGlobalUser(args).token;
     }
 
-    getGlobalUserId(...args:any[]) {
-      return this.getGlobalUser(args).id;
+    static getGlobalUserId(...args:any[]) {
+      return SessionUserToken.getGlobalUser(args).id;
     }
 
-    getGlobalUserPriority(...args:any[]) {
-      return this.getGlobalUser(args).priority;
+    static getGlobalUserPriority(...args:any[]) {
+      return SessionUserToken.getGlobalUser(args).priority;
     }
 
-    getLoginCredentialsToken(username:string, password:string) {
-      return _Crypt.encrypt(`${username}${password}`, this.getGlobalUserToken(username));
+    static getLoginCredentialsToken(username:string, password:string) {
+      return _Crypt.encrypt(`${username}${password}`, SessionUserToken.getGlobalUserToken(username));
     }
 
-    closeGlobalSession(...args:any[]) {
-      this.getGlobalUser(args);
+    static closeGlobalSession(...args:any[]) {
+      SessionUserToken.getGlobalUser(args);
       const username = [args].join("|");
       const __index__ = "userToken_" + SessionUserToken.generateIndex(username);
       if (typeof (global as any).get(__index__) !== "undefined") {
