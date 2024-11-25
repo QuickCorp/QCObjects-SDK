@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "noEmit": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": true,
@@ -14,9 +15,9 @@
       "DOM"
     ],
     "module": "NodeNext",
-    "rootDir": "./src",
+    "rootDir": "./",
     "allowJs": true,
-    "outDir": "build",
+    "outDir": "build/spec",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "baseUrl": ".",
@@ -26,28 +27,13 @@
     "paths": {
       "types": [
         "src/types/global"
-      ]
+      ],
+      "qcobjects-sdk": ["spec/mocks/qcobjects-sdk.mock.ts"]
     }
   },
   "include": [
-    "src/**/*",
-    "src/types/**/*"
+    "spec/**/*"
   ],
-  "exclude": ["src/**/*.js", "node_modules/**/*", "**/node_modules/*"],
-  "ts-node": {
-    // It is faster to skip typechecking.
-    // Remove if you want ts-node to do typechecking.
-    "transpileOnly": true,
-    "files": true,
-    "compilerOptions": {
-      "rootDir": "./src",
-      "baseUrl": ".",
-      "paths": {
-        "types": [
-          "types/global"
-        ]
-      }
-    },
-    "exclude": ["node_modules/**/*", "**/node_modules/*"]
-  }
+  "exclude": ["src/**/*", "node_modules/**/*", "**/node_modules/*"]
+
 }
