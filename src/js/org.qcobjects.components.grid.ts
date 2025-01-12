@@ -1,7 +1,5 @@
-import { Package, Component, ComponentParams } from "qcobjects";
-
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -24,72 +22,47 @@ import { Package, Component, ComponentParams } from "qcobjects";
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
  */
-const _top = (typeof module === "object" && typeof module.exports === "object") ? (
-  module.exports = (typeof globalThis !== "undefined"
-  ? globalThis
-  : typeof self !== "undefined"
-  ? self
-  : typeof window !== "undefined"
-  ? window
-  : typeof global !== "undefined"
-  ? global
-  : {})
-) : ((typeof global === "object") ? (global) : (
-  (typeof window === "object") ? (window) : ({})
-));
-(function (global:any) {
-  "use strict";
+"use strict";
+import { Package, Component } from "qcobjects";
 
-  class GridItemComponent extends Component {
-    name = "grid-item";
-    shadowed= true;
-    tplsource= "inline";
-    template= `
+export class GridItemComponent extends Component {
+  name = "grid-item";
+  shadowed = true;
+  tplsource = "inline";
+  template = `
 <img src="{{image}}" />
 <p>{{description}}</p>
 `;
 
-    cached= false;
+  cached = false;
+
+}
+
+export class GridComponent extends Component {
+  name = "grid";
+  cached = false;
+  view = null;
+  shadowed = true;
+  rows = 3;
+  cols = 3;
+  templateURI = "";
+  data = {};
+  tplsource = "inline";
+  template = "<p>Loading...</p>";
+  body: any;
+
+  constructor(o: any) {
+    super(o);
+    this.body.setAttribute("controllerClass", "DataGridController");
+    const subcomponentClass = (this.body.getAttribute("subcomponentClass") !== null) ? (this.body.getAttribute("subcomponentClass")) : ("GridItemComponent");
+    this.body.setAttribute("subcomponentClass", subcomponentClass as string);
 
   }
 
-  class GridComponent extends Component {
-    name= "grid";
-    cached= false;
-    view= null;
-    shadowed= true;
-    rows= 3;
-    cols= 3;
-    templateURI= "";
-    data= {};
-    tplsource= "inline";
-    template= "<p>Loading...</p>";
 
-    constructor (o:ComponentParams){
-      super(o);
-      this.body.setAttribute("controllerClass", "DataGridController");
-      const subcomponentClass = (this.body.getAttribute("subcomponentClass") !== null) ? (this.body.getAttribute("subcomponentClass")) : ("GridItemComponent");
-      this.body.setAttribute("subcomponentClass", subcomponentClass as string);
+}
 
-    }
-
-
-  }
-
-  Package("org.qcobjects.components.grid", [
-    GridComponent,
-    GridItemComponent
-  ]);
-
-  global.GridComponent = GridComponent;
-  global.GridItemComponent = GridItemComponent;
-
-})(_top);
-
-const GridComponent = (_top as any).GridComponent;
-const GridItemComponent = (_top as any).GridItemComponent;
-
-export {
-  GridComponent, 
+Package("org.qcobjects.components.grid", [
+  GridComponent,
   GridItemComponent
-};
+]);

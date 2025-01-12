@@ -1,8 +1,5 @@
-import { Package, Controller } from "qcobjects";
-import { ModalComponent } from "./org.qcobjects.components";
-
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -25,20 +22,21 @@ import { ModalComponent } from "./org.qcobjects.components";
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
 */
-(function() {
 "use strict";
-Package("org.qcobjects.modal.controllers",[
+import { Package, Controller } from "qcobjects";
 
-  class ModalController extends Controller {
+export class ModalController extends Controller {
+  component: any;
 
-    done (){
-      const component = this.component as typeof ModalComponent;
-      component.body.innerHTML = component.body.innerHTML.replace("/{{content}}/g",component.submodal.template);
-
-    }
+  done() {
+    const component = this.component;
+    component.body.innerHTML = component.body.innerHTML.replace("/{{content}}/g", component.submodal.template);
 
   }
 
-]);
+}
 
-})();
+Package("org.qcobjects.modal.controllers", [
+  ModalController
+
+]);

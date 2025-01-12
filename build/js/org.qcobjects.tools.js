@@ -1,5 +1,5 @@
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -28,10 +28,12 @@ const qcobjects_1 = require("qcobjects");
 (function () {
     (0, qcobjects_1.Package)("org.qcobjects.tools", [
         class Process extends qcobjects_1.Timer {
+            alive;
+            steps = [];
+            currentStep = 0;
+            duration;
             constructor({ steps = [], currentStep = 0, alive = false }) {
                 super({ steps, currentStep, alive });
-                this.steps = [];
-                this.currentStep = 0;
                 this.alive = alive;
             }
             stop() {
@@ -43,6 +45,7 @@ const qcobjects_1 = require("qcobjects");
                     duration: this.duration,
                     timing: (timeFraction) => {
                         this.currentStep += 1;
+                        // eslint-disable-next-line @typescript-eslint/no-floating-promises
                         this.steps.map((p) => {
                             let _ret_;
                             if (typeof p === "function") {
@@ -58,6 +61,10 @@ const qcobjects_1 = require("qcobjects");
                         qcobjects_1.logger.debug("process execution progress: " + progress.toString());
                     }
                 });
+            }
+            // eslint-disable-next-line no-unused-vars
+            thread(arg0) {
+                throw new Error("Method not implemented.");
             }
         }
     ]);

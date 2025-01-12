@@ -1,8 +1,5 @@
-import { Package, Component, _DOMCreateElement, New, _super_, ComponentParams, QCObjectsElement } from "qcobjects";
-import { Fade, Move } from "./org.qcobjects.effects";
-
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -25,17 +22,21 @@ import { Fade, Move } from "./org.qcobjects.effects";
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
 */
-(function() {
 "use strict";
-class NotificationComponent extends Component {
+import { Package, Component, _DOMCreateElement, New, _super_ } from "qcobjects";
+import { Fade, Move } from "./org.qcobjects.effects";
+
+
+export class NotificationComponent extends Component {
   cached= false;
   tplsource= "inline";
   shadowed= false;
   kinds:string[];
+  template: string;
 
-  constructor (o:ComponentParams){
+  constructor (o:any){
     o.name= "notification";
-    o.body = _DOMCreateElement("div") as QCObjectsElement;
+    o.body = _DOMCreateElement("div") as HTMLElement;
     super(o);
 
     this.template= `
@@ -110,8 +111,9 @@ class NotificationComponent extends Component {
         disappearEffect.apply(element);
       },2000);
     };
-    (element as QCObjectsElement).subelements("div.notification_background").map(element=>New(Fade,{duration:500}).apply(element,0,1));
-    (element as QCObjectsElement).subelements("div.notification").map(element=>_display_(element));
+     
+    (element as any).subelements("div.notification_background").map((element:HTMLElement):any=> {return (new Fade ({duration:500})).apply(element,0,1);} );
+    (element as any).subelements("div.notification").map((element:any)=>_display_(element));
     setTimeout(function (){
       element.remove();
     },2200);
@@ -187,5 +189,3 @@ class NotificationComponent extends Component {
 Package("org.quickcorp.components.notifications", [
   NotificationComponent
 ]);
-
-})();

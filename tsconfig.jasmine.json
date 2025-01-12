@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "noEmit": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -32,8 +33,18 @@
     }
   },
   "include": [
-    "spec/**/*"
+    "spec/**/*",
+    "src/**/*",
+    "src/types/**/*"
   ],
-  "exclude": ["src/**/*", "node_modules/**/*", "**/node_modules/*"]
+  "exclude": [
+    "**/*.js",
+    "src/index.mts",
+    "src/index.cts",
+    "node_modules",
+    "node_modules/**/*",
+    "**/node_modules/*",
+    "public/types"
+  ]
 
 }

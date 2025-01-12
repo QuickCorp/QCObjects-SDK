@@ -1,7 +1,5 @@
-import { CONFIG, ComplexStorageCache, InheritClass, New, Package, _Crypt } from "qcobjects";
-
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -24,105 +22,87 @@ import { CONFIG, ComplexStorageCache, InheritClass, New, Package, _Crypt } from 
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
  */
+"use strict";
+import { CONFIG, ComplexStorageCache, InheritClass, New, Package, _Crypt, global } from "qcobjects";
 
-const _top = (typeof module === "object" && typeof module.exports === "object") ? (
-  module.exports = (typeof globalThis !== "undefined"
-  ? globalThis
-  : typeof self !== "undefined"
-  ? self
-  : typeof window !== "undefined"
-  ? window
-  : typeof global !== "undefined"
-  ? global
-  : {})
-) : ((typeof global === "object") ? (global) : (
-  (typeof window === "object") ? (window) : ({})
-));
 
-(function (global) {
-  "use strict";
+type TGlobalUser = { username: string, token: string, id: string, priority: number };
 
-  class SessionUserToken extends InheritClass{
-    static user = {};
-    __cache__:ComplexStorageCache;
+export class SessionUserToken extends InheritClass {
+  static user = {};
+  __cache__: ComplexStorageCache;
+  __instanceID: any;
 
-    constructor(o:any){
-     super(o);
-     // eslint-disable-next-line @typescript-eslint/no-this-alias
-     const __instance__ = this;
-     this.__cache__ = new ComplexStorageCache({
-       index: __instance__.__instanceID.toString(),
-       load() {
-         let __token__;
-         if (typeof navigator !== "undefined" && typeof origin !== "undefined") {
-           __token__ = _Crypt.encrypt(`${navigator.userAgent}|${o.username}|${(+(new Date())).toString()}`, origin);
-         } else {
-           __token__ = _Crypt.encrypt(`${o.username}|${(+(new Date())).toString()}`, CONFIG.get("domain", "localhost"));
-         }
-         SessionUserToken.user = {
-           priority: __instance__.__instanceID.toString(),
-           token: __token__
-         };
-         return SessionUserToken.user;
-       },
-       alternate(cacheController) {
+  constructor(o: any) {
+    super(o);
+
+    const __instance__ = this;
+    this.__cache__ = new ComplexStorageCache({
+      index: __instance__.__instanceID.toString(),
+      load() {
+        let __token__;
+        if (typeof navigator !== "undefined" && typeof origin !== "undefined") {
+          __token__ = _Crypt.encrypt(`${navigator.userAgent}|${o.username}|${(+(new Date())).toString()}`, origin);
+        } else {
+          __token__ = _Crypt.encrypt(`${o.username}|${(+(new Date())).toString()}`, CONFIG.get("domain", "localhost"));
+        }
+        SessionUserToken.user = {
+          priority: __instance__.__instanceID.toString(),
+          token: __token__
+        };
+        return SessionUserToken.user;
+      },
+      alternate(cacheController: any) {
         SessionUserToken.user = cacheController?.cache.getCached(__instance__.__instanceID.toString()); // setting dataObject with the cached value 
-       }
-     });
-
-    }
-
-    static generateIndex(s:any) {
-      return (typeof Buffer !== "undefined") ? (Buffer.from(s, "ascii").toString("base64")) : (btoa(s));
-    }
-
-    static getGlobalUser(...args:any[]) {
-      const username = [args].join("|");
-      const __index__ = "userToken_" + SessionUserToken.generateIndex(username);
-      if (typeof (global as any).get(__index__) === "undefined" || (global as any).get(__index__) === null) {
-        (global as any).set(__index__, New(SessionUserToken, {
-          username
-        }));
       }
-      SessionUserToken.user = (global as any).get(__index__).user;
-      return (global as any).get(__index__).user;
-    }
+    });
 
-    static getGlobalUserToken(...args:any[]) {
-      return SessionUserToken.getGlobalUser(args).token;
-    }
-
-    static getGlobalUserId(...args:any[]) {
-      return SessionUserToken.getGlobalUser(args).id;
-    }
-
-    static getGlobalUserPriority(...args:any[]) {
-      return SessionUserToken.getGlobalUser(args).priority;
-    }
-
-    static getLoginCredentialsToken(username:string, password:string) {
-      return _Crypt.encrypt(`${username}${password}`, SessionUserToken.getGlobalUserToken(username));
-    }
-
-    static closeGlobalSession(...args:any[]) {
-      SessionUserToken.getGlobalUser(args);
-      const username = [args].join("|");
-      const __index__ = "userToken_" + SessionUserToken.generateIndex(username);
-      if (typeof (global as any).get(__index__) !== "undefined") {
-        (global as any).get(__index__).__cache__.clear();
-        (global as any).set(__index__, null);
-        SessionUserToken.user = {};
-      }
-    }
   }
 
-  Package("org.qcobjects.cloud.auth.session.usertoken", [
-    SessionUserToken
-  ]);
+  static generateIndex(s: any) {
+    return (typeof Buffer !== "undefined") ? (Buffer.from(s, "ascii").toString("base64")) : (btoa(s));
+  }
 
+  static getGlobalUser(...args: any[]): TGlobalUser {
+    const username = [args].join("|");
+    const __index__ = "userToken_" + SessionUserToken.generateIndex(username);
+    if (typeof (global as any).get(__index__) === "undefined" || (global as any).get(__index__) === null) {
+      (global as any).set(__index__, New(SessionUserToken, {
+        username
+      }));
+    }
+    SessionUserToken.user = (global as any).get(__index__).user;
+    return global.get(__index__).user as TGlobalUser;
+  }
 
-})(_top);
+  static getGlobalUserToken(...args: any[]): string {
+    return SessionUserToken.getGlobalUser(args).token;
+  }
 
-const SessionUserToken = (_top as any).SessionUserToken;
+  static getGlobalUserId(...args: any[]) {
+    return SessionUserToken.getGlobalUser(args).id;
+  }
 
-export {SessionUserToken};
+  static getGlobalUserPriority(...args: any[]) {
+    return SessionUserToken.getGlobalUser(args).priority;
+  }
+
+  static getLoginCredentialsToken(username: string, password: string): string {
+    return _Crypt.encrypt(`${username}${password}`, SessionUserToken.getGlobalUserToken(username)) as string;
+  }
+
+  static closeGlobalSession(...args: any[]) {
+    SessionUserToken.getGlobalUser(args);
+    const username = [args].join("|");
+    const __index__ = "userToken_" + SessionUserToken.generateIndex(username);
+    if (typeof (global as any).get(__index__) !== "undefined") {
+      (global as any).get(__index__).__cache__.clear();
+      (global as any).set(__index__, null);
+      SessionUserToken.user = {};
+    }
+  }
+}
+
+Package("org.qcobjects.cloud.auth.session.usertoken", [
+  SessionUserToken
+]);

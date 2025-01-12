@@ -1,8 +1,5 @@
-import { Package } from "qcobjects";
-import { Fade, Move } from "./org.qcobjects.effects";
-
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -25,27 +22,34 @@ import { Fade, Move } from "./org.qcobjects.effects";
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
  */
-(function () {
-  "use strict";
-  Package("org.qcobjects.modal.effects", [
+"use strict";
+import { Package } from "qcobjects";
+import { Fade, Move } from "./org.qcobjects.effects";
 
-    class ModalFade extends Fade {
+export class ModalFade extends Fade {
+  duration = 500;
 
-      duration = 500;
+}
 
-    },
 
-    class ModalMoveDown extends Move {
+export class ModalMoveUp extends Move {
 
-      duration = 300;
+  duration = 800;
 
-    },
+}
 
-    class ModalMoveUp extends Move {
-      duration = 800;
 
-    }
+export class ModalMoveDown extends Move {
 
-  ]);
+  duration = 300;
 
-})();
+}
+
+
+Package("org.qcobjects.modal.effects", [
+  ModalFade,
+  ModalMoveDown,
+  ModalMoveUp
+]);
+
+

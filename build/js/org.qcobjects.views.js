@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const qcobjects_1 = require("qcobjects");
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -25,10 +22,13 @@ const qcobjects_1 = require("qcobjects");
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
 */
-(function () {
-    "use strict";
-    (0, qcobjects_1.Package)("org.qcobjects.views", [
-        class GridView extends qcobjects_1.View {
-        }
-    ]);
-})();
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GridView = void 0;
+const qcobjects_1 = require("qcobjects");
+class GridView extends qcobjects_1.View {
+}
+exports.GridView = GridView;
+(0, qcobjects_1.Package)("org.qcobjects.views", [
+    GridView
+]);

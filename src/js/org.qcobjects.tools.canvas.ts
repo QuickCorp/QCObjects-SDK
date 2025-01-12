@@ -1,5 +1,5 @@
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -26,34 +26,32 @@
 
 import { Package, InheritClass } from "qcobjects";
 
-(function() {
-  Package("org.qcobjects.tools.canvas",[
+export class CanvasTool extends InheritClass {
 
-    class CanvasTool extends InheritClass {
+  drawImageFilled(img: HTMLImageElement, canvas: HTMLCanvasElement, zoom = 1, px = 0, py = 0) {
+    // get the scale
+    let scale = Math.max(canvas.width / img.width, canvas.height / img.height);
+    scale = scale * zoom;
+    // get the top left position of the image
+    const x = (canvas.width / 2) - (img.width / 2) * scale;
+    const y = (canvas.height / 2) - (img.height / 2) * scale;
+    const ctx = canvas.getContext("2d");
+    ctx?.drawImage(img, (px + x), (py + y), img.width * scale, img.height * scale);
+  }
 
-      drawImageFilled (img:HTMLImageElement, canvas:HTMLCanvasElement, zoom=1, px=0, py=0){
-        // get the scale
-        let scale = Math.max(canvas.width / img.width, canvas.height / img.height);
-        scale = scale*zoom;
-        // get the top left position of the image
-        const x = (canvas.width / 2) - (img.width / 2) * scale;
-        const y = (canvas.height / 2) - (img.height / 2) * scale;
-        const ctx = canvas.getContext("2d");
-        ctx?.drawImage(img, (px+x), (py+y), img.width * scale, img.height * scale);
-      }
+  getImageResized(img: HTMLImageElement, width: number, height: number, resizedImage: HTMLImageElement, zoom = 1, px = 0, py = 0) {
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    canvas.style.width = width.toString();
+    canvas.style.height = height.toString();
+    this.drawImageFilled(img, canvas, zoom, px, py);
+    resizedImage.src = canvas.toDataURL("image/png");
+    return canvas;
+  }
 
-      getImageResized (img:HTMLImageElement, width:number, height:number, resizedImage:HTMLImageElement, zoom=1, px=0, py=0){
-        const canvas = document.createElement("canvas");
-        canvas.width = width;
-        canvas.height = height;
-        canvas.style.width = width.toString();
-        canvas.style.height = height.toString();
-        this.drawImageFilled(img,canvas,zoom,px,py);
-        resizedImage.src = canvas.toDataURL("image/png");
-        return canvas;
-      }
+}
 
-    }
-  ]);
-
-})();
+Package("org.qcobjects.tools.canvas", [
+  CanvasTool
+]);

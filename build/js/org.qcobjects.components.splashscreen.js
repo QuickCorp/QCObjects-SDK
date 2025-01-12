@@ -1,6 +1,5 @@
-"use strict";
 /**
- * QCObjects SDK 2.4.0
+ * QCObjects SDK 2.5.0
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -23,125 +22,120 @@
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
 */
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CubeSplashScreenComponent = exports.VideoSplashScreenComponent = exports.SplashScreenComponent = void 0;
 const qcobjects_1 = require("qcobjects");
 const org_qcobjects_effects_1 = require("./org.qcobjects.effects");
-const _top = (typeof module === "object" && typeof module.exports === "object") ? (module.exports = (typeof globalThis !== "undefined"
-    ? globalThis
-    : typeof self !== "undefined"
-        ? self
-        : typeof window !== "undefined"
-            ? window
-            : typeof global !== "undefined"
-                ? global
-                : {})) : ((typeof global === "object") ? (global) : ((typeof window === "object") ? (window) : ({})));
-// eslint-disable-next-line camelcase
-(function __splash_screen__(global) {
-    "use strict";
-    class SplashScreenComponent extends qcobjects_1.Component {
-        constructor(component) {
-            component.name = (typeof component.name === "undefined") ? ("splashscreen") : (component.name);
-            const isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
-            const isStartURL = (location.hash === ""
-                && location.pathname === "/" && location.search === "")
-                || qcobjects_1.CONFIG.get("routingWay", "pathname") === "hash" && qcobjects_1.CONFIG.get("start_url", "/") === location.hash
-                || qcobjects_1.CONFIG.get("routingWay", "pathname") === "pathname" && qcobjects_1.CONFIG.get("start_url", "/") === location.pathname
-                || qcobjects_1.CONFIG.get("routingWay", "pathname") === "search" && qcobjects_1.CONFIG.get("start_url", "/") === location.search;
-            const _enabled_ = isBrowser && isStartURL;
-            if (_enabled_) {
-                component.basePath = qcobjects_1.CONFIG.get("splashscreenBasePath", qcobjects_1.CONFIG.get("remoteSDKPath", ""));
-                if (typeof component.data === "undefined") {
-                    component.data = {};
-                }
-                component.data.basePath = component.basePath;
+class SplashScreenComponent extends qcobjects_1.Component {
+    _enabled_;
+    _bgcolor;
+    cached = false;
+    shadowed = true;
+    body;
+    shadowRoot;
+    constructor(component) {
+        component.name = (typeof component.name === "undefined") ? ("splashscreen") : (component.name);
+        const isBrowser = typeof window !== "undefined" && typeof window.self !== "undefined" && window === window.self;
+        const isStartURL = (location.hash === ""
+            && location.pathname === "/" && location.search === "")
+            || qcobjects_1.CONFIG.get("routingWay", "pathname") === "hash" && qcobjects_1.CONFIG.get("start_url", "/") === location.hash
+            || qcobjects_1.CONFIG.get("routingWay", "pathname") === "pathname" && qcobjects_1.CONFIG.get("start_url", "/") === location.pathname
+            || qcobjects_1.CONFIG.get("routingWay", "pathname") === "search" && qcobjects_1.CONFIG.get("start_url", "/") === location.search;
+        const _enabled_ = isBrowser && isStartURL;
+        if (_enabled_) {
+            component.basePath = qcobjects_1.CONFIG.get("splashscreenBasePath", qcobjects_1.CONFIG.get("remoteSDKPath", ""));
+            if (typeof component.data === "undefined") {
+                component.data = {};
             }
-            else {
-                if (typeof component !== "undefined" && typeof component.body !== "undefined") {
-                    component.body.style.display = "none";
-                }
-            }
-            super(component);
-            this.cached = false;
-            this.shadowed = true;
-            this._bgcolor = "";
-            this._enabled_ = _enabled_;
-            if (this._enabled_) {
-                const displayEffectDuration = 1000;
-                let duration = this.body.getAttribute("duration");
-                if (duration === null) {
-                    duration = displayEffectDuration;
-                }
-                else {
-                    duration = parseInt(duration.toString());
-                }
-                this._bgcolor = this.body.style.backgroundColor;
-                const _helper_ = () => {
-                    setTimeout(() => {
-                        if (!_helper_.executed) {
-                            const _componentRoot = (this.shadowed) ? this.shadowRoot?.host : this.body;
-                            if (typeof global.componentsStack !== "undefined") {
-                                global.componentsStack.filter((c) => c.body.hasAttribute("splashscreen")).map((mainComponent) => {
-                                    qcobjects_1.logger.debug(`Splash Screen of Main Component: ${mainComponent.name}`);
-                                    mainComponent.splashScreenComponent = this;
-                                    const SplashScreenHandler = () => {
-                                        if (!SplashScreenHandler.executed) {
-                                            const component = mainComponent.splashScreenComponent;
-                                            const mainElement = (mainComponent.shadowed) ? mainComponent.shadowRoot?.host : mainComponent.body;
-                                            mainComponent._mainPosition = mainElement.style.position;
-                                            if (typeof mainElement !== "undefined") {
-                                                mainElement.style.position = "fixed";
-                                            }
-                                            mainComponent._mainOpacity = mainElement.style.opacity;
-                                            _componentRoot.style.width = "100%";
-                                            _componentRoot.style.height = "100%";
-                                            document.body.style.backgroundColor = "#111111";
-                                            mainElement.style.opacity = "0";
-                                            setTimeout(function () {
-                                                if (typeof _componentRoot !== "undefined") {
-                                                    document.body.style.backgroundColor = component?._bgcolor;
-                                                    _componentRoot.subelements("#slot-logo").map((slotlogo) => {
-                                                        slotlogo.style.display = "block";
-                                                        slotlogo.style.transformOrigin = "center";
-                                                        return (new org_qcobjects_effects_1.Resize()).apply(slotlogo, 1, 0);
-                                                    });
-                                                    (new org_qcobjects_effects_1.Fade()).apply(_componentRoot, 1, 0);
-                                                }
-                                            }, (duration - displayEffectDuration));
-                                            setTimeout(function () {
-                                                (new org_qcobjects_effects_1.Fade()).apply(mainElement, 0, 1);
-                                                mainElement.style.position = mainComponent._mainPosition;
-                                                document.body.style.backgroundColor = component._bgcolor;
-                                                if (_componentRoot.parentElement !== null) {
-                                                    _componentRoot.parentElement.remove();
-                                                }
-                                            }, duration);
-                                        }
-                                        SplashScreenHandler.executed = true;
-                                    };
-                                    return mainComponent.addComponentHelper(SplashScreenHandler.bind(mainComponent));
-                                });
-                            }
-                            _helper_.executed = true;
-                        }
-                    });
-                };
-                _helper_.executed = false;
-                this.addComponentHelper(_helper_.bind(component));
+            component.data.basePath = component.basePath;
+        }
+        else {
+            if (typeof component !== "undefined" && typeof component.body !== "undefined") {
+                component.body.style.display = "none";
             }
         }
+        super(component);
+        this._bgcolor = "";
+        this._enabled_ = _enabled_;
+        if (this._enabled_) {
+            const displayEffectDuration = 1000;
+            let duration = this.body.getAttribute("duration");
+            if (duration === null) {
+                duration = displayEffectDuration;
+            }
+            else {
+                duration = parseInt(duration.toString());
+            }
+            this._bgcolor = this.body.style.backgroundColor;
+            const _helper_ = () => {
+                setTimeout(() => {
+                    if (!_helper_.executed) {
+                        const _componentRoot = (this.shadowed) ? this.shadowRoot?.host : this.body;
+                        if (typeof qcobjects_1.global.componentsStack !== "undefined") {
+                            qcobjects_1.global.componentsStack.filter((c) => c.body.hasAttribute("splashscreen")).map((mainComponent) => {
+                                qcobjects_1.logger.debug(`Splash Screen of Main Component: ${mainComponent.name}`);
+                                mainComponent.splashScreenComponent = this;
+                                const SplashScreenHandler = () => {
+                                    if (!SplashScreenHandler.executed) {
+                                        const component = mainComponent.splashScreenComponent;
+                                        const mainElement = (mainComponent.shadowed) ? mainComponent.shadowRoot?.host : mainComponent.body;
+                                        mainComponent._mainPosition = mainElement.style.position;
+                                        if (typeof mainElement !== "undefined") {
+                                            mainElement.style.position = "fixed";
+                                        }
+                                        mainComponent._mainOpacity = mainElement.style.opacity;
+                                        _componentRoot.style.width = "100%";
+                                        _componentRoot.style.height = "100%";
+                                        document.body.style.backgroundColor = "#111111";
+                                        mainElement.style.opacity = "0";
+                                        setTimeout(function () {
+                                            if (typeof _componentRoot !== "undefined") {
+                                                document.body.style.backgroundColor = component?._bgcolor;
+                                                _componentRoot.subelements("#slot-logo").map((slotlogo) => {
+                                                    slotlogo.style.display = "block";
+                                                    slotlogo.style.transformOrigin = "center";
+                                                    return (new org_qcobjects_effects_1.Resize()).apply(slotlogo, 1, 0);
+                                                });
+                                                (new org_qcobjects_effects_1.Fade()).apply(_componentRoot, 1, 0);
+                                            }
+                                        }, (duration - displayEffectDuration));
+                                        setTimeout(function () {
+                                            (new org_qcobjects_effects_1.Fade()).apply(mainElement, 0, 1);
+                                            mainElement.style.position = mainComponent._mainPosition;
+                                            document.body.style.backgroundColor = component._bgcolor;
+                                            if (_componentRoot.parentElement !== null) {
+                                                _componentRoot.parentElement.remove();
+                                            }
+                                        }, duration);
+                                    }
+                                    SplashScreenHandler.executed = true;
+                                };
+                                return mainComponent.addComponentHelper(SplashScreenHandler.bind(mainComponent));
+                            });
+                        }
+                        _helper_.executed = true;
+                    }
+                });
+            };
+            _helper_.executed = false;
+            this.addComponentHelper(_helper_.bind(component));
+        }
     }
-    (0, qcobjects_1.Package)("org.qcobjects.components.base", [
-        SplashScreenComponent
-    ]);
-    class VideoSplashScreenComponent extends SplashScreenComponent {
-        constructor(o) {
-            o.name = "videosplashscreen";
-            super(o);
-            this.cached = false;
-            this.shadowed = true;
-            this.tplsource = "inline";
-            this.template = `
+    // eslint-disable-next-line no-unused-vars
+    addComponentHelper(arg0) {
+        throw new Error("Method not implemented.");
+    }
+}
+exports.SplashScreenComponent = SplashScreenComponent;
+(0, qcobjects_1.Package)("org.qcobjects.components.base", [
+    SplashScreenComponent
+]);
+class VideoSplashScreenComponent extends SplashScreenComponent {
+    cached = false;
+    shadowed = true;
+    tplsource = "inline";
+    template = `
   <style>
   :host * {
     box-sizing: border-box;
@@ -305,16 +299,17 @@ const _top = (typeof module === "object" && typeof module.exports === "object") 
   </div>
 
   `;
-        }
+    constructor(o) {
+        o.name = "videosplashscreen";
+        super(o);
     }
-    class CubeSplashScreenComponent extends SplashScreenComponent {
-        constructor(o) {
-            o.name = "cubesplashscreen";
-            super(o);
-            this.cached = false;
-            this.shadowed = true;
-            this.tplsource = "inline";
-            this.template = `
+}
+exports.VideoSplashScreenComponent = VideoSplashScreenComponent;
+class CubeSplashScreenComponent extends SplashScreenComponent {
+    cached = false;
+    shadowed = true;
+    tplsource = "inline";
+    template = `
   <style>
   @keyframes spin {
     0% {
@@ -627,16 +622,14 @@ const _top = (typeof module === "object" && typeof module.exports === "object") 
   </div>
 
   `;
-        }
+    constructor(o) {
+        o.name = "cubesplashscreen";
+        super(o);
     }
-    (0, qcobjects_1.Package)("org.qcobjects.components.splashscreen", [
-        VideoSplashScreenComponent,
-        CubeSplashScreenComponent
-    ]);
-})(_top);
-const SplashScreenComponent = _top.SplashScreenComponent;
-exports.SplashScreenComponent = SplashScreenComponent;
-const VideoSplashScreenComponent = _top.VideoSplashScreenComponent;
-exports.VideoSplashScreenComponent = VideoSplashScreenComponent;
-const CubeSplashScreenComponent = _top.CubeSplashScreenComponent;
+}
 exports.CubeSplashScreenComponent = CubeSplashScreenComponent;
+(0, qcobjects_1.Package)("org.qcobjects.components.splashscreen", [
+    SplashScreenComponent,
+    VideoSplashScreenComponent,
+    CubeSplashScreenComponent
+]);

@@ -1,9 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.GridItemComponent = exports.GridComponent = void 0;
-const qcobjects_1 = require("qcobjects");
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -26,56 +22,42 @@ const qcobjects_1 = require("qcobjects");
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
  */
-const _top = (typeof module === "object" && typeof module.exports === "object") ? (module.exports = (typeof globalThis !== "undefined"
-    ? globalThis
-    : typeof self !== "undefined"
-        ? self
-        : typeof window !== "undefined"
-            ? window
-            : typeof global !== "undefined"
-                ? global
-                : {})) : ((typeof global === "object") ? (global) : ((typeof window === "object") ? (window) : ({})));
-(function (global) {
-    "use strict";
-    class GridItemComponent extends qcobjects_1.Component {
-        constructor() {
-            super(...arguments);
-            this.name = "grid-item";
-            this.shadowed = true;
-            this.tplsource = "inline";
-            this.template = `
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GridComponent = exports.GridItemComponent = void 0;
+const qcobjects_1 = require("qcobjects");
+class GridItemComponent extends qcobjects_1.Component {
+    name = "grid-item";
+    shadowed = true;
+    tplsource = "inline";
+    template = `
 <img src="{{image}}" />
 <p>{{description}}</p>
 `;
-            this.cached = false;
-        }
-    }
-    class GridComponent extends qcobjects_1.Component {
-        constructor(o) {
-            super(o);
-            this.name = "grid";
-            this.cached = false;
-            this.view = null;
-            this.shadowed = true;
-            this.rows = 3;
-            this.cols = 3;
-            this.templateURI = "";
-            this.data = {};
-            this.tplsource = "inline";
-            this.template = "<p>Loading...</p>";
-            this.body.setAttribute("controllerClass", "DataGridController");
-            const subcomponentClass = (this.body.getAttribute("subcomponentClass") !== null) ? (this.body.getAttribute("subcomponentClass")) : ("GridItemComponent");
-            this.body.setAttribute("subcomponentClass", subcomponentClass);
-        }
-    }
-    (0, qcobjects_1.Package)("org.qcobjects.components.grid", [
-        GridComponent,
-        GridItemComponent
-    ]);
-    global.GridComponent = GridComponent;
-    global.GridItemComponent = GridItemComponent;
-})(_top);
-const GridComponent = _top.GridComponent;
-exports.GridComponent = GridComponent;
-const GridItemComponent = _top.GridItemComponent;
+    cached = false;
+}
 exports.GridItemComponent = GridItemComponent;
+class GridComponent extends qcobjects_1.Component {
+    name = "grid";
+    cached = false;
+    view = null;
+    shadowed = true;
+    rows = 3;
+    cols = 3;
+    templateURI = "";
+    data = {};
+    tplsource = "inline";
+    template = "<p>Loading...</p>";
+    body;
+    constructor(o) {
+        super(o);
+        this.body.setAttribute("controllerClass", "DataGridController");
+        const subcomponentClass = (this.body.getAttribute("subcomponentClass") !== null) ? (this.body.getAttribute("subcomponentClass")) : ("GridItemComponent");
+        this.body.setAttribute("subcomponentClass", subcomponentClass);
+    }
+}
+exports.GridComponent = GridComponent;
+(0, qcobjects_1.Package)("org.qcobjects.components.grid", [
+    GridComponent,
+    GridItemComponent
+]);

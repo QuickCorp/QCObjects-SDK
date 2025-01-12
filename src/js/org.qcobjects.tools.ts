@@ -1,5 +1,5 @@
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -33,6 +33,7 @@ import { Timer, Package, logger } from "qcobjects";
       alive:boolean;
       steps:any[] = [];
       currentStep = 0;
+      duration: any;
 
       constructor ({steps = [], currentStep = 0, alive = false}) {
         super({steps, currentStep, alive});
@@ -50,6 +51,7 @@ import { Timer, Package, logger } from "qcobjects";
           duration: this.duration,
           timing: (timeFraction:number) => {
             this.currentStep+=1;
+            // eslint-disable-next-line @typescript-eslint/no-floating-promises
             this.steps.map((p:()=> void):Promise<void> | undefined => {
               let _ret_;
               if (typeof p === "function"){
@@ -66,6 +68,10 @@ import { Timer, Package, logger } from "qcobjects";
             logger.debug("process execution progress: "+progress.toString());
           }
         });
+      }
+      // eslint-disable-next-line no-unused-vars
+      thread(arg0: { duration: any; timing: (timeFraction: number) => number; intervalInterceptor(progress: number): void; }) {
+        throw new Error("Method not implemented.");
       }
     }
 

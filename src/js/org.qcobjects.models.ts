@@ -1,7 +1,5 @@
-import { Package, VO } from "qcobjects";
-
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -24,14 +22,13 @@ import { Package, VO } from "qcobjects";
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
  */
-(function () {
-  "use strict";
-  Package("org.qcobjects.models", [
+"use strict";
+import { Package, VO } from "qcobjects";
+export class Contact extends VO {
 
-    class Contact extends VO {
+}
 
-    }
+Package("org.qcobjects.models", [
+  Contact
 
-  ]);
-
-})();
+]);

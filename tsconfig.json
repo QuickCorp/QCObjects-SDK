@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": true,
@@ -33,7 +34,15 @@
     "src/**/*",
     "src/types/**/*"
   ],
-  "exclude": ["src/**/*.js", "node_modules/**/*", "**/node_modules/*"],
+  "exclude": [
+    "**/*.js",
+    "src/index.mts",
+    "src/index.cts",
+    "node_modules",
+    "node_modules/**/*",
+    "**/node_modules/*",
+    "public/types"
+  ],
   "ts-node": {
     // It is faster to skip typechecking.
     // Remove if you want ts-node to do typechecking.
@@ -48,6 +57,18 @@
         ]
       }
     },
-    "exclude": ["node_modules/**/*", "**/node_modules/*"]
-  }
+    "include": [
+      "src/**/*",
+      "src/types/**/*"
+    ],
+    "exclude": [
+      "**/*.js",
+      "src/index.mts",
+      "src/index.cts",
+      "node_modules",
+      "node_modules/**/*",
+      "**/node_modules/*",
+      "public/types"
+    ]
+    }
 }

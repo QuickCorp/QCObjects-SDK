@@ -9,8 +9,6 @@
  */
 
 import { View } from "qcobjects";
-import { QCObjectsShadowedElement } from "qcobjects";
-import { QCObjectsElement } from "qcobjects";
 import { InheritClass } from "qcobjects";
 import { Component, Controller, Effect, VO } from "qcobjects";
 
@@ -44,7 +42,7 @@ declare namespace sdk {
     class SliderComponent extends Component { }
     class FormField extends Component {
         createBindingEvents(): void;
-        executeBinding(_obj: HTMLElement | Element | ShadowRoot | QCObjectsElement | QCObjectsShadowedElement | any): void;
+        executeBinding(_obj: HTMLElement | Element | ShadowRoot ): void;
         executeBindings(): void;
     }
     class ShadowedComponent extends Component { }
@@ -57,7 +55,7 @@ declare namespace sdk {
         modalEnclosureComponentClass: string;
         closeOnClickOutside: boolean;
         data: ModalData;
-        submodal: Component | ShadowedComponent;
+        submodal: Component;
         modal(): void;
         close(): void;
 
@@ -76,7 +74,7 @@ declare namespace sdk {
     class GridItemComponent extends Component { }
     class GridComponent extends Component { }
     class NotificationComponent extends Component {
-        static display(element: QCObjectsElement | QCObjectsShadowedElement | Element | ShadowRoot): void;
+        static display(element: Element | ShadowRoot): void;
         static success(message: string): void;
         static danger(message: string): void;
         static info(message: string): void;
@@ -171,9 +169,9 @@ declare namespace sdk {
             loadingRouting: string,
             nextRouting: string
         };
-        hasValidation(element: HTMLElement | Element | ShadowRoot | QCObjectsElement | QCObjectsShadowedElement | any): boolean;
-        isInvalid(element: HTMLElement | Element | ShadowRoot | QCObjectsElement | QCObjectsShadowedElement | any): boolean;
-        isValid(element: HTMLElement | Element | ShadowRoot | QCObjectsElement | QCObjectsShadowedElement | any): boolean;
+        hasValidation(element: HTMLElement | Element | ShadowRoot ): boolean;
+        isInvalid(element: HTMLElement | Element | ShadowRoot ): boolean;
+        isValid(element: HTMLElement | Element | ShadowRoot ): boolean;
         save(): void;
         formSaveTouchHandler(): void;
     }

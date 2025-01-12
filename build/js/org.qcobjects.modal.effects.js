@@ -1,9 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const qcobjects_1 = require("qcobjects");
-const org_qcobjects_effects_1 = require("./org.qcobjects.effects");
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -26,26 +22,25 @@ const org_qcobjects_effects_1 = require("./org.qcobjects.effects");
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
  */
-(function () {
-    "use strict";
-    (0, qcobjects_1.Package)("org.qcobjects.modal.effects", [
-        class ModalFade extends org_qcobjects_effects_1.Fade {
-            constructor() {
-                super(...arguments);
-                this.duration = 500;
-            }
-        },
-        class ModalMoveDown extends org_qcobjects_effects_1.Move {
-            constructor() {
-                super(...arguments);
-                this.duration = 300;
-            }
-        },
-        class ModalMoveUp extends org_qcobjects_effects_1.Move {
-            constructor() {
-                super(...arguments);
-                this.duration = 800;
-            }
-        }
-    ]);
-})();
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ModalMoveDown = exports.ModalMoveUp = exports.ModalFade = void 0;
+const qcobjects_1 = require("qcobjects");
+const org_qcobjects_effects_1 = require("./org.qcobjects.effects");
+class ModalFade extends org_qcobjects_effects_1.Fade {
+    duration = 500;
+}
+exports.ModalFade = ModalFade;
+class ModalMoveUp extends org_qcobjects_effects_1.Move {
+    duration = 800;
+}
+exports.ModalMoveUp = ModalMoveUp;
+class ModalMoveDown extends org_qcobjects_effects_1.Move {
+    duration = 300;
+}
+exports.ModalMoveDown = ModalMoveDown;
+(0, qcobjects_1.Package)("org.qcobjects.modal.effects", [
+    ModalFade,
+    ModalMoveDown,
+    ModalMoveUp
+]);

@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const qcobjects_1 = require("qcobjects");
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -25,14 +22,18 @@ const qcobjects_1 = require("qcobjects");
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
 */
-(function () {
-    "use strict";
-    (0, qcobjects_1.Package)("org.qcobjects.modal.controllers", [
-        class ModalController extends qcobjects_1.Controller {
-            done() {
-                const component = this.component;
-                component.body.innerHTML = component.body.innerHTML.replace("/{{content}}/g", component.submodal.template);
-            }
-        }
-    ]);
-})();
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ModalController = void 0;
+const qcobjects_1 = require("qcobjects");
+class ModalController extends qcobjects_1.Controller {
+    component;
+    done() {
+        const component = this.component;
+        component.body.innerHTML = component.body.innerHTML.replace("/{{content}}/g", component.submodal.template);
+    }
+}
+exports.ModalController = ModalController;
+(0, qcobjects_1.Package)("org.qcobjects.modal.controllers", [
+    ModalController
+]);

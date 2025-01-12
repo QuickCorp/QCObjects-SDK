@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -24,83 +24,102 @@
  * license document, but changing it is not allowed.
  */
 
-import { CONFIG, GlobalSettings } from "qcobjects";
-
-const _top = (typeof module === "object" && typeof module.exports === "object") ? (
-  module.exports = (typeof globalThis !== "undefined"
-  ? globalThis
-  : typeof self !== "undefined"
-  ? self
-  : typeof window !== "undefined"
-  ? window
-  : typeof global !== "undefined"
-  ? global
-  : {})
-) : ((typeof global === "object") ? (global) : (
-  (typeof window === "object") ? (window) : ({})
-));
+import { CONFIG, GlobalSettings, _top } from "qcobjects";
+export {i18n_messages} from "./js/org.qcobjects.i18n_messages";
+export {Contact} from "./js/org.qcobjects.models";
+export {
+  ShadowedComponent,
+  ButtonField,
+  InputField,
+  TextField,
+  EmailField,
+  ModalEnclosureComponent,
+  ModalComponent,
+  SwaggerUIComponent
+} from "./js/org.qcobjects.components";
+export {FormField, FieldComponentParams} from "./js/org.qcobjects.base.components";
+export {
+    GridComponent,
+    GridItemComponent
+} from "./js/org.qcobjects.components.grid";
+export {
+  ListItemComponent,
+  ListComponent
+} from "./js/org.qcobjects.components.list";
+export {
+  SlideListComponent,
+  SlideItemComponent,
+  SliderComponent
+} from "./js/org.qcobjects.components.slider";
+export { NotificationComponent } from "./js/org.qcobjects.components.notifications";
+export {
+  SplashScreenComponent,
+  VideoSplashScreenComponent,
+  CubeSplashScreenComponent
+} from "./js/org.qcobjects.components.splashscreen";
+export { GenericController } from "./js/org.qcobjects.controllers";
+export { ListController, ListControllerParams } from "./js/org.qcobjects.controllers.list";
+export { GridController, DataGridController } from "./js/org.qcobjects.controllers.grid";
+export { SliderController } from "./js/org.qcobjects.controllers.slider";
+export { FormController, FormValidations } from "./js/org.qcobjects.controllers.form";
+export { SwaggerUIController } from "./js/org.qcobjects.controllers.swagger";
+export {
+  Fade, Move, MoveXInFromRight,
+  MoveXInFromLeft,
+  MoveYInFromBottom,
+  MoveYInFromTop,
+  RotateX,
+  RotateY,
+  RotateZ,
+  Rotate,
+  Radius,
+  Resize,
+  WipeLeft,
+  WipeRight,
+  WipeUp,
+  WipeDown,
+  ModalFade, ModalMoveUp, ModalMoveDown
+} from "./js/org.qcobjects.effects";
+export { ModalController } from "./js/org.qcobjects.modal.controllers";
+export { GridView } from "./js/org.qcobjects.views";
+export { CanvasTool } from "./js/org.qcobjects.tools.canvas";
+export { BasicLayout } from "./js/org.qcobjects.tools.layouts";
+export { SessionUserToken } from "./js/org.qcobjects.cloud.auth.session.usertoken";
+export { SessionData } from "./js/org.qcobjects.cloud.auth.session.data";
 
 // eslint-disable-next-line camelcase
-(function __qcobjects_sdk__ (_top:any) {
+(function __qcobjects_sdk__(_top: any) {
   "use strict";
-  if (typeof Object.defineProperty !== "undefined" && typeof _top !== "undefined"){
+  if (typeof Object.defineProperty !== "undefined" && typeof _top !== "undefined") {
     try {
-      Object.defineProperty(_top,"__qcobjects_sdk__", {
+      Object.defineProperty(_top, "__qcobjects_sdk__", {
         enumerable: true,
         configurable: false,
         writable: false,
         // eslint-disable-next-line camelcase
         value: __qcobjects_sdk__,
       });
-    } catch (e){
-      if (typeof _top.__qcobjects_sdk__ !== "undefined"){
+    } catch (e) {
+      if (typeof _top.__qcobjects_sdk__ !== "undefined") {
         _top.__qcobjects_sdk__.__loaded__ = true;
       }
     }
   }
 
-  if (typeof _top.__qcobjects_sdk__.__loaded__ === "undefined"){
+  if (typeof _top.__qcobjects_sdk__.__loaded__ === "undefined") {
     _top.__qcobjects_sdk__.__loaded__ = true;
-    if (typeof _top === "undefined"){
+    if (typeof _top === "undefined") {
       throw Error("Top context empty: It should either global, module or window");
     }
 
     const __start__ = GlobalSettings.__start__.bind(_top);
 
-    let _imports_: any[] = [];
 
-      // non-browsers environment // esbuild compatible
-      _imports_ = [
-        new Promise<void> ((resolve)=> {
-          require("./js/org.qcobjects.i18n_messages");
-          require("./js/org.qcobjects.models");
-          require("./js/org.qcobjects.components");
-          require("./js/org.qcobjects.components.grid");
-          require("./js/org.qcobjects.components.list");
-          require("./js/org.qcobjects.components.slider");
-          require("./js/org.qcobjects.components.notifications");
-          require("./js/org.qcobjects.components.splashscreen");
-          require("./js/org.qcobjects.controllers");
-          require("./js/org.qcobjects.controllers.grid");
-          require("./js/org.qcobjects.controllers.list");
-          require("./js/org.qcobjects.controllers.slider");
-          require("./js/org.qcobjects.controllers.form");
-          require("./js/org.qcobjects.controllers.swagger");
-          require("./js/org.qcobjects.effects");
-          require("./js/org.qcobjects.modal.controllers");
-          require("./js/org.qcobjects.views");
-          require("./js/org.qcobjects.tools.canvas");
-          require("./js/org.qcobjects.tools.layouts");
-          require("./js/org.qcobjects.cloud.auth.session.usertoken");
-          require("./js/org.qcobjects.cloud.auth.session.data");
-          resolve();
-        })
-      ];
-    _top._sdk_ = Promise.all(_imports_).then(()=>{
+    _top._sdk_ = Promise.resolve().then(() => {
       CONFIG.set("useSDK", true);
       __start__();
     });
-  
+
   }
 
 })(_top);

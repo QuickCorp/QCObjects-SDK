@@ -11,7 +11,7 @@
     "noImplicitThis": true,
     "alwaysStrict": true,
     "rootDir": "./src",
-    "outFile": "public/index.d.ts",
+    "outFile": "public/types/index.d.ts",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "declaration": true,
@@ -26,7 +26,15 @@
     "src/**/*",
     "src/types/**/*"
   ],
-  "exclude": ["src/**/*.mts", "src/**/*.cts", "node_modules/**/*", "**/node_modules/*", "src/**/*.js"],
+  "exclude": [
+    "**/*.js",
+    "src/index.mts",
+    "src/index.cts",
+    "node_modules",
+    "node_modules/**/*",
+    "**/node_modules/*",
+    "public/types"
+  ],
 "ts-node": {
     // It is faster to skip typechecking.
     // Remove if you want ts-node to do typechecking.
@@ -41,7 +49,19 @@
       }
         
     },
-    "exclude": ["node_modules/**/*", "**/node_modules/*"]
-
+    "include": [
+      "src/**/*",
+      "src/types/**/*"
+    ],
+    "exclude": [
+      "**/*.js",
+      "src/index.mts",
+      "src/index.cts",
+      "node_modules",
+      "node_modules/**/*",
+      "**/node_modules/*",
+      "public/types"
+    ]
+  
   }
 }

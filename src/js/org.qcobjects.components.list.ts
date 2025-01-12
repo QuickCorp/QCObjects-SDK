@@ -1,7 +1,5 @@
-import { Component, ComponentParams, Package } from "qcobjects";
-
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -24,40 +22,36 @@ import { Component, ComponentParams, Package } from "qcobjects";
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
 */
-const _top = (typeof module === "object" && typeof module.exports === "object") ? (
-  module.exports = (typeof globalThis !== "undefined"
-  ? globalThis
-  : typeof self !== "undefined"
-  ? self
-  : typeof window !== "undefined"
-  ? window
-  : typeof global !== "undefined"
-  ? global
-  : {})
-) : ((typeof global === "object") ? (global) : (
-  (typeof window === "object") ? (window) : ({})
-));
-(function(global:any) {
 "use strict";
-class ListItemComponent extends Component {
+import { Component, Package } from "qcobjects";
+
+
+export class ListItemComponent extends Component {
   shadowed= false;
   tplsource= "inline";
   template="<a href=\"{{value}}\">{{label}}</a>";
   cached= false;
 
-  constructor (o:ComponentParams){
+  constructor (o:any){
     o.name="list-item";
     super(o);
   }
 
 }
 
-class ListComponent extends Component {
+export class ListComponent extends Component {
+  data!:any;
   shadowed= true;
   tplsource= "inline";
   template= "<p>Loading...</p>";
+  body: any;
+  shadowRoot: HTMLElement | undefined;
+  rows!: string | number | null;
+  subcomponents!: never[];
+  done: any;
+  serviceData: any;
 
-  constructor (o:ComponentParams){
+  constructor (o:any){
     o.name = "list";
     super(o);
     this.body.setAttribute("controllerClass","ListController");
@@ -71,13 +65,3 @@ Package("org.qcobjects.components.list",[
   ListItemComponent,
   ListComponent
 ]);
-
-global.ListComponent = ListComponent;
-global.ListItemComponent = ListItemComponent;
-
-})(_top);
-
-const ListComponent = (_top as any).ListComponent;
-const ListItemComponent = (_top as any).ListItemComponent;
-
-export {ListComponent, ListItemComponent};

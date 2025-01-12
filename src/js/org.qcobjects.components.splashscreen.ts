@@ -1,5 +1,5 @@
 /**
- * QCObjects SDK 2.4.0
+ * QCObjects SDK 2.5.0
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -23,39 +23,35 @@
  * license document, but changing it is not allowed.
 */
 
-import { Package, Component, CONFIG, logger, ComponentParams, QCObjectsElement } from "qcobjects";
+"use strict";
+import { Package, Component, CONFIG, logger, global } from "qcobjects";
 import { Resize, Fade } from "./org.qcobjects.effects";
 
-const _top: any = (typeof module === "object" && typeof module.exports === "object") ? (
-  module.exports = (typeof globalThis !== "undefined"
-    ? globalThis
-    : typeof self !== "undefined"
-      ? self
-      : typeof window !== "undefined"
-        ? window
-        : typeof global !== "undefined"
-          ? global
-          : {})
-) : ((typeof global === "object") ? (global) : (
-  (typeof window === "object") ? (window) : ({})
-));
-
-// eslint-disable-next-line camelcase
-(function __splash_screen__(global) {
-  "use strict";
-  type SplashScreenParams = ComponentParams & {
+  type SplashScreenParams = {
+    name:string;
     basePath: string;
+    data:any;
+    body:any;
   }
-  type MainSplashComponent = Component & {
+  type MainSplashComponent = {
+    body: any;
+    splashScreenComponent: any;
+    shadowed: any;
+    shadowRoot: any;
+    // eslint-disable-next-line no-unused-vars
+    addComponentHelper(arg0: () => void): unknown;
+    name:string;
     _mainPosition: string;
     _mainOpacity: string;
   }
 
-  class SplashScreenComponent extends Component {
+export class SplashScreenComponent extends Component {
     _enabled_: boolean;
     _bgcolor: string;
     cached = false;
     shadowed = true;
+    body: any;
+    shadowRoot: any;
 
     constructor(component: SplashScreenParams) {
       component.name = (typeof component.name === "undefined") ? ("splashscreen") : (component.name);
@@ -98,6 +94,7 @@ const _top: any = (typeof module === "object" && typeof module.exports === "obje
             if (!_helper_.executed) {
               const _componentRoot = (this.shadowed) ? (this.shadowRoot?.host as HTMLElement) : (this.body as HTMLElement);
               if (typeof global.componentsStack !== "undefined") {
+                 
                 global.componentsStack.filter((c: MainSplashComponent) => c.body.hasAttribute("splashscreen")).map(
                   (mainComponent: MainSplashComponent) => {
                     logger.debug(`Splash Screen of Main Component: ${mainComponent.name}`);
@@ -106,11 +103,11 @@ const _top: any = (typeof module === "object" && typeof module.exports === "obje
                       if (!(SplashScreenHandler as any).executed) {
                         const component = mainComponent.splashScreenComponent as SplashScreenComponent;
                         const mainElement = (mainComponent.shadowed) ? (mainComponent.shadowRoot?.host as HTMLElement) : (mainComponent.body as HTMLElement);
-                        mainComponent._mainPosition = (mainElement as HTMLElement).style.position;
+                        mainComponent._mainPosition = mainElement.style.position;
                         if (typeof mainElement !== "undefined") {
                           mainElement.style.position = "fixed";
                         }
-                        mainComponent._mainOpacity = (mainElement as HTMLElement).style.opacity;
+                        mainComponent._mainOpacity = mainElement.style.opacity;
                         _componentRoot.style.width = "100%";
                         _componentRoot.style.height = "100%";
                         document.body.style.backgroundColor = "#111111";
@@ -118,9 +115,10 @@ const _top: any = (typeof module === "object" && typeof module.exports === "obje
                         setTimeout(function () {
                           if (typeof _componentRoot !== "undefined") {
                             document.body.style.backgroundColor = component?._bgcolor;
-                            (_componentRoot as QCObjectsElement).subelements("#slot-logo").map((slotlogo) => {
+                            (_componentRoot as any).subelements("#slot-logo").map((slotlogo:any) => {
                               slotlogo.style.display = "block";
                               slotlogo.style.transformOrigin = "center";
+                               
                               return (new Resize()).apply(slotlogo, 1, 0);
                             });
                             (new Fade()).apply(_componentRoot, 1, 0);
@@ -151,6 +149,10 @@ const _top: any = (typeof module === "object" && typeof module.exports === "obje
       }
 
     }
+    // eslint-disable-next-line no-unused-vars
+    addComponentHelper(arg0: { (): void; executed: boolean; }) {
+      throw new Error("Method not implemented.");
+    }
 
 
   }
@@ -160,7 +162,7 @@ const _top: any = (typeof module === "object" && typeof module.exports === "obje
     SplashScreenComponent
   ]);
 
-  class VideoSplashScreenComponent extends SplashScreenComponent {
+  export class VideoSplashScreenComponent extends SplashScreenComponent {
     cached = false;
     shadowed = true;
     tplsource = "inline";
@@ -336,7 +338,7 @@ const _top: any = (typeof module === "object" && typeof module.exports === "obje
     }
   }
 
-  class CubeSplashScreenComponent extends SplashScreenComponent {
+  export class CubeSplashScreenComponent extends SplashScreenComponent {
     cached = false;
     shadowed = true;
     tplsource = "inline";
@@ -663,18 +665,8 @@ const _top: any = (typeof module === "object" && typeof module.exports === "obje
 
 
   Package("org.qcobjects.components.splashscreen", [
+    SplashScreenComponent,
     VideoSplashScreenComponent,
     CubeSplashScreenComponent
   ]);
 
-})(_top);
-
-const SplashScreenComponent = _top.SplashScreenComponent;
-const VideoSplashScreenComponent = _top.VideoSplashScreenComponent;
-const CubeSplashScreenComponent = _top.CubeSplashScreenComponent;
-
-export {
-  SplashScreenComponent,
-  VideoSplashScreenComponent,
-  CubeSplashScreenComponent
-};

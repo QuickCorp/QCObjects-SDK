@@ -1,7 +1,5 @@
-import { ClassFactory, Controller, ControllerParams, New, Package, QCObjectsElement, QCObjectsShadowedElement, logger } from "qcobjects";
-
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -24,135 +22,132 @@ import { ClassFactory, Controller, ControllerParams, New, Package, QCObjectsElem
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
  */
-(function (global) {
-  "use strict";
-  type SliderParams = ControllerParams & { 
-    duration:number;
-    slideIndex:number;
-    interval:number | null;
-    sliderHandlerName:string | null;
-  };
-  Package("org.qcobjects.controllers.slider", [
+"use strict";
+import { ClassFactory, Controller, New, Package, logger, Component } from "qcobjects";
 
-    class SliderController extends Controller {
-      slideIndex = 0;
-      duration = 7100;
-      interval:any = null;
-      sliderHandlerName = "";
-      _componentRoot: QCObjectsElement | QCObjectsShadowedElement | HTMLElement | ShadowRoot | undefined;
+type SliderParams = {
+  dependencies: any[];
+  component: Component;
+  duration: number;
+  slideIndex: number;
+  interval: number | null;
+  sliderHandlerName: string | null;
+};
 
-      constructor({component, dependencies= [], duration = 7100, slideIndex=0, interval = null, sliderHandlerName = null}:SliderParams) {
-        super({component, dependencies, duration, slideIndex, interval, sliderHandlerName} as SliderParams);
-        this.component = component;
-        this._componentRoot = (component.shadowed) ? (component.shadowRoot) : (component.body);
-        this.sliderHandlerName = "slider_" + this.component.__instanceID.toString();
-        (global as any).set(this.sliderHandlerName, this);
+export class SliderController extends Controller {
+  slideIndex = 0;
+  duration = 7100;
+  interval: any = null;
+  sliderHandlerName = "";
+  _componentRoot: HTMLElement | ShadowRoot | undefined;
+  component: Component;
 
-      }
+  constructor({ component, dependencies = [], duration = 7100, slideIndex = 0, interval = null, sliderHandlerName = null }: SliderParams) {
+    super({ component, dependencies, duration, slideIndex, interval, sliderHandlerName } as SliderParams);
+    this.component = component;
+    this._componentRoot = (component.shadowed) ? (component.shadowRoot) : (component.body);
+    this.sliderHandlerName = "slider_" + this.component.__instanceID.toString();
+    (global as any).set(this.sliderHandlerName, this);
+
+  }
 
 
-      stop() {
-        if (this.interval != null) {
-          clearInterval(this.interval);
-        }
-      }
-
-      plusSlidesAndStop(n:number) {
-        this.stop();
-        this.plusSlides(n);
-      }
-
-      plusSlides(n:number) {
-        this.showSlides(this.slideIndex += n);
-      }
-
-      currentSlide(n:number) {
-        this.stop();
-        this.showSlides(this.slideIndex = n);
-      }
-
-      automate() {
-        this.interval = setInterval(() => {
-          this.plusSlides(1);
-        }, this.duration);
-      }
-
-      showSlides(n:number) {
-        const slides = (this._componentRoot as QCObjectsElement)?.subelements(".qcoSlides");
-        const dots = (this._componentRoot as QCObjectsElement)?.subelements(".qcoSlider__dots--dot");
-
-        if (n > (slides.length - 1)) {
-          this.slideIndex = 0;
-        }
-        if (n < 0) {
-          this.slideIndex = 0;
-        }
-        slides.filter((slide, index)=> {return index!== this.slideIndex;}).map((slide) => {
-          return (New(ClassFactory("Fade"),{})).apply(slide, 1, 0);
-        });
-        dots.filter((dot, index)=> {return index!== this.slideIndex;}).map((dot) => {
-          return dot.classList.remove("active");
-        });
-        try {
-          dots[this.slideIndex].classList.add("active");
-        } catch (e:any) {
-          logger.debug(`Something went wrong when trying to activate a slide: ${this.slideIndex} - ${e.message}`);
-        }
-        setTimeout( () => {
-          slides.filter((slide, index)=> {return index!== this.slideIndex;}).map((slide) => {
-            slide.style.display = "none";
-            return slide.style.display;
-          });
-          try {
-            slides[this.slideIndex].style.display = "block";
-            (New(ClassFactory("Fade"), {})).apply(slides[this.slideIndex], 0, 1);
-
-          } catch (e:any) {
-            logger.debug(`Something went wrong when trying to show a slide: ${this.slideIndex} - ${e.message}`);
-          }
-        }, 700);
-      }
-
-      fillDots() {
-        const slides = (this._componentRoot as QCObjectsElement)?.subelements(".qcoSlides");
-        slides.map((slide:QCObjectsElement | HTMLElement, index:number) => {
-          const dotHTML = document.createElement("span");
-          const dotContent = `<span class="qcoSlider__dots--dot" onclick="global.get('${this.sliderHandlerName}').currentSlide(${index})"></span>`;
-          dotHTML.innerHTML = dotContent;
-          return (this._componentRoot as QCObjectsElement)?.subelements(".qcoSlider__dots")[0].append(dotHTML);
-        });
-
-      }
-
-      done() {
-        const slides = (this._componentRoot as QCObjectsElement)?.subelements(".qcoSlides");
-        slides.filter((slide:QCObjectsElement | HTMLElement, index)=> {return index!== this.slideIndex;}).map((slide) => {
-          slide.style.display = "none";
-          return slide.style.display;
-        });
-        setTimeout( () => {
-          this.fillDots();
-          this.slideIndex = 0;
-          this.showSlides(this.slideIndex);
-          this.automate();
-        }, 3000);
-
-      }
-
+  stop() {
+    if (this.interval != null) {
+      clearInterval(this.interval);
     }
+  }
 
-  ]);
+  plusSlidesAndStop(n: number) {
+    this.stop();
+    this.plusSlides(n);
+  }
 
-})((typeof module === "object" && typeof module.exports === "object") ? (
-  module.exports = (typeof globalThis !== "undefined"
-  ? globalThis
-  : typeof self !== "undefined"
-  ? self
-  : typeof window !== "undefined"
-  ? window
-  : typeof global !== "undefined"
-  ? global
-  : {})
-) : ((typeof global === "object") ? (global) : (
-  (typeof window === "object") ? (window) : ({})
-)));
+  plusSlides(n: number) {
+    this.showSlides(this.slideIndex += n);
+  }
+
+  currentSlide(n: number) {
+    this.stop();
+    this.showSlides(this.slideIndex = n);
+  }
+
+  automate() {
+    this.interval = setInterval(() => {
+      this.plusSlides(1);
+    }, this.duration);
+  }
+
+  showSlides(n: number) {
+    const slides = (this._componentRoot as any)?.subelements(".qcoSlides");
+    const dots = (this._componentRoot as any)?.subelements(".qcoSlider__dots--dot");
+
+    if (n > (slides.length - 1)) {
+      this.slideIndex = 0;
+    }
+    if (n < 0) {
+      this.slideIndex = 0;
+    }
+    slides.filter((slide: any, index: number) => { return index !== this.slideIndex; }).map((slide: any) => {
+
+      return (New(ClassFactory("Fade"), {})).apply(slide, 1, 0);
+    });
+    // eslint-disable-next-line no-unused-vars
+    dots.filter((dot: any, index: number) => { return index !== this.slideIndex; }).map((dot: { classList: { remove: (arg0: string) => any; }; }) => {
+
+      return dot.classList.remove("active");
+    });
+    try {
+      dots[this.slideIndex].classList.add("active");
+    } catch (e: any) {
+      logger.debug(`Something went wrong when trying to activate a slide: ${this.slideIndex} - ${e.message}`);
+    }
+    setTimeout(() => {
+      slides.filter((slide: any, index: number) => { return index !== this.slideIndex; }).map((slide: { style: { display: string; }; }) => {
+        slide.style.display = "none";
+        return slide.style.display;
+      });
+      try {
+        slides[this.slideIndex].style.display = "block";
+        (New(ClassFactory("Fade"), {})).apply(slides[this.slideIndex], 0, 1);
+
+      } catch (e: any) {
+        logger.debug(`Something went wrong when trying to show a slide: ${this.slideIndex} - ${e.message}`);
+      }
+    }, 700);
+  }
+
+  fillDots() {
+    const slides = (this._componentRoot as any)?.subelements(".qcoSlides");
+    slides.map((slide: HTMLElement, index: number) => {
+      const dotHTML = document.createElement("span");
+      const dotContent = `<span class="qcoSlider__dots--dot" onclick="global.get('${this.sliderHandlerName}').currentSlide(${index})"></span>`;
+      dotHTML.innerHTML = dotContent;
+
+      return (this._componentRoot as any)?.subelements(".qcoSlider__dots")[0].append(dotHTML);
+    });
+
+  }
+
+  done() {
+    const slides = (this._componentRoot as any)?.subelements(".qcoSlides");
+    slides.filter((slide: HTMLElement, index: number) => { return index !== this.slideIndex; }).map((slide: { style: { display: string; }; }) => {
+      slide.style.display = "none";
+      return slide.style.display;
+    });
+    setTimeout(() => {
+      this.fillDots();
+      this.slideIndex = 0;
+      this.showSlides(this.slideIndex);
+      this.automate();
+    }, 3000);
+
+  }
+
+}
+
+
+Package("org.qcobjects.controllers.slider", [
+
+  SliderController
+]);

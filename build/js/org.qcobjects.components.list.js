@@ -1,9 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ListItemComponent = exports.ListComponent = void 0;
-const qcobjects_1 = require("qcobjects");
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -26,46 +22,41 @@ const qcobjects_1 = require("qcobjects");
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
 */
-const _top = (typeof module === "object" && typeof module.exports === "object") ? (module.exports = (typeof globalThis !== "undefined"
-    ? globalThis
-    : typeof self !== "undefined"
-        ? self
-        : typeof window !== "undefined"
-            ? window
-            : typeof global !== "undefined"
-                ? global
-                : {})) : ((typeof global === "object") ? (global) : ((typeof window === "object") ? (window) : ({})));
-(function (global) {
-    "use strict";
-    class ListItemComponent extends qcobjects_1.Component {
-        constructor(o) {
-            o.name = "list-item";
-            super(o);
-            this.shadowed = false;
-            this.tplsource = "inline";
-            this.template = "<a href=\"{{value}}\">{{label}}</a>";
-            this.cached = false;
-        }
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ListComponent = exports.ListItemComponent = void 0;
+const qcobjects_1 = require("qcobjects");
+class ListItemComponent extends qcobjects_1.Component {
+    shadowed = false;
+    tplsource = "inline";
+    template = "<a href=\"{{value}}\">{{label}}</a>";
+    cached = false;
+    constructor(o) {
+        o.name = "list-item";
+        super(o);
     }
-    class ListComponent extends qcobjects_1.Component {
-        constructor(o) {
-            o.name = "list";
-            super(o);
-            this.shadowed = true;
-            this.tplsource = "inline";
-            this.template = "<p>Loading...</p>";
-            this.body.setAttribute("controllerClass", "ListController");
-            this.body.setAttribute("subcomponentClass", "ListItemComponent");
-        }
-    }
-    (0, qcobjects_1.Package)("org.qcobjects.components.list", [
-        ListItemComponent,
-        ListComponent
-    ]);
-    global.ListComponent = ListComponent;
-    global.ListItemComponent = ListItemComponent;
-})(_top);
-const ListComponent = _top.ListComponent;
-exports.ListComponent = ListComponent;
-const ListItemComponent = _top.ListItemComponent;
+}
 exports.ListItemComponent = ListItemComponent;
+class ListComponent extends qcobjects_1.Component {
+    data;
+    shadowed = true;
+    tplsource = "inline";
+    template = "<p>Loading...</p>";
+    body;
+    shadowRoot;
+    rows;
+    subcomponents;
+    done;
+    serviceData;
+    constructor(o) {
+        o.name = "list";
+        super(o);
+        this.body.setAttribute("controllerClass", "ListController");
+        this.body.setAttribute("subcomponentClass", "ListItemComponent");
+    }
+}
+exports.ListComponent = ListComponent;
+(0, qcobjects_1.Package)("org.qcobjects.components.list", [
+    ListItemComponent,
+    ListComponent
+]);

@@ -1,9 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const qcobjects_1 = require("qcobjects");
-const org_qcobjects_effects_1 = require("./org.qcobjects.effects");
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -26,17 +22,22 @@ const org_qcobjects_effects_1 = require("./org.qcobjects.effects");
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
 */
-(function () {
-    "use strict";
-    class NotificationComponent extends qcobjects_1.Component {
-        constructor(o) {
-            o.name = "notification";
-            o.body = (0, qcobjects_1._DOMCreateElement)("div");
-            super(o);
-            this.cached = false;
-            this.tplsource = "inline";
-            this.shadowed = false;
-            this.template = `
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NotificationComponent = void 0;
+const qcobjects_1 = require("qcobjects");
+const org_qcobjects_effects_1 = require("./org.qcobjects.effects");
+class NotificationComponent extends qcobjects_1.Component {
+    cached = false;
+    tplsource = "inline";
+    shadowed = false;
+    kinds;
+    template;
+    constructor(o) {
+        o.name = "notification";
+        o.body = (0, qcobjects_1._DOMCreateElement)("div");
+        super(o);
+        this.template = `
     <style>
     div.notification_background {
       display: block; /* Hidden by default */
@@ -82,98 +83,98 @@ const org_qcobjects_effects_1 = require("./org.qcobjects.effects");
     </div>
     </div>
     `;
-            this.kinds = ["danger", "success", "info", "warning"];
-        }
-        display(element) {
-            const _display_ = function (element) {
-                element.style.display = "block";
-                const appearEffect = (0, qcobjects_1.New)(org_qcobjects_effects_1.Move, {
-                    duration: 900,
-                    apply(element) {
-                        (0, qcobjects_1._super_)("Fade", "apply").call(this, element, 0, 1);
-                        (0, qcobjects_1._super_)("Move", "apply").call(this, element, 0, -document.body.clientHeight, 0, 0);
-                    }
-                });
-                const disappearEffect = (0, qcobjects_1.New)(org_qcobjects_effects_1.Move, {
-                    duration: 650,
-                    apply(element) {
-                        (0, qcobjects_1._super_)("Fade", "apply").call(this, element, 1, 0);
-                        (0, qcobjects_1._super_)("Move", "apply").call(this, element, 0, 0, 0, -document.body.clientHeight);
-                    }
-                });
-                appearEffect.apply(element);
-                setTimeout(function () {
-                    disappearEffect.apply(element);
-                }, 2000);
-            };
-            element.subelements("div.notification_background").map(element => (0, qcobjects_1.New)(org_qcobjects_effects_1.Fade, { duration: 500 }).apply(element, 0, 1));
-            element.subelements("div.notification").map(element => _display_(element));
-            setTimeout(function () {
-                element.remove();
-            }, 2200);
-        }
-        static success(message) {
-            const c = (0, qcobjects_1.New)(NotificationComponent, {
-                name: "notification",
-                shadowed: true,
-                body: (0, qcobjects_1._DOMCreateElement)("div"),
-                data: {
-                    kind: "success",
-                    title: "Success!",
-                    message: `${message}...`
-                }
-            });
-            document.body.append(c);
-            const _componentRoot = (c.shadowed) ? (c.shadowRoot.host) : (c.body);
-            c.display(_componentRoot);
-        }
-        static danger(message) {
-            const c = (0, qcobjects_1.New)(NotificationComponent, {
-                name: "notification",
-                shadowed: true,
-                body: (0, qcobjects_1._DOMCreateElement)("div"),
-                data: {
-                    kind: "danger",
-                    title: "Danger!",
-                    message: `${message}...`
-                }
-            });
-            document.body.append(c);
-            const _componentRoot = (c.shadowed) ? (c.shadowRoot.host) : (c.body);
-            c.display(_componentRoot);
-        }
-        static info(message) {
-            const c = (0, qcobjects_1.New)(NotificationComponent, {
-                name: "notification",
-                shadowed: true,
-                body: (0, qcobjects_1._DOMCreateElement)("div"),
-                data: {
-                    kind: "info",
-                    title: "Info!",
-                    message: `${message}...`
-                }
-            });
-            document.body.append(c);
-            const _componentRoot = (c.shadowed) ? (c.shadowRoot.host) : (c.body);
-            c.display(_componentRoot);
-        }
-        static warning(message) {
-            const c = (0, qcobjects_1.New)(NotificationComponent, {
-                name: "notification",
-                shadowed: true,
-                body: (0, qcobjects_1._DOMCreateElement)("div"),
-                data: {
-                    kind: "warning",
-                    title: "Warning!",
-                    message: `${message}...`
-                }
-            });
-            document.body.append(c);
-            const _componentRoot = (c.shadowed) ? (c.shadowRoot.host) : (c.body);
-            c.display(_componentRoot);
-        }
+        this.kinds = ["danger", "success", "info", "warning"];
     }
-    (0, qcobjects_1.Package)("org.quickcorp.components.notifications", [
-        NotificationComponent
-    ]);
-})();
+    display(element) {
+        const _display_ = function (element) {
+            element.style.display = "block";
+            const appearEffect = (0, qcobjects_1.New)(org_qcobjects_effects_1.Move, {
+                duration: 900,
+                apply(element) {
+                    (0, qcobjects_1._super_)("Fade", "apply").call(this, element, 0, 1);
+                    (0, qcobjects_1._super_)("Move", "apply").call(this, element, 0, -document.body.clientHeight, 0, 0);
+                }
+            });
+            const disappearEffect = (0, qcobjects_1.New)(org_qcobjects_effects_1.Move, {
+                duration: 650,
+                apply(element) {
+                    (0, qcobjects_1._super_)("Fade", "apply").call(this, element, 1, 0);
+                    (0, qcobjects_1._super_)("Move", "apply").call(this, element, 0, 0, 0, -document.body.clientHeight);
+                }
+            });
+            appearEffect.apply(element);
+            setTimeout(function () {
+                disappearEffect.apply(element);
+            }, 2000);
+        };
+        element.subelements("div.notification_background").map((element) => { return (new org_qcobjects_effects_1.Fade({ duration: 500 })).apply(element, 0, 1); });
+        element.subelements("div.notification").map((element) => _display_(element));
+        setTimeout(function () {
+            element.remove();
+        }, 2200);
+    }
+    static success(message) {
+        const c = (0, qcobjects_1.New)(NotificationComponent, {
+            name: "notification",
+            shadowed: true,
+            body: (0, qcobjects_1._DOMCreateElement)("div"),
+            data: {
+                kind: "success",
+                title: "Success!",
+                message: `${message}...`
+            }
+        });
+        document.body.append(c);
+        const _componentRoot = (c.shadowed) ? (c.shadowRoot.host) : (c.body);
+        c.display(_componentRoot);
+    }
+    static danger(message) {
+        const c = (0, qcobjects_1.New)(NotificationComponent, {
+            name: "notification",
+            shadowed: true,
+            body: (0, qcobjects_1._DOMCreateElement)("div"),
+            data: {
+                kind: "danger",
+                title: "Danger!",
+                message: `${message}...`
+            }
+        });
+        document.body.append(c);
+        const _componentRoot = (c.shadowed) ? (c.shadowRoot.host) : (c.body);
+        c.display(_componentRoot);
+    }
+    static info(message) {
+        const c = (0, qcobjects_1.New)(NotificationComponent, {
+            name: "notification",
+            shadowed: true,
+            body: (0, qcobjects_1._DOMCreateElement)("div"),
+            data: {
+                kind: "info",
+                title: "Info!",
+                message: `${message}...`
+            }
+        });
+        document.body.append(c);
+        const _componentRoot = (c.shadowed) ? (c.shadowRoot.host) : (c.body);
+        c.display(_componentRoot);
+    }
+    static warning(message) {
+        const c = (0, qcobjects_1.New)(NotificationComponent, {
+            name: "notification",
+            shadowed: true,
+            body: (0, qcobjects_1._DOMCreateElement)("div"),
+            data: {
+                kind: "warning",
+                title: "Warning!",
+                message: `${message}...`
+            }
+        });
+        document.body.append(c);
+        const _componentRoot = (c.shadowed) ? (c.shadowRoot.host) : (c.body);
+        c.display(_componentRoot);
+    }
+}
+exports.NotificationComponent = NotificationComponent;
+(0, qcobjects_1.Package)("org.quickcorp.components.notifications", [
+    NotificationComponent
+]);

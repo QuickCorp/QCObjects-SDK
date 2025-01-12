@@ -1,7 +1,5 @@
-import { Package, View } from "qcobjects";
-
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -24,15 +22,18 @@ import { Package, View } from "qcobjects";
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
 */
-(function() {
 "use strict";
-Package("org.qcobjects.views",[
-
-  class GridView extends View {
+import { Package, View } from "qcobjects";
 
 
-  }
+export class GridView extends View {
 
+
+}
+
+
+Package("org.qcobjects.views", [
+
+  GridView
 ]);
 
-})();

@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const qcobjects_1 = require("qcobjects");
 /**
- * QCObjects SDK 2.4
+ * QCObjects SDK 2.5
  * ________________
  *
  * Author: Jean Machuca <correojean@gmail.com>
@@ -25,48 +22,38 @@ const qcobjects_1 = require("qcobjects");
  * Everyone is permitted to copy and distribute verbatim copies of this
  * license document, but changing it is not allowed.
  */
-(function (global) {
-    "use strict";
-    // eslint-disable-next-line camelcase
-    class i18n_messages extends qcobjects_1.InheritClass {
-        constructor({ messages = [] }) {
-            super({
-                messages
-            });
-            if (qcobjects_1.CONFIG.get("use_i18n", false)) {
-                qcobjects_1.CONFIG.set("lang", "en");
-                if (!global.get("i18n")) {
-                    global.set("i18n", {
-                        messages
-                    });
-                }
-                else {
-                    global.set("i18n", {
-                        messages: global.get("i18n").messages.concat(messages)
-                    });
-                }
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.i18n_messages = void 0;
+const qcobjects_1 = require("qcobjects");
+class i18n_messages extends qcobjects_1.InheritClass {
+    constructor({ messages = [] }) {
+        super({
+            messages
+        });
+        if (qcobjects_1.CONFIG.get("use_i18n", false)) {
+            qcobjects_1.CONFIG.set("lang", "en");
+            if (!qcobjects_1.global.get("i18n")) {
+                qcobjects_1.global.set("i18n", {
+                    messages
+                });
+            }
+            else {
+                qcobjects_1.global.set("i18n", {
+                    messages: qcobjects_1.global.get("i18n").messages.concat(messages)
+                });
             }
         }
-        _load_i18n_packages_() {
-            // eslint-disable-next-line array-callback-return, camelcase
-            return qcobjects_1.CONFIG.get("i18n_languages", []).map((i18n_packagename) => {
-                // eslint-disable-next-line camelcase
-                (0, qcobjects_1.Import)(`org.quickcorp.i18n_messages.${i18n_packagename}`);
-            });
-        }
     }
-    (0, qcobjects_1.Package)("org.qcobjects.i18n_messages", [
-        // eslint-disable-next-line camelcase
-        i18n_messages
-    ]);
-    // eslint-disable-next-line new-cap
-    (new i18n_messages({}))._load_i18n_packages_();
-})((typeof module === "object" && typeof module.exports === "object") ? (module.exports = (typeof globalThis !== "undefined"
-    ? globalThis
-    : typeof self !== "undefined"
-        ? self
-        : typeof window !== "undefined"
-            ? window
-            : typeof global !== "undefined"
-                ? global
-                : {})) : ((typeof global === "object") ? (global) : ((typeof window === "object") ? (window) : ({}))));
+    _load_i18n_packages_() {
+        // eslint-disable-next-line array-callback-return
+        return qcobjects_1.CONFIG.get("i18n_languages", []).map((i18n_packagename) => {
+            (0, qcobjects_1.Import)(`org.quickcorp.i18n_messages.${i18n_packagename}`);
+        });
+    }
+}
+exports.i18n_messages = i18n_messages;
+(0, qcobjects_1.Package)("org.qcobjects.i18n_messages", [
+    i18n_messages
+]);
+(new i18n_messages({}))._load_i18n_packages_();
