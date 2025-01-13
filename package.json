@@ -106,7 +106,7 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.1"
-  },
+   },
   "engines": {
     "npm": ">=10",
     "node": ">=22"
