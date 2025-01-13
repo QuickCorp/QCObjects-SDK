@@ -101,6 +101,7 @@
     "hint": "^2.0.0",
     "install": "^0.13.0",
     "jasmine": "^3.99.0",
+    "qcobjects": "^2.5.140-beta",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.2",
@@ -117,6 +118,5 @@
   "homepage": "https://sdk.qcobjects.dev",
   "peerDependencies": {
     "qcobjects": ">=2.5.140-beta"
-  },
-  "dependencies": {}
+  }
 }
