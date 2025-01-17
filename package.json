@@ -1,6 +1,6 @@
 {
   "name": "qcobjects-sdk",
-  "version": "2.5.101-beta",
+  "version": "2.5.102-beta",
   "description": "QCObjects SDK is a set of Controllers, Views and Components that are elementary and useful to assist developers to build applications under MVC patterns using QCObjects, Cross Browser Javascript Framework for MVC Patterns",
   "main": "public/cjs/index.cjs",
   "module": "public/esm/index.mjs",
@@ -106,7 +106,7 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.1"
-   },
+  },
   "engines": {
     "npm": ">=10",
     "node": ">=22"
