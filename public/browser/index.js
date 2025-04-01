@@ -6946,12 +6946,6 @@ var global = (() => {
   // src/index.ts
   var index_exports = {};
   __export(index_exports, {
-    default: () => index_default
-  });
-
-  // src/QCObjects-SDK.ts
-  var QCObjects_SDK_exports = {};
-  __export(QCObjects_SDK_exports, {
     BasicLayout: () => BasicLayout,
     ButtonField: () => ButtonField,
     CanvasTool: () => CanvasTool,
@@ -7006,12 +7000,12 @@ var global = (() => {
     WipeLeft: () => WipeLeft,
     WipeRight: () => WipeRight,
     WipeUp: () => WipeUp,
-    default: () => QCObjects_SDK_default,
+    default: () => index_default,
     i18n_messages: () => i18n_messages
   });
   var import_qcobjects25 = __toESM(require_QCObjects());
 
-  // src/js/org.qcobjects.i18n_messages.ts
+  // src/ts/org.qcobjects.i18n_messages.ts
   var import_qcobjects = __toESM(require_QCObjects());
   var i18n_messages = class extends import_qcobjects.InheritClass {
     static {
@@ -7047,7 +7041,7 @@ var global = (() => {
   ]);
   new i18n_messages({})._load_i18n_packages_();
 
-  // src/js/org.qcobjects.models.ts
+  // src/ts/org.qcobjects.models.ts
   var import_qcobjects2 = __toESM(require_QCObjects());
   var Contact = class extends import_qcobjects2.VO {
     static {
@@ -7058,10 +7052,10 @@ var global = (() => {
     Contact
   ]);
 
-  // src/js/org.qcobjects.components.ts
+  // src/ts/org.qcobjects.components.ts
   var import_qcobjects7 = __toESM(require_QCObjects());
 
-  // src/js/org.qcobjects.effects.base.ts
+  // src/ts/org.qcobjects.effects.base.ts
   var import_qcobjects3 = __toESM(require_QCObjects());
   var Fade = class extends import_qcobjects3.Effect {
     static {
@@ -7075,7 +7069,7 @@ var global = (() => {
     }
     apply(element, alphaFrom, alphaTo) {
       const da = alphaTo - alphaFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
         timing(timeFraction) {
           return timeFraction;
@@ -7090,7 +7084,7 @@ var global = (() => {
     }
     static apply(element, alphaFrom, alphaTo) {
       const da = alphaTo - alphaFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
         timing(timeFraction) {
           return timeFraction;
@@ -7103,14 +7097,6 @@ var global = (() => {
         }
       });
     }
-    // eslint-disable-next-line no-unused-vars
-    static animate(arg0) {
-      throw new Error("Method not implemented.");
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-      throw new Error("Method not implemented.");
-    }
   };
   var Move = class extends import_qcobjects3.Effect {
     static {
@@ -7122,7 +7108,7 @@ var global = (() => {
       const dx = xto - xfrom;
       const dy = yto - yfrom;
       element.style.transform = "translate(" + xfrom + "px," + yfrom + "px)";
-      this.animate({
+      super.animate({
         duration: this.duration,
         timing(timeFraction) {
           return timeFraction;
@@ -7136,21 +7122,13 @@ var global = (() => {
         }
       });
     }
-    // eslint-disable-next-line no-unused-vars
-    static animate(arg0) {
-      throw new Error("Method not implemented.");
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-      throw new Error("Method not implemented.");
-    }
   };
   (0, import_qcobjects3.Package)("org.qcobjects.effects.base", [
     Fade,
     Move
   ]);
 
-  // src/js/org.qcobjects.effects.extended.ts
+  // src/ts/org.qcobjects.effects.extended.ts
   var import_qcobjects4 = __toESM(require_QCObjects());
   var MoveXInFromRight = class extends Move {
     static {
@@ -7196,7 +7174,7 @@ var global = (() => {
     static duration;
     static apply(element, angleFrom, angleTo) {
       const da = angleTo - angleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
         timing(timeFraction) {
           return timeFraction;
@@ -7209,14 +7187,6 @@ var global = (() => {
         }
       });
     }
-    // eslint-disable-next-line no-unused-vars
-    static animate(arg0) {
-      throw new Error("Method not implemented.");
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-      throw new Error("Method not implemented.");
-    }
   };
   var RotateY = class extends import_qcobjects4.Effect {
     static {
@@ -7226,7 +7196,7 @@ var global = (() => {
     static duration;
     static apply(element, angleFrom, angleTo) {
       const da = angleTo - angleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
         timing(timeFraction) {
           return timeFraction;
@@ -7239,14 +7209,6 @@ var global = (() => {
         }
       });
     }
-    // eslint-disable-next-line no-unused-vars
-    static animate(arg0) {
-      throw new Error("Method not implemented.");
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-      throw new Error("Method not implemented.");
-    }
   };
   var RotateZ = class extends import_qcobjects4.Effect {
     static {
@@ -7255,7 +7217,7 @@ var global = (() => {
     duration = 1e3;
     apply(element, angleFrom, angleTo) {
       const da = angleTo - angleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
         timing(timeFraction) {
           return timeFraction;
@@ -7268,10 +7230,6 @@ var global = (() => {
         }
       });
     }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-      throw new Error("Method not implemented.");
-    }
   };
   var Rotate = class extends import_qcobjects4.Effect {
     static {
@@ -7280,7 +7238,7 @@ var global = (() => {
     duration = 1e3;
     apply(element, angleFrom, angleTo) {
       const da = angleTo - angleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
         timing(timeFraction) {
           return timeFraction;
@@ -7293,10 +7251,6 @@ var global = (() => {
         }
       });
     }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-      throw new Error("Method not implemented.");
-    }
   };
   var Radius = class extends import_qcobjects4.Effect {
     static {
@@ -7305,7 +7259,7 @@ var global = (() => {
     duration = 1e3;
     apply(element, radiusFrom, radiusTo) {
       const dr = radiusTo - radiusFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
         timing(timeFraction) {
           return timeFraction;
@@ -7318,10 +7272,6 @@ var global = (() => {
         }
       });
     }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-      throw new Error("Method not implemented.");
-    }
   };
   var Resize = class extends import_qcobjects4.Effect {
     static {
@@ -7330,7 +7280,7 @@ var global = (() => {
     duration = 1e3;
     apply(element, scaleFrom, scaleTo) {
       const ds = scaleTo - scaleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
         timing(timeFraction) {
           return timeFraction;
@@ -7344,10 +7294,6 @@ var global = (() => {
         }
       });
     }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-      throw new Error("Method not implemented.");
-    }
   };
   var WipeLeft = class extends import_qcobjects4.Effect {
     static {
@@ -7356,7 +7302,7 @@ var global = (() => {
     duration = 1e3;
     apply(element, scaleFrom, scaleTo) {
       const ds = scaleTo - scaleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
         timing(timeFraction) {
           return timeFraction;
@@ -7370,10 +7316,6 @@ var global = (() => {
         }
       });
     }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-      throw new Error("Method not implemented.");
-    }
   };
   var WipeRight = class extends import_qcobjects4.Effect {
     static {
@@ -7382,7 +7324,7 @@ var global = (() => {
     duration = 1e3;
     apply(element, scaleFrom, scaleTo) {
       const ds = scaleTo - scaleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
         timing(timeFraction) {
           return timeFraction;
@@ -7396,10 +7338,6 @@ var global = (() => {
         }
       });
     }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-      throw new Error("Method not implemented.");
-    }
   };
   var WipeUp = class extends import_qcobjects4.Effect {
     static {
@@ -7408,7 +7346,7 @@ var global = (() => {
     duration = 1e3;
     apply(element, scaleFrom, scaleTo) {
       const ds = scaleTo - scaleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
         timing(timeFraction) {
           return timeFraction;
@@ -7422,10 +7360,6 @@ var global = (() => {
         }
       });
     }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-      throw new Error("Method not implemented.");
-    }
   };
   var WipeDown = class extends import_qcobjects4.Effect {
     static {
@@ -7434,7 +7368,7 @@ var global = (() => {
     duration = 1e3;
     apply(element, scaleFrom, scaleTo) {
       const ds = scaleTo - scaleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
         timing(timeFraction) {
           return timeFraction;
@@ -7447,10 +7381,6 @@ var global = (() => {
           element.style.transform = "scaleY(" + scale + ")";
         }
       });
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-      throw new Error("Method not implemented.");
     }
   };
   (0, import_qcobjects4.Package)("org.qcobjects.effects.extended", [
@@ -7470,7 +7400,7 @@ var global = (() => {
     WipeDown
   ]);
 
-  // src/js/org.qcobjects.modal.effects.ts
+  // src/ts/org.qcobjects.modal.effects.ts
   var import_qcobjects5 = __toESM(require_QCObjects());
   var ModalFade = class extends Fade {
     static {
@@ -7496,7 +7426,7 @@ var global = (() => {
     ModalMoveUp
   ]);
 
-  // src/js/org.qcobjects.base.components.ts
+  // src/ts/org.qcobjects.base.components.ts
   var import_qcobjects6 = __toESM(require_QCObjects());
   var FormField = class extends import_qcobjects6.Component {
     static {
@@ -7570,7 +7500,7 @@ var global = (() => {
     FormField
   ]);
 
-  // src/js/org.qcobjects.components.ts
+  // src/ts/org.qcobjects.components.ts
   var ShadowedComponent = class extends import_qcobjects7.Component {
     static {
       __name(this, "ShadowedComponent");
@@ -7757,7 +7687,7 @@ var global = (() => {
     SwaggerUIComponent
   ]);
 
-  // src/js/org.qcobjects.components.grid.ts
+  // src/ts/org.qcobjects.components.grid.ts
   var import_qcobjects8 = __toESM(require_QCObjects());
   var GridItemComponent = class extends import_qcobjects8.Component {
     static {
@@ -7799,7 +7729,7 @@ var global = (() => {
     GridItemComponent
   ]);
 
-  // src/js/org.qcobjects.components.list.ts
+  // src/ts/org.qcobjects.components.list.ts
   var import_qcobjects9 = __toESM(require_QCObjects());
   var ListItemComponent = class extends import_qcobjects9.Component {
     static {
@@ -7840,7 +7770,7 @@ var global = (() => {
     ListComponent
   ]);
 
-  // src/js/org.qcobjects.components.slider.ts
+  // src/ts/org.qcobjects.components.slider.ts
   var import_qcobjects10 = __toESM(require_QCObjects());
   var SlideListComponent = class extends import_qcobjects10.Component {
     static {
@@ -8028,7 +7958,7 @@ var global = (() => {
     SliderComponent
   ]);
 
-  // src/js/org.qcobjects.components.notifications.ts
+  // src/ts/org.qcobjects.components.notifications.ts
   var import_qcobjects11 = __toESM(require_QCObjects());
   var NotificationComponent = class _NotificationComponent extends import_qcobjects11.Component {
     static {
@@ -8186,7 +8116,7 @@ var global = (() => {
     NotificationComponent
   ]);
 
-  // src/js/org.qcobjects.components.splashscreen.ts
+  // src/ts/org.qcobjects.components.splashscreen.ts
   var import_qcobjects12 = __toESM(require_QCObjects());
   var SplashScreenComponent = class extends import_qcobjects12.Component {
     static {
@@ -8797,7 +8727,7 @@ var global = (() => {
     CubeSplashScreenComponent
   ]);
 
-  // src/js/org.qcobjects.controllers.ts
+  // src/ts/org.qcobjects.controllers.ts
   var import_qcobjects13 = __toESM(require_QCObjects());
   var GenericController = class extends import_qcobjects13.Controller {
     static {
@@ -8808,7 +8738,7 @@ var global = (() => {
     GenericController
   ]);
 
-  // src/js/org.qcobjects.controllers.list.ts
+  // src/ts/org.qcobjects.controllers.list.ts
   var import_qcobjects14 = __toESM(require_QCObjects());
   var ListController = class extends import_qcobjects14.Controller {
     static {
@@ -9009,7 +8939,7 @@ var global = (() => {
     ListController
   ]);
 
-  // src/js/org.qcobjects.controllers.grid.ts
+  // src/ts/org.qcobjects.controllers.grid.ts
   var import_qcobjects15 = __toESM(require_QCObjects());
   var GridController = class extends import_qcobjects15.Controller {
     static {
@@ -9241,7 +9171,7 @@ var global = (() => {
     DataGridController
   ]);
 
-  // src/js/org.qcobjects.controllers.slider.ts
+  // src/ts/org.qcobjects.controllers.slider.ts
   var import_qcobjects16 = __toESM(require_QCObjects());
   var SliderController = class extends import_qcobjects16.Controller {
     static {
@@ -9349,7 +9279,7 @@ var global = (() => {
     SliderController
   ]);
 
-  // src/js/org.qcobjects.controllers.form.ts
+  // src/ts/org.qcobjects.controllers.form.ts
   var import_qcobjects17 = __toESM(require_QCObjects());
   var FormValidations = class extends import_qcobjects17.Controller {
     static {
@@ -9502,7 +9432,7 @@ var global = (() => {
     FormValidations
   ]);
 
-  // src/js/org.qcobjects.controllers.swagger.ts
+  // src/ts/org.qcobjects.controllers.swagger.ts
   var import_qcobjects18 = __toESM(require_QCObjects());
   var SwaggerUIController = class extends import_qcobjects18.Controller {
     static {
@@ -9552,7 +9482,7 @@ var global = (() => {
     SwaggerUIController
   ]);
 
-  // src/js/org.qcobjects.modal.controllers.ts
+  // src/ts/org.qcobjects.modal.controllers.ts
   var import_qcobjects19 = __toESM(require_QCObjects());
   var ModalController = class extends import_qcobjects19.Controller {
     static {
@@ -9568,7 +9498,7 @@ var global = (() => {
     ModalController
   ]);
 
-  // src/js/org.qcobjects.views.ts
+  // src/ts/org.qcobjects.views.ts
   var import_qcobjects20 = __toESM(require_QCObjects());
   var GridView = class extends import_qcobjects20.View {
     static {
@@ -9579,7 +9509,7 @@ var global = (() => {
     GridView
   ]);
 
-  // src/js/org.qcobjects.tools.canvas.ts
+  // src/ts/org.qcobjects.tools.canvas.ts
   var import_qcobjects21 = __toESM(require_QCObjects());
   var CanvasTool = class extends import_qcobjects21.InheritClass {
     static {
@@ -9608,7 +9538,7 @@ var global = (() => {
     CanvasTool
   ]);
 
-  // src/js/org.qcobjects.tools.layouts.ts
+  // src/ts/org.qcobjects.tools.layouts.ts
   var import_qcobjects22 = __toESM(require_QCObjects());
   var BasicLayout = class extends import_qcobjects22.InheritClass {
     static {
@@ -9693,7 +9623,7 @@ var global = (() => {
     BasicLayout
   ]);
 
-  // src/js/org.qcobjects.cloud.auth.session.usertoken.ts
+  // src/ts/org.qcobjects.cloud.auth.session.usertoken.ts
   var import_qcobjects23 = __toESM(require_QCObjects());
   var SessionUserToken = class _SessionUserToken extends import_qcobjects23.InheritClass {
     static {
@@ -9766,7 +9696,7 @@ var global = (() => {
     SessionUserToken
   ]);
 
-  // src/js/org.qcobjects.cloud.auth.session.data.ts
+  // src/ts/org.qcobjects.cloud.auth.session.data.ts
   var import_qcobjects24 = __toESM(require_QCObjects());
   var SessionData = class extends import_qcobjects24.InheritClass {
     static {
@@ -9863,7 +9793,7 @@ var global = (() => {
     SessionData
   ]);
 
-  // src/QCObjects-SDK.ts
+  // src/index.ts
   (/* @__PURE__ */ __name(function __qcobjects_sdk__(_top2) {
     "use strict";
     if (typeof Object.defineProperty !== "undefined" && typeof _top2 !== "undefined") {
@@ -9893,10 +9823,7 @@ var global = (() => {
       });
     }
   }, "__qcobjects_sdk__"))(import_qcobjects25._top);
-  var QCObjects_SDK_default = import_qcobjects25._top;
-
-  // src/index.ts
-  var index_default = QCObjects_SDK_exports;
+  var index_default = import_qcobjects25._top;
   return __toCommonJS(index_exports);
 })();
 //# sourceMappingURL=index.js.map

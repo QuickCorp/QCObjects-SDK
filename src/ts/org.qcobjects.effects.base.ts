@@ -15,13 +15,13 @@ export type MoveElement = HTMLElement & {
     }
     apply(element:HTMLElement, alphaFrom:number, alphaTo:number) {
       const da = alphaTo - alphaFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
-        timing(timeFraction) {
+        timing(timeFraction: number) {
            
           return timeFraction;
         },
-        draw(progress) {
+        draw(progress: number) {
           logger.debug("animation progress: " + progress.toString());
           const alpha = alphaFrom + (progress * da / 100);
           logger.debug("alpha: " + alpha.toString());
@@ -33,27 +33,19 @@ export type MoveElement = HTMLElement & {
 
     static apply(element:HTMLElement, alphaFrom:number, alphaTo:number) {
       const da = alphaTo - alphaFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
-        timing(timeFraction) {
+        timing(timeFraction: number) {
            
           return timeFraction;
         },
-        draw(progress) {
+        draw(progress: number) {
           logger.debug("animation progress: " + progress.toString());
           const alpha = alphaFrom + (progress * da / 100);
           logger.debug("alpha: " + alpha.toString());
           element.style.opacity = alpha.toString();
         }
       });
-    }
-    // eslint-disable-next-line no-unused-vars
-    static animate(arg0: { duration: any; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0: { duration: number; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
     }
   }
 
@@ -65,13 +57,13 @@ export type MoveElement = HTMLElement & {
       const dx = xto - xfrom;
       const dy = yto - yfrom;
       element.style.transform = "translate(" + xfrom + "px," + yfrom + "px)";
-      this.animate({
+      super.animate({
         duration: this.duration,
-        timing(timeFraction) {
+        timing(timeFraction: number) {
            
           return timeFraction;
         },
-        draw(progress) {
+        draw(progress: number) {
           logger.debug("animation progress: " + progress.toString());
           const y = yfrom + (progress * dy / 100);
           const x = xfrom + (progress * dx / 100);
@@ -79,14 +71,6 @@ export type MoveElement = HTMLElement & {
           element.style.transform = "translate(" + x + "px," + y + "px)";
         }
       });
-    }
-    // eslint-disable-next-line no-unused-vars
-    static animate(arg0: { duration: any; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0: { duration: number; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
     }
 
   }

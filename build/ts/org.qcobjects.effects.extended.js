@@ -60,7 +60,7 @@ class RotateX extends qcobjects_1.Effect {
     static duration;
     static apply(element, angleFrom, angleTo) {
         const da = angleTo - angleFrom;
-        this.animate({
+        super.animate({
             duration: this.duration,
             timing(timeFraction) {
                 return timeFraction;
@@ -73,14 +73,6 @@ class RotateX extends qcobjects_1.Effect {
             }
         });
     }
-    // eslint-disable-next-line no-unused-vars
-    static animate(arg0) {
-        throw new Error("Method not implemented.");
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-        throw new Error("Method not implemented.");
-    }
 }
 exports.RotateX = RotateX;
 class RotateY extends qcobjects_1.Effect {
@@ -88,7 +80,7 @@ class RotateY extends qcobjects_1.Effect {
     static duration;
     static apply(element, angleFrom, angleTo) {
         const da = angleTo - angleFrom;
-        this.animate({
+        super.animate({
             duration: this.duration,
             timing(timeFraction) {
                 return timeFraction;
@@ -101,21 +93,13 @@ class RotateY extends qcobjects_1.Effect {
             }
         });
     }
-    // eslint-disable-next-line no-unused-vars
-    static animate(arg0) {
-        throw new Error("Method not implemented.");
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-        throw new Error("Method not implemented.");
-    }
 }
 exports.RotateY = RotateY;
 class RotateZ extends qcobjects_1.Effect {
     duration = 1000;
     apply(element, angleFrom, angleTo) {
         const da = angleTo - angleFrom;
-        this.animate({
+        super.animate({
             duration: this.duration,
             timing(timeFraction) {
                 return timeFraction;
@@ -128,17 +112,13 @@ class RotateZ extends qcobjects_1.Effect {
             }
         });
     }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-        throw new Error("Method not implemented.");
-    }
 }
 exports.RotateZ = RotateZ;
 class Rotate extends qcobjects_1.Effect {
     duration = 1000;
     apply(element, angleFrom, angleTo) {
         const da = angleTo - angleFrom;
-        this.animate({
+        super.animate({
             duration: this.duration,
             timing(timeFraction) {
                 return timeFraction;
@@ -151,17 +131,13 @@ class Rotate extends qcobjects_1.Effect {
             }
         });
     }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-        throw new Error("Method not implemented.");
-    }
 }
 exports.Rotate = Rotate;
 class Radius extends qcobjects_1.Effect {
     duration = 1000;
     apply(element, radiusFrom, radiusTo) {
         const dr = radiusTo - radiusFrom;
-        this.animate({
+        super.animate({
             duration: this.duration,
             timing(timeFraction) {
                 return timeFraction;
@@ -174,17 +150,13 @@ class Radius extends qcobjects_1.Effect {
             }
         });
     }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-        throw new Error("Method not implemented.");
-    }
 }
 exports.Radius = Radius;
 class Resize extends qcobjects_1.Effect {
     duration = 1000;
     apply(element, scaleFrom, scaleTo) {
         const ds = scaleTo - scaleFrom;
-        this.animate({
+        super.animate({
             duration: this.duration,
             timing(timeFraction) {
                 return timeFraction;
@@ -198,17 +170,13 @@ class Resize extends qcobjects_1.Effect {
             }
         });
     }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-        throw new Error("Method not implemented.");
-    }
 }
 exports.Resize = Resize;
 class WipeLeft extends qcobjects_1.Effect {
     duration = 1000;
     apply(element, scaleFrom, scaleTo) {
         const ds = scaleTo - scaleFrom;
-        this.animate({
+        super.animate({
             duration: this.duration,
             timing(timeFraction) {
                 return timeFraction;
@@ -222,17 +190,13 @@ class WipeLeft extends qcobjects_1.Effect {
             }
         });
     }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-        throw new Error("Method not implemented.");
-    }
 }
 exports.WipeLeft = WipeLeft;
 class WipeRight extends qcobjects_1.Effect {
     duration = 1000;
     apply(element, scaleFrom, scaleTo) {
         const ds = scaleTo - scaleFrom;
-        this.animate({
+        super.animate({
             duration: this.duration,
             timing(timeFraction) {
                 return timeFraction;
@@ -246,17 +210,13 @@ class WipeRight extends qcobjects_1.Effect {
             }
         });
     }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-        throw new Error("Method not implemented.");
-    }
 }
 exports.WipeRight = WipeRight;
 class WipeUp extends qcobjects_1.Effect {
     duration = 1000;
     apply(element, scaleFrom, scaleTo) {
         const ds = scaleTo - scaleFrom;
-        this.animate({
+        super.animate({
             duration: this.duration,
             timing(timeFraction) {
                 return timeFraction;
@@ -270,17 +230,13 @@ class WipeUp extends qcobjects_1.Effect {
             }
         });
     }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-        throw new Error("Method not implemented.");
-    }
 }
 exports.WipeUp = WipeUp;
 class WipeDown extends qcobjects_1.Effect {
     duration = 1000;
     apply(element, scaleFrom, scaleTo) {
         const ds = scaleTo - scaleFrom;
-        this.animate({
+        super.animate({
             duration: this.duration,
             timing(timeFraction) {
                 return timeFraction;
@@ -293,10 +249,6 @@ class WipeDown extends qcobjects_1.Effect {
                 element.style.transform = "scaleY(" + scale + ")";
             }
         });
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-        throw new Error("Method not implemented.");
     }
 }
 exports.WipeDown = WipeDown;

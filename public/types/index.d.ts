@@ -1,4 +1,4 @@
-declare module "js/org.qcobjects.i18n_messages" {
+declare module "ts/org.qcobjects.i18n_messages" {
     import { InheritClass } from "qcobjects";
     export class i18n_messages extends InheritClass {
         constructor({ messages }: {
@@ -7,12 +7,12 @@ declare module "js/org.qcobjects.i18n_messages" {
         _load_i18n_packages_(): any;
     }
 }
-declare module "js/org.qcobjects.models" {
+declare module "ts/org.qcobjects.models" {
     import { VO } from "qcobjects";
     export class Contact extends VO {
     }
 }
-declare module "js/org.qcobjects.effects.base" {
+declare module "ts/org.qcobjects.effects.base" {
     import { Effect } from "qcobjects";
     export type MoveElement = HTMLElement & {
         width?: number;
@@ -26,36 +26,16 @@ declare module "js/org.qcobjects.effects.base" {
         });
         apply(element: HTMLElement, alphaFrom: number, alphaTo: number): void;
         static apply(element: HTMLElement, alphaFrom: number, alphaTo: number): void;
-        static animate(arg0: {
-            duration: any;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
-        animate(arg0: {
-            duration: number;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
     }
     export class Move extends Effect {
         duration: number;
         static duration: any;
         static apply(element: MoveElement, xfrom: number, yfrom: number, xto: number, yto: number): void;
-        static animate(arg0: {
-            duration: any;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
-        animate(arg0: {
-            duration: number;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
     }
 }
-declare module "js/org.qcobjects.effects.extended" {
+declare module "ts/org.qcobjects.effects.extended" {
     import { Effect } from "qcobjects";
-    import { Move, MoveElement } from "js/org.qcobjects.effects.base";
+    import { Move, MoveElement } from "ts/org.qcobjects.effects.base";
     export class MoveXInFromRight extends Move {
         duration: number;
         static apply(element: MoveElement): void;
@@ -76,107 +56,47 @@ declare module "js/org.qcobjects.effects.extended" {
         duration: number;
         static duration: any;
         static apply(element: HTMLElement, angleFrom: number, angleTo: number): void;
-        static animate(arg0: {
-            duration: any;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
-        animate(arg0: {
-            duration: number;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
     }
     export class RotateY extends Effect {
         duration: number;
         static duration: any;
         static apply(element: HTMLElement, angleFrom: number, angleTo: number): void;
-        static animate(arg0: {
-            duration: any;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
-        animate(arg0: {
-            duration: number;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
     }
     export class RotateZ extends Effect {
         duration: number;
         apply(element: HTMLElement, angleFrom: number, angleTo: number): void;
-        animate(arg0: {
-            duration: number;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
     }
     export class Rotate extends Effect {
         duration: number;
         apply(element: HTMLElement, angleFrom: number, angleTo: number): void;
-        animate(arg0: {
-            duration: number;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
     }
     export class Radius extends Effect {
         duration: number;
         apply(element: HTMLElement, radiusFrom: number, radiusTo: number): void;
-        animate(arg0: {
-            duration: number;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
     }
     export class Resize extends Effect {
         duration: number;
         apply(element: HTMLElement, scaleFrom: number, scaleTo: number): void;
-        animate(arg0: {
-            duration: number;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
     }
     export class WipeLeft extends Effect {
         duration: number;
         apply(element: HTMLElement, scaleFrom: number, scaleTo: number): void;
-        animate(arg0: {
-            duration: number;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
     }
     export class WipeRight extends Effect {
         duration: number;
         apply(element: HTMLElement, scaleFrom: number, scaleTo: number): void;
-        animate(arg0: {
-            duration: number;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
     }
     export class WipeUp extends Effect {
         duration: number;
         apply(element: HTMLElement, scaleFrom: number, scaleTo: number): void;
-        animate(arg0: {
-            duration: number;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
     }
     export class WipeDown extends Effect {
         duration: number;
         apply(element: HTMLElement, scaleFrom: number, scaleTo: number): void;
-        animate(arg0: {
-            duration: number;
-            timing(timeFraction: any): any;
-            draw(progress: any): void;
-        }): void;
     }
 }
-declare module "js/org.qcobjects.modal.effects" {
-    import { Fade, Move } from "js/org.qcobjects.effects";
+declare module "ts/org.qcobjects.modal.effects" {
+    import { Fade, Move } from "ts/org.qcobjects.effects";
     export class ModalFade extends Fade {
         duration: number;
     }
@@ -187,12 +107,12 @@ declare module "js/org.qcobjects.modal.effects" {
         duration: number;
     }
 }
-declare module "js/org.qcobjects.effects" {
-    export { Fade, Move } from "js/org.qcobjects.effects.base";
-    export { MoveXInFromRight, MoveXInFromLeft, MoveYInFromBottom, MoveYInFromTop, RotateX, RotateY, RotateZ, Rotate, Radius, Resize, WipeLeft, WipeRight, WipeUp, WipeDown } from "js/org.qcobjects.effects.extended";
-    export { ModalFade, ModalMoveUp, ModalMoveDown } from "js/org.qcobjects.modal.effects";
+declare module "ts/org.qcobjects.effects" {
+    export { Fade, Move } from "ts/org.qcobjects.effects.base";
+    export { MoveXInFromRight, MoveXInFromLeft, MoveYInFromBottom, MoveYInFromTop, RotateX, RotateY, RotateZ, Rotate, Radius, Resize, WipeLeft, WipeRight, WipeUp, WipeDown } from "ts/org.qcobjects.effects.extended";
+    export { ModalFade, ModalMoveUp, ModalMoveDown } from "ts/org.qcobjects.modal.effects";
 }
-declare module "js/org.qcobjects.base.components" {
+declare module "ts/org.qcobjects.base.components" {
     import { Component } from "qcobjects";
     export type FieldComponentParams = {
         name: string;
@@ -217,9 +137,9 @@ declare module "js/org.qcobjects.base.components" {
         done(standardResponse: any): Promise<any>;
     }
 }
-declare module "js/org.qcobjects.components" {
+declare module "ts/org.qcobjects.components" {
     import { Component } from "qcobjects";
-    import { FormField, FieldComponentParams } from "js/org.qcobjects.base.components";
+    import { FormField, FieldComponentParams } from "ts/org.qcobjects.base.components";
     export { FormField };
     export class ShadowedComponent extends Component {
         container: null;
@@ -281,7 +201,7 @@ declare module "js/org.qcobjects.components" {
         name: string;
     }
 }
-declare module "js/org.qcobjects.components.grid" {
+declare module "ts/org.qcobjects.components.grid" {
     import { Component } from "qcobjects";
     export class GridItemComponent extends Component {
         name: string;
@@ -305,7 +225,7 @@ declare module "js/org.qcobjects.components.grid" {
         constructor(o: any);
     }
 }
-declare module "js/org.qcobjects.components.list" {
+declare module "ts/org.qcobjects.components.list" {
     import { Component } from "qcobjects";
     export class ListItemComponent extends Component {
         shadowed: boolean;
@@ -328,7 +248,7 @@ declare module "js/org.qcobjects.components.list" {
         constructor(o: any);
     }
 }
-declare module "js/org.qcobjects.components.slider" {
+declare module "ts/org.qcobjects.components.slider" {
     import { Component } from "qcobjects";
     export class SlideListComponent extends Component {
         tplsource: string;
@@ -356,7 +276,7 @@ declare module "js/org.qcobjects.components.slider" {
         constructor(o: any);
     }
 }
-declare module "js/org.qcobjects.components.notifications" {
+declare module "ts/org.qcobjects.components.notifications" {
     import { Component } from "qcobjects";
     export class NotificationComponent extends Component {
         cached: boolean;
@@ -372,7 +292,7 @@ declare module "js/org.qcobjects.components.notifications" {
         static warning(message: string): void;
     }
 }
-declare module "js/org.qcobjects.components.splashscreen" {
+declare module "ts/org.qcobjects.components.splashscreen" {
     import { Component } from "qcobjects";
     type SplashScreenParams = {
         name: string;
@@ -408,14 +328,14 @@ declare module "js/org.qcobjects.components.splashscreen" {
         constructor(o: SplashScreenParams);
     }
 }
-declare module "js/org.qcobjects.controllers" {
+declare module "ts/org.qcobjects.controllers" {
     import { Controller } from "qcobjects";
     export class GenericController extends Controller {
     }
 }
-declare module "js/org.qcobjects.controllers.list" {
+declare module "ts/org.qcobjects.controllers.list" {
     import { Controller } from "qcobjects";
-    import { ListComponent } from "js/org.qcobjects.components.list";
+    import { ListComponent } from "ts/org.qcobjects.components.list";
     export type ListControllerParams = {
         component: ListComponent;
         valueField: string | undefined;
@@ -437,7 +357,7 @@ declare module "js/org.qcobjects.controllers.list" {
         done(): void;
     }
 }
-declare module "js/org.qcobjects.controllers.grid" {
+declare module "ts/org.qcobjects.controllers.grid" {
     import { Controller, Component } from "qcobjects";
     type DataGridControllerParams = {
         component: Component;
@@ -466,7 +386,7 @@ declare module "js/org.qcobjects.controllers.grid" {
         done(): void;
     }
 }
-declare module "js/org.qcobjects.controllers.slider" {
+declare module "ts/org.qcobjects.controllers.slider" {
     import { Controller, Component } from "qcobjects";
     type SliderParams = {
         dependencies: any[];
@@ -494,9 +414,9 @@ declare module "js/org.qcobjects.controllers.slider" {
         done(): void;
     }
 }
-declare module "js/org.qcobjects.controllers.form" {
+declare module "ts/org.qcobjects.controllers.form" {
     import { Controller } from "qcobjects";
-    import { ModalComponent } from "js/org.qcobjects.components";
+    import { ModalComponent } from "ts/org.qcobjects.components";
     export class FormValidations extends Controller {
         getDefault(): (fieldName: string, dataValue: any, element: HTMLElement) => boolean;
     }
@@ -520,7 +440,7 @@ declare module "js/org.qcobjects.controllers.form" {
         onpress(arg0: string, arg1: () => void): void;
     }
 }
-declare module "js/org.qcobjects.controllers.swagger" {
+declare module "ts/org.qcobjects.controllers.swagger" {
     import { Controller } from "qcobjects";
     export class SwaggerUIController extends Controller {
         component: any;
@@ -529,26 +449,26 @@ declare module "js/org.qcobjects.controllers.swagger" {
         done(): void;
     }
 }
-declare module "js/org.qcobjects.modal.controllers" {
+declare module "ts/org.qcobjects.modal.controllers" {
     import { Controller } from "qcobjects";
     export class ModalController extends Controller {
         component: any;
         done(): void;
     }
 }
-declare module "js/org.qcobjects.views" {
+declare module "ts/org.qcobjects.views" {
     import { View } from "qcobjects";
     export class GridView extends View {
     }
 }
-declare module "js/org.qcobjects.tools.canvas" {
+declare module "ts/org.qcobjects.tools.canvas" {
     import { InheritClass } from "qcobjects";
     export class CanvasTool extends InheritClass {
         drawImageFilled(img: HTMLImageElement, canvas: HTMLCanvasElement, zoom?: number, px?: number, py?: number): void;
         getImageResized(img: HTMLImageElement, width: number, height: number, resizedImage: HTMLImageElement, zoom?: number, px?: number, py?: number): HTMLCanvasElement;
     }
 }
-declare module "js/org.qcobjects.tools.layouts" {
+declare module "ts/org.qcobjects.tools.layouts" {
     import { InheritClass } from "qcobjects";
     export class BasicLayout extends InheritClass {
         dependencies: any[];
@@ -560,7 +480,7 @@ declare module "js/org.qcobjects.tools.layouts" {
         coloredBorder(): void;
     }
 }
-declare module "js/org.qcobjects.cloud.auth.session.usertoken" {
+declare module "ts/org.qcobjects.cloud.auth.session.usertoken" {
     import { ComplexStorageCache, InheritClass } from "qcobjects";
     type TGlobalUser = {
         username: string;
@@ -582,7 +502,7 @@ declare module "js/org.qcobjects.cloud.auth.session.usertoken" {
         static closeGlobalSession(...args: any[]): void;
     }
 }
-declare module "js/org.qcobjects.cloud.auth.session.data" {
+declare module "ts/org.qcobjects.cloud.auth.session.data" {
     import { InheritClass } from "qcobjects";
     export class SessionData extends InheritClass {
         __session_container__: any;
@@ -639,7 +559,7 @@ declare module "js/org.qcobjects.cloud.auth.session.data" {
         set(name: string, value: any): void;
     }
 }
-declare module "QCObjects-SDK" {
+declare module "index" {
     /**
      * QCObjects SDK 2.5
      * ________________
@@ -665,34 +585,30 @@ declare module "QCObjects-SDK" {
      * license document, but changing it is not allowed.
      */
     import { _top } from "qcobjects";
-    export { i18n_messages } from "js/org.qcobjects.i18n_messages";
-    export { Contact } from "js/org.qcobjects.models";
-    export { ShadowedComponent, ButtonField, InputField, TextField, EmailField, ModalEnclosureComponent, ModalComponent, SwaggerUIComponent } from "js/org.qcobjects.components";
-    export { FormField, FieldComponentParams } from "js/org.qcobjects.base.components";
-    export { GridComponent, GridItemComponent } from "js/org.qcobjects.components.grid";
-    export { ListItemComponent, ListComponent } from "js/org.qcobjects.components.list";
-    export { SlideListComponent, SlideItemComponent, SliderComponent } from "js/org.qcobjects.components.slider";
-    export { NotificationComponent } from "js/org.qcobjects.components.notifications";
-    export { SplashScreenComponent, VideoSplashScreenComponent, CubeSplashScreenComponent } from "js/org.qcobjects.components.splashscreen";
-    export { GenericController } from "js/org.qcobjects.controllers";
-    export { ListController, ListControllerParams } from "js/org.qcobjects.controllers.list";
-    export { GridController, DataGridController } from "js/org.qcobjects.controllers.grid";
-    export { SliderController } from "js/org.qcobjects.controllers.slider";
-    export { FormController, FormValidations } from "js/org.qcobjects.controllers.form";
-    export { SwaggerUIController } from "js/org.qcobjects.controllers.swagger";
-    export { Fade, Move, MoveXInFromRight, MoveXInFromLeft, MoveYInFromBottom, MoveYInFromTop, RotateX, RotateY, RotateZ, Rotate, Radius, Resize, WipeLeft, WipeRight, WipeUp, WipeDown, ModalFade, ModalMoveUp, ModalMoveDown } from "js/org.qcobjects.effects";
-    export { ModalController } from "js/org.qcobjects.modal.controllers";
-    export { GridView } from "js/org.qcobjects.views";
-    export { CanvasTool } from "js/org.qcobjects.tools.canvas";
-    export { BasicLayout } from "js/org.qcobjects.tools.layouts";
-    export { SessionUserToken } from "js/org.qcobjects.cloud.auth.session.usertoken";
-    export { SessionData } from "js/org.qcobjects.cloud.auth.session.data";
+    export { i18n_messages } from "ts/org.qcobjects.i18n_messages";
+    export { Contact } from "ts/org.qcobjects.models";
+    export { ShadowedComponent, ButtonField, InputField, TextField, EmailField, ModalEnclosureComponent, ModalComponent, SwaggerUIComponent } from "ts/org.qcobjects.components";
+    export { FormField, FieldComponentParams } from "ts/org.qcobjects.base.components";
+    export { GridComponent, GridItemComponent } from "ts/org.qcobjects.components.grid";
+    export { ListItemComponent, ListComponent } from "ts/org.qcobjects.components.list";
+    export { SlideListComponent, SlideItemComponent, SliderComponent } from "ts/org.qcobjects.components.slider";
+    export { NotificationComponent } from "ts/org.qcobjects.components.notifications";
+    export { SplashScreenComponent, VideoSplashScreenComponent, CubeSplashScreenComponent } from "ts/org.qcobjects.components.splashscreen";
+    export { GenericController } from "ts/org.qcobjects.controllers";
+    export { ListController, ListControllerParams } from "ts/org.qcobjects.controllers.list";
+    export { GridController, DataGridController } from "ts/org.qcobjects.controllers.grid";
+    export { SliderController } from "ts/org.qcobjects.controllers.slider";
+    export { FormController, FormValidations } from "ts/org.qcobjects.controllers.form";
+    export { SwaggerUIController } from "ts/org.qcobjects.controllers.swagger";
+    export { Fade, Move, MoveXInFromRight, MoveXInFromLeft, MoveYInFromBottom, MoveYInFromTop, RotateX, RotateY, RotateZ, Rotate, Radius, Resize, WipeLeft, WipeRight, WipeUp, WipeDown, ModalFade, ModalMoveUp, ModalMoveDown } from "ts/org.qcobjects.effects";
+    export { ModalController } from "ts/org.qcobjects.modal.controllers";
+    export { GridView } from "ts/org.qcobjects.views";
+    export { CanvasTool } from "ts/org.qcobjects.tools.canvas";
+    export { BasicLayout } from "ts/org.qcobjects.tools.layouts";
+    export { SessionUserToken } from "ts/org.qcobjects.cloud.auth.session.usertoken";
+    export { SessionData } from "ts/org.qcobjects.cloud.auth.session.data";
     export default _top;
 }
-declare module "index" {
-    import * as sdk from "QCObjects-SDK";
-    export default sdk;
-}
-declare module "js/org.qcobjects.tools" { }
+declare module "ts/org.qcobjects.tools" { }
 
 export {};

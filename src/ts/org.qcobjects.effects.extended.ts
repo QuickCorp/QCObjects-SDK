@@ -65,27 +65,19 @@ export class MoveXInFromRight extends Move {
 
     static apply(element:HTMLElement, angleFrom:number, angleTo:number) {
       const da = angleTo - angleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
-        timing(timeFraction) {
+        timing(timeFraction: number) {
            
           return timeFraction;
         },
-        draw(progress) {
+        draw(progress: number) {
           logger.debug("animation progress: " + progress.toString());
           const angle = Math.round(angleFrom + (progress * da / 100));
           logger.debug("angle: " + angle.toString());
           element.style.transform = "rotate3d(1,0,0," + angle.toString() + "deg)";
         }
       });
-    }
-    // eslint-disable-next-line no-unused-vars
-    static animate(arg0: { duration: any; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0: { duration: number; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
     }
 
   }
@@ -96,27 +88,19 @@ export class MoveXInFromRight extends Move {
 
     static apply(element:HTMLElement, angleFrom:number, angleTo:number) {
       const da = angleTo - angleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
-        timing(timeFraction) {
+        timing(timeFraction: number) {
            
           return timeFraction;
         },
-        draw(progress) {
+        draw(progress: number) {
           logger.debug("animation progress: " + progress.toString());
           const angle = Math.round(angleFrom + (progress * da / 100));
           logger.debug("angle: " + angle.toString());
           element.style.transform = "rotate3d(0,1,0," + angle.toString() + "deg)";
         }
       });
-    }
-    // eslint-disable-next-line no-unused-vars
-    static animate(arg0: { duration: any; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0: { duration: number; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
     }
   }
 
@@ -125,23 +109,19 @@ export class MoveXInFromRight extends Move {
 
     apply(element:HTMLElement, angleFrom:number, angleTo:number) {
       const da = angleTo - angleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
-        timing(timeFraction) {
+        timing(timeFraction: number) {
            
           return timeFraction;
         },
-        draw(progress) {
+        draw(progress: number) {
           logger.debug("animation progress: " + progress.toString());
           const angle = Math.round(angleFrom + (progress * da / 100));
           logger.debug("angle: " + angle.toString());
           element.style.transform = "rotate3d(0,0,1," + angle.toString() + "deg)";
         }
       });
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0: { duration: number; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
     }
 
   }
@@ -151,23 +131,19 @@ export class MoveXInFromRight extends Move {
 
     apply(element:HTMLElement, angleFrom:number, angleTo:number) {
       const da = angleTo - angleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
-        timing(timeFraction) {
+        timing(timeFraction: number) {
            
           return timeFraction;
         },
-        draw(progress) {
+        draw(progress: number) {
           logger.debug("animation progress: " + progress.toString());
           const angle = Math.round(angleFrom + (progress * da / 100));
           logger.debug("angle: " + angle.toString());
           element.style.transform = "rotate3d(1,1,1," + angle.toString() + "deg)";
         }
       });
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0: { duration: number; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
     }
   }
 
@@ -176,23 +152,19 @@ export class MoveXInFromRight extends Move {
 
     apply(element:HTMLElement, radiusFrom:number, radiusTo:number) {
       const dr = radiusTo - radiusFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
-        timing(timeFraction) {
+        timing(timeFraction: number) {
            
           return timeFraction;
         },
-        draw(progress) {
+        draw(progress: number) {
           logger.debug("animation progress: " + progress.toString());
           const radius = radiusFrom + (progress * dr / 100);
           logger.debug("radius: " + radius.toString());
           element.style.borderRadius = radius.toString() + "px";
         }
       });
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0: { duration: number; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
     }
 
   }
@@ -202,13 +174,13 @@ export class MoveXInFromRight extends Move {
 
     apply(element:HTMLElement, scaleFrom:number, scaleTo:number) {
       const ds = scaleTo - scaleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
-        timing(timeFraction) {
+        timing(timeFraction: number) {
            
           return timeFraction;
         },
-        draw(progress) {
+        draw(progress: number) {
           logger.debug("animation progress: " + progress.toString());
           const scale = scaleFrom + (progress * ds / 100);
           logger.debug("resize: " + scale.toString());
@@ -216,10 +188,6 @@ export class MoveXInFromRight extends Move {
           element.style.transform = "scale(" + scale + "," + scale + ")";
         }
       });
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0: { duration: number; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
     }
 
   }
@@ -229,13 +197,13 @@ export class MoveXInFromRight extends Move {
 
     apply(element:HTMLElement, scaleFrom:number, scaleTo:number) {
       const ds = scaleTo - scaleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
-        timing(timeFraction) {
+        timing(timeFraction: number) {
            
           return timeFraction;
         },
-        draw(progress) {
+        draw(progress: number) {
           logger.debug("animation progress: " + progress.toString());
           const scale = scaleFrom + (progress * ds / 100);
           logger.debug("wipe: " + scale.toString());
@@ -243,10 +211,6 @@ export class MoveXInFromRight extends Move {
           element.style.transform = "scaleX(" + scale + ")";
         }
       });
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0: { duration: number; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
     }
 
   }
@@ -256,13 +220,13 @@ export class MoveXInFromRight extends Move {
 
     apply(element:HTMLElement, scaleFrom:number, scaleTo:number) {
       const ds = scaleTo - scaleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
-        timing(timeFraction) {
+        timing(timeFraction: number) {
            
           return timeFraction;
         },
-        draw(progress) {
+        draw(progress: number) {
           logger.debug("animation progress: " + progress.toString());
           const scale = scaleFrom + (progress * ds / 100);
           logger.debug("wipe: " + scale.toString());
@@ -270,10 +234,6 @@ export class MoveXInFromRight extends Move {
           element.style.transform = "scaleX(" + scale + ")";
         }
       });
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0: { duration: number; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
     }
 
   }
@@ -284,13 +244,13 @@ export class MoveXInFromRight extends Move {
 
     apply(element:HTMLElement, scaleFrom:number, scaleTo:number) {
       const ds = scaleTo - scaleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
-        timing(timeFraction) {
+        timing(timeFraction: number) {
            
           return timeFraction;
         },
-        draw(progress) {
+        draw(progress: number) {
           logger.debug("animation progress: " + progress.toString());
           const scale = scaleFrom + (progress * ds / 100);
           logger.debug("wipe: " + scale.toString());
@@ -298,10 +258,6 @@ export class MoveXInFromRight extends Move {
           element.style.transform = "scaleY(" + scale + ")";
         }
       });
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0: { duration: number; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
     }
 
   }
@@ -311,13 +267,13 @@ export class MoveXInFromRight extends Move {
 
     apply(element:HTMLElement, scaleFrom:number, scaleTo:number) {
       const ds = scaleTo - scaleFrom;
-      this.animate({
+      super.animate({
         duration: this.duration,
-        timing(timeFraction) {
+        timing(timeFraction: number) {
            
           return timeFraction;
         },
-        draw(progress) {
+        draw(progress: number) {
           logger.debug("animation progress: " + progress.toString());
           const scale = scaleFrom + (progress * ds / 100);
           logger.debug("wipe: " + scale.toString());
@@ -325,10 +281,6 @@ export class MoveXInFromRight extends Move {
           element.style.transform = "scaleY(" + scale + ")";
         }
       });
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0: { duration: number; timing(timeFraction: any): any; draw(progress: any): void; }) {
-      throw new Error("Method not implemented.");
     }
   }
   Package("org.qcobjects.effects.extended", [

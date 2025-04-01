@@ -11,7 +11,7 @@ class Fade extends qcobjects_1.Effect {
     }
     apply(element, alphaFrom, alphaTo) {
         const da = alphaTo - alphaFrom;
-        this.animate({
+        super.animate({
             duration: this.duration,
             timing(timeFraction) {
                 return timeFraction;
@@ -26,7 +26,7 @@ class Fade extends qcobjects_1.Effect {
     }
     static apply(element, alphaFrom, alphaTo) {
         const da = alphaTo - alphaFrom;
-        this.animate({
+        super.animate({
             duration: this.duration,
             timing(timeFraction) {
                 return timeFraction;
@@ -39,14 +39,6 @@ class Fade extends qcobjects_1.Effect {
             }
         });
     }
-    // eslint-disable-next-line no-unused-vars
-    static animate(arg0) {
-        throw new Error("Method not implemented.");
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-        throw new Error("Method not implemented.");
-    }
 }
 exports.Fade = Fade;
 class Move extends qcobjects_1.Effect {
@@ -56,7 +48,7 @@ class Move extends qcobjects_1.Effect {
         const dx = xto - xfrom;
         const dy = yto - yfrom;
         element.style.transform = "translate(" + xfrom + "px," + yfrom + "px)";
-        this.animate({
+        super.animate({
             duration: this.duration,
             timing(timeFraction) {
                 return timeFraction;
@@ -69,14 +61,6 @@ class Move extends qcobjects_1.Effect {
                 element.style.transform = "translate(" + x + "px," + y + "px)";
             }
         });
-    }
-    // eslint-disable-next-line no-unused-vars
-    static animate(arg0) {
-        throw new Error("Method not implemented.");
-    }
-    // eslint-disable-next-line no-unused-vars
-    animate(arg0) {
-        throw new Error("Method not implemented.");
     }
 }
 exports.Move = Move;
