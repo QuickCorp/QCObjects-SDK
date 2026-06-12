@@ -1,5 +1,67 @@
 {
-  "extends": "qcobjects-tsconfig/tsconfig.d.json",
-  "include": ["src/**/*.ts"],
-  "exclude": ["src/**/*.spec.js", "src/*.js"]
+  "extends": [
+    "./tsconfig.json"
+  ],
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "rootDir": "./src",
+    "outFile": "public/types/index.d.ts",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "baseUrl": ".",
+    "typeRoots": ["./node_modules/@types"],
+    "paths": {
+      "types": ["src/types/global"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "src/types/**/*"
+  ],
+  "exclude": [
+    "**/*.js",
+    "src/index.mts",
+    "src/index.cts",
+    "node_modules",
+    "node_modules/**/*",
+    "**/node_modules/*",
+    "public/types"
+  ],
+"ts-node": {
+    // It is faster to skip typechecking.
+    // Remove if you want ts-node to do typechecking.
+    "transpileOnly": true,
+    "files": true,
+    "compilerOptions": {
+      "rootDir": "./src",
+      "baseUrl": ".",
+      "paths": {
+        "types": ["types/global"]
+  
+      }
+        
+    },
+    "include": [
+      "src/**/*",
+      "src/types/**/*"
+    ],
+    "exclude": [
+      "**/*.js",
+      "src/index.mts",
+      "src/index.cts",
+      "node_modules",
+      "node_modules/**/*",
+      "**/node_modules/*",
+      "public/types"
+    ]
+  
+  }
 }
