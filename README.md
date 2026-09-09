@@ -1,4 +1,10 @@
-![logo](https://qcobjects.dev/qcobjects_01.png)
+> **Looking for the latest version?** This repository is preserved for history
+> (LGPLv3 era). Active development has moved to
+> [QCObjects/qcobjects-sdk](https://github.com/QCObjects/qcobjects-sdk) under the
+> MIT license — please use that repo and install the latest LTS packages
+> (`npm i qcobjects-sdk`).
+>
+> ![logo](https://qcobjects.dev/qcobjects_01.png)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FQuickCorp%2FQCObjects-SDK.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FQuickCorp%2FQCObjects-SDK?ref=badge_shield)
 
 QCObjects SDK
